@@ -1,0 +1,33 @@
+<nav>
+    <mat-toolbar color="accent">
+            <div id="nav-left">
+                <a><i>blastwaver</i></a>
+                <button mat-button class="responsive-line-one">Accent1</button>
+                <button mat-button class="responsive-line-one">Accent2</button>
+                <button mat-button class="responsive-line-one">Accent3</button>        
+            </div> 
+            <div id="nav-right">
+                <div id="login-list">
+                    <button mat-button >Sign In</button>
+                    <button mat-button >Register</button>
+                </div>
+                <div class="mat-icon-wrapper"
+                [matMenuTriggerFor]="menu" 
+                mat-button id="nav-list"
+                matTooltip="Menu" 
+                matTooltipPosition="below"
+                ><mat-icon>view_headline</mat-icon></div>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Sign in</button>
+                    <button mat-menu-item>Register</button>
+                </mat-menu>
+            </div> 
+        </mat-toolbar>
+        <mat-toolbar class="responsive-line-two " color="accent">      
+            <button mat-button class="nav-button" >Accent1</button>
+            <button mat-button class="nav-button">Accent2</button>
+            <button mat-button class="nav-button">Accent3</button>   
+          </mat-toolbar>
+</nav>
+
+

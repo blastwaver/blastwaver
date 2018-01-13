@@ -1,0 +1,17 @@
+<mat-drawer-container class="container" autosize (window:resize)="onResize($event)">
+    <mat-drawer #drawerLeft [opened]="opened" class="sidenav" mode="side">
+      
+    </mat-drawer>
+    <mat-drawer #drawerRight  [opened]="opened" position="end" opened="true" class="sidenav" mode="side">
+      
+    </mat-drawer>
+  
+    <div class="sidenav-content">
+      <button type="button" mat-button (click)="drawerLeft.toggle()">
+        Toggle sidenav
+      </button>
+      <button type="button" mat-button (click)="drawerRight.toggle()">
+          Toggle sidenav
+        </button>
+    </div>
+</mat-drawer-container>

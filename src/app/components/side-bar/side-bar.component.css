@@ -1,0 +1,33 @@
+.container {
+    position: fixed;
+    top: 50px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    width:100%;
+  }
+  
+ .sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+ .sidenav {
+    padding: 20px;
+    width:300px;
+  }
+
+  
+@media only screen and (max-width: 798px) {
+    .example-container {
+        top:100px;
+    }
+}
+
+@media screen and (min-width: 798px) {
+    
+  
+
+}
