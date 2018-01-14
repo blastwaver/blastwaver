@@ -1,34 +1,3 @@
-mat-drawer{
-    margin: 0;
-    padding: 0;
-}
-
-.nav-container {
-    position: fixed;
-    top: 50px;
-    bottom: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width:100%;
-    /* height: 100%; */
-    padding-right: 10px;
-  }
-  
- .sidenav-content {
-    display: flex;
-    /* height: 100%; */
-    align-items: center;
-    justify-content: center;
-  }
-  
-.sidenav {
-    box-shadow: 10px 0 12px -4px  rgba(80, 78, 78, 0.75), -10px 0 8px -4px  rgba(80, 78, 78, 0.75);
-        
-    /* padding: 20px; */
-    width:300px;
-}
-
 /* Structure */
 .table-container {
     display: flex;
@@ -68,9 +37,7 @@ mat-drawer{
 
   
 @media only screen and (max-width: 798px) {
-    .nav-container {
-        top:100px;
-    }
+    
 }
 
 @media screen and (min-width: 798px) {
