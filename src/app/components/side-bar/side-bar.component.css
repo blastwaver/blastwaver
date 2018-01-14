@@ -1,10 +1,18 @@
-.container {
+mat-drawer{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.nav-container {
     position: fixed;
     top: 50px;
     bottom: 60px;
     left: 0;
     right: 0;
     width:100%;
+    height: 100%;
+    padding-right: 10px;
   }
   
  .sidenav-content {
@@ -14,14 +22,53 @@
     justify-content: center;
   }
   
- .sidenav {
-    padding: 20px;
+.sidenav {
+    box-shadow: 10px 0 12px -4px  rgba(80, 78, 78, 0.75), -10px 0 8px -4px  rgba(80, 78, 78, 0.75);
+        
+    /* padding: 20px; */
     width:300px;
+}
+
+/* Structure */
+.table-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
   }
+
+.table-name {
+    font-size: 10px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0;
+    padding: 0 16px;
+    background-color: gray;
+    color: white;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+  
+.mat-table {
+    overflow: auto;
+    max-height: 300px;
+}
+
+
+
 
   
 @media only screen and (max-width: 798px) {
-    .example-container {
+    .nav-container {
         top:100px;
     }
 }
