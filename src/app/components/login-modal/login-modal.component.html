@@ -1,0 +1,10 @@
+<!-- The Modal -->
+<div id="myModal" class="modal" *ngIf="modalOn" (click)="close($event,'out')" >
+
+  <!-- Modal content -->
+  <div class="modal-content"  (click)="close($event,'in')" >
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>

@@ -8,7 +8,7 @@
             </div> 
             <div id="nav-right">
                 <div id="login-list">
-                    <button mat-button >Sign In</button>
+                    <button mat-button (click)="openModal()" >Sign In</button>
                     <button mat-button >Register</button>
                 </div>
                 <div class="mat-icon-wrapper"
@@ -18,7 +18,7 @@
                 matTooltipPosition="below"
                 ><mat-icon>view_headline</mat-icon></div>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Sign in</button>
+                    <button mat-menu-item (click)="openModal()">Sign in</button>
                     <button mat-menu-item>Register</button>
                 </mat-menu>
             </div> 
@@ -30,4 +30,6 @@
           </mat-toolbar>
 </nav>
 
+
+<login-modal [(modal)]="modalOn" (notify)='closeModal($event)'></login-modal>
 
