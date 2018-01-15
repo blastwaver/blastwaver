@@ -8,9 +8,10 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { SideBarTableComponent } from './components/side-bar/side-bar-table/side-bar-table.component';
 import { CoreModule } from './modules/auth.module';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
-
-
-
+import { MatIconRegistry } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from 'angularfire2';
+import { config } from '../assets/configs/config';
 
 
 @NgModule({
@@ -24,10 +25,13 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(config),
     MaterialModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

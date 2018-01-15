@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 
 import {
   MatAutocompleteModule,
@@ -72,6 +74,11 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    
+  ],
+  providers:[
+     MatIconRegistry,
+        
   ],
   declarations: []
 })

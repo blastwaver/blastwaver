@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'login-modal',
@@ -12,7 +12,7 @@ export class LoginModalComponent implements OnInit {
   @Output() notify = new EventEmitter();
 
   
-  constructor() { }
+  constructor(public auth:AuthService) {}
 
   ngOnInit() {
     console.log(this.modalOn);

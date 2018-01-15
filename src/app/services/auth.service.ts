@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Router } from '@angular/router';
 
+
 import * as firebase from 'firebase/app';
 import  { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -48,6 +49,11 @@ export class AuthService {
      const provider = new firebase.auth.FacebookAuthProvider();
      return this.oAuthLogin(provider);
    }
+
+   twiitterLogin() {
+    const provider = new firebase.auth.TwitterAuthProvider();
+    return this.oAuthLogin(provider);
+  }
 
    private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
