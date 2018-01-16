@@ -11,7 +11,7 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
 import { MatIconRegistry } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
-import { config } from '../assets/configs/config';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { config } from '../assets/configs/config';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(config),
+    AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
     CoreModule,
     HttpClientModule

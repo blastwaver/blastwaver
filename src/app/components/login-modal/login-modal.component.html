@@ -8,13 +8,11 @@
   <ng-template #guest>
     <div class="modal-content"  (click)="close($event,'in')" >
       <button class="auth" id="google" (click)="auth.googleLogin()"><i class="fa fa-google-plus" style="width:16px; height:20px"></i> Sign up with Google</button> 
-      <button class="auth" id="facebook"><i class="fa fa-facebook" (click)="auth.facebook()" style="width:16px; height:20px"></i> Sign up with Facebook</button>
-      <button class="auth" id="twitter"><i class="fa fa-twitter" (click)="auth.twitter()"  style="width:16px; height:20px"></i> Sign up with Twitter</button> 
+      <button class="auth" id="facebook" (click)="auth.facebookLogin()" ><i class="fa fa-facebook"style="width:16px; height:20px"></i> Sign up with Facebook</button>
+      <button class="auth" id="twitter"(click)="auth.twitterLogin()" ><i class="fa fa-twitter"   style="width:16px; height:20px"></i> Sign up with Twitter</button> 
      </div>
   </ng-template> 
- 
-  
-  
+
   <ng-template #authenticated>
     <div *ngIf="auth.user | async as user">
       <h3>Hello,{{ user.displayName}}</h3>
