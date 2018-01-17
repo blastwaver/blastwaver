@@ -14,7 +14,7 @@ interface User {
   email: string;
   photoURL?: string;
   displayName?: string;
-  favoriteColor?:string;
+  // favoriteColor?:string;
 }
 
 
