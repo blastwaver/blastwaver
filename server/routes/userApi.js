@@ -85,4 +85,17 @@ router.post('/users/delete',( req, res, next) => {
 });
 
 
+//Search By Name
+router.get('/search/name/:username', (req, res,next) => {
+    let searchPhrase = req.params.username;
+    let regularExpression = new RegExp(".*" + searchPhrase + ".*","i"); 
+    User.find({ "username": regularExpression}, (err, users) => {
+        if(err) { 
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(users);
+        }
+    }); 
+ });
+
 module.exports = router;

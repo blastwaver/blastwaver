@@ -1,0 +1,13 @@
+/* Structure */
+.search-container{
+    height: 400px;
+    z-index: 1;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+  mat-tab{
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+  }

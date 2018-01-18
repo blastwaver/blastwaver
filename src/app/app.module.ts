@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
+import { SearchComponent } from './components/main-page/search/search.component';
+import { PeopleSearchComponent } from './components/main-page/search/people-search/people-search.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { UserService } from './services/user.service';
     MainPageComponent,
     SideBarTableComponent,
     LoginModalComponent,
+    SearchComponent,
+    PeopleSearchComponent,
   ],
   imports: [
     BrowserModule,

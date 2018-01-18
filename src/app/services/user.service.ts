@@ -53,6 +53,12 @@ export class UserService {
                     .catch(this.handleError);
   }
 
+  searchUsers(name :String) { 
+    return this.http.get(`${this.url}/api/users/search/name/${name}`)
+               .map((res: Response) => { return res;})
+               .catch(this.handleError); 
+  } 
+
   handleError (err: any) {
     let errMsg = (err.message) ? err.message :
         err.status ? `${err.status} - ${err.statusText}` : "Server error";
