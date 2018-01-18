@@ -12,7 +12,7 @@ import { MatIconRegistry } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
-
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { environment } from '../environments/environment';
     HttpClientModule
   ],
   providers: [
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

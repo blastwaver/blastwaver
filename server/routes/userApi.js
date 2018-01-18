@@ -12,7 +12,8 @@ let User = mongoose.model('users');
 //All user
 router.get('/', (req, res,next) => {
    User.find((err, users) => {
-       if(err) { res.status(500).send(err);
+       if(err) { 
+           res.status(500).send(err);
        } else {
            res.status(200).send(users);
        }
@@ -22,12 +23,25 @@ router.get('/', (req, res,next) => {
 //one user
 router.get('/:_id', (req, res,next) => {
     User.find({ "_id": req.params._id }, (err, users) => {
-        if(err) { res.status(500).send(err);
+        if(err) { 
+            res.status(500).send(err);
         } else {
             res.status(200).send(users);
         }
     }); 
  });
+
+ //get user by googleId
+ router.get('/google/:_id', (req, res,next) => {
+    User.find({ "googleId": req.params._id }, (err, users) => {
+        if(err) { 
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(users);
+        }
+    }); 
+ });
+
 
  //create
 router.post('/create',( req, res, next) => {
