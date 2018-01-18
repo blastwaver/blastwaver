@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({
-  selector: 'side-bar',
-  templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.css']
+  selector: 'main-page',
+  templateUrl: './main-page.component.html',
+  styleUrls: ['./main-page.component.css']
 })
-export class SideBarComponent implements OnInit {
+export class MainPageComponent implements OnInit {
 
   innerWidth: any;
   opened: boolean;

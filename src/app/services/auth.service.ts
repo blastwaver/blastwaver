@@ -74,7 +74,7 @@ export class AuthService {
       console.log(data);
       this.userService.getUserByGoogle(data.uid)
           .subscribe((result) => {
-
+            
             let newUser: User = {
               googleId: user.uid,
               username: user.displayName,
