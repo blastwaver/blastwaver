@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { UserService } from './services/user.service';
 import { SearchComponent } from './components/main-page/search/search.component';
 import { PeopleSearchComponent } from './components/main-page/search/people-search/people-search.component';
+import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PeopleSearchComponent } from './components/main-page/search/people-sear
     LoginModalComponent,
     SearchComponent,
     PeopleSearchComponent,
+    ProfileModalComponent,
   ],
   imports: [
     BrowserModule,

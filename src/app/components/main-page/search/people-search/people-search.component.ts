@@ -15,6 +15,9 @@ export class PeopleSearchComponent  {
 
   searchInput: Subject<string> = new Subject<string>();
   
+  modalOn = false;
+
+  clickedUser;
 
   dataSource;
 
@@ -41,6 +44,15 @@ export class PeopleSearchComponent  {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+  
+  openModal(user){
+    this.clickedUser = user; 
+    this.modalOn = true;
+  }
+
+  closeModal(modalState) {
+    this.modalOn = modalState;
   }
 
 }

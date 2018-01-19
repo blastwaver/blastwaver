@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
@@ -17,6 +18,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // API location
 app.use('/api/users', user);
 
+//allow cross origin
+app.use(cors());
+app.options('*', cors());
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
