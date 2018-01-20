@@ -8,6 +8,9 @@ const app = express();
 // API file for interacting with MongoDB
 const user = require('./server/routes/userApi');
 
+//allow cross origin
+app.use(cors());
+
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -18,9 +21,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // API location
 app.use('/api/users', user);
 
-//allow cross origin
-app.use(cors());
-app.options('*', cors());
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {

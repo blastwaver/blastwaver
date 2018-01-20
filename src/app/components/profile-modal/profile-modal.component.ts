@@ -17,6 +17,10 @@ export class ProfileModalComponent implements OnInit {
   ngOnInit() {
     
   }
+
+  addFriend() {
+    console.log(this.data)
+  }
   
   close($event, position) {
     if(position == 'out'){
@@ -25,4 +29,5 @@ export class ProfileModalComponent implements OnInit {
     this.notify.emit(this.modalOn);
     event.stopPropagation();
   }
+
 }
