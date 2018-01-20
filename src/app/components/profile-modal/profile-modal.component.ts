@@ -17,7 +17,7 @@ export class ProfileModalComponent implements OnInit {
   ngOnInit() {
     
   }
-
+  
   close($event, position) {
     if(position == 'out'){
       this.modalOn = false;

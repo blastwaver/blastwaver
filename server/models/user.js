@@ -2,11 +2,14 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-var UserSchema = mongoose.Schema({
-    "datetime" : {
-        type: Date,
-        default: Date.now
-    },
+const friendsSchema = mongoose.Schema({
+    "f_id": {type:String},
+    "status": {type: String, default: "unknwon"},
+    "chatRoom":{type: String}
+},{ timestamps: true });
+
+const UserSchema = mongoose.Schema({
+
     "googleId":{
         type:String
     },
@@ -18,8 +21,11 @@ var UserSchema = mongoose.Schema({
     },
     "photoUrl" : {
         type:String
-    }
-});
+    },
+    "fList" : [friendsSchema]
+},{ timestamps: true });
+
+
 
 mongoose.model('users', UserSchema);
 
