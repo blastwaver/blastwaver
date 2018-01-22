@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'main-page',
@@ -11,12 +12,13 @@ export class MainPageComponent implements OnInit {
   innerWidth: any;
   opened: boolean;
 
-  constructor() { 
+  constructor(private auth :AuthService) { 
     this.innerWidth = (window.screen.width);
   }
 
   ngOnInit() {
     this.changeOpenStatus(this.innerWidth);
+    // console.log(this.auth.user)
   }
 
  

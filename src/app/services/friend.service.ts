@@ -14,10 +14,16 @@ export class FriendService {
   constructor(private http:HttpClient) { }
   
   //data sould be {my_id:"abc",f_id:"abc"}
-  addFriend (data) {
+  addFriend (data :{my_id:string, f_id:string}) {
     return this.http.post(`${this.url}/api/users/friends`, data)
                     .map((res: Response) => { return res;})
                     .catch(this.handleError); 
+  }
+
+  getFriendsList (id :string) {
+    return this.http.get(`${this.url}/api/users/friends/list/${id}`)
+                    .map((res: Response) => {return res;})
+                    .catch(this.handleError)  
   }
 
   handleError (err: any) {

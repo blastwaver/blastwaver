@@ -118,7 +118,7 @@ router.post('/friends/add',(req, res, next) => {
                     } else {
                         if(result.n === 1) {
                             /* store my info to friend's */
-                            User.update({"_id": f_id}, {$push: {"fList": {"f_id":my_id, "status":"receive", "chatRoom":chatRoom}}}, (err, result) =>{   
+                            User.update({"_id": f_id}, {$push: {"fList": {"f_id":my_id, "status":"recieve", "chatRoom":chatRoom}}}, (err, result) =>{   
                                     if(err){
                                         console.log("add friend err: (friend side)" + err);
                                     }
@@ -172,7 +172,7 @@ router.get('/friends/list/:_id',(req, res, next) => {
     
     let my_id = req.params._id;
     let list = new Array();
-    let fUser ={};
+    
     let fUsers = [];
     User.find({ "_id": my_id}).select('fList.status fList.f_id').exec((err, result) => {        
         
@@ -191,13 +191,20 @@ router.get('/friends/list/:_id',(req, res, next) => {
                 res.status(500).send(err); 
             } else {
                 result.forEach(friend => {
+                    let fUser ={};
                     fUser._id = friend._id;
                     fUser.usrname = friend.username;
                     fUser.email = friend.email;
                     fUser.photoUrl = friend.photoUrl;
                     friend.fList.forEach(list =>{ 
                         if(list.f_id === my_id){ 
-                            fUser.status = list.status;  
+                            if(list.status == "recieve") {
+                                fUser.status = "request";
+                            } else if(list.status == "request") {
+                                fUser.status = "recieve";
+                            } else {
+                                fUser.status = list.status; 
+                            }
                             fUser.chatRoom = list.chatRoom; 
                         }
                     });

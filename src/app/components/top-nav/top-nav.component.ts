@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+
 
 
 
@@ -11,11 +13,10 @@ export class TopNavComponent  {
 
   modalOn = false;
   
-  constructor( ) { }
+  constructor() { }
   
   openModal(){
     this.modalOn = true;
-    
   }
 
   closeModal(modalState) {
