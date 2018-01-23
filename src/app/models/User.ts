@@ -5,6 +5,6 @@ export interface User {
     username: string;
     email: string;
     photoUrl: string;
-    cProfile?: boolean;
+    cProfile: boolean;
     // favoriteColor?:string;
 }

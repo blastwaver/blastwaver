@@ -22,7 +22,8 @@ const UserSchema = mongoose.Schema({
     "photoUrl" : {
         type:String
     },
-    "fList" : [friendsSchema]
+    "fList" : [friendsSchema],
+    "cProfile": {type: Boolean, default: false},
 },{ timestamps: true });
 
 

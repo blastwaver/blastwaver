@@ -15,14 +15,14 @@ export class LoginModalComponent implements OnInit,OnDestroy {
   @Input('modal') modalOn;
   @Output('notify') notify = new EventEmitter();
 
-  private subscription :ISubscription;
+  private subscription$ :ISubscription;
 
   constructor(private ngRedux: NgRedux<IAppState>,
               private auth: AuthService,  
   ) {}
 
   ngOnInit() {
-    this.subscription =  this.ngRedux.select('user').subscribe((user) =>{
+    this.subscription$ =  this.ngRedux.select('user').subscribe((user) =>{
       console.log(user);
       console.log(this.ngRedux.getState());
     }) 
@@ -38,7 +38,7 @@ export class LoginModalComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    this.subscription$.unsubscribe();
   }
 
 }

@@ -5,7 +5,7 @@ import * as firebase from 'firebase/app';
 import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState } from './store';
-import { UPDATE_USER, UPDATE_USER_ERROR, LOG_IN_STATE, UPDATE_FRIENDS } from './actions';
+import { UPDATE_USER, UPDATE_USER_ERROR, USER_LOG_IN, UPDATE_FRIENDS } from './actions';
 import { UserService } from './services/user.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from './models/user';
@@ -35,8 +35,6 @@ export class AppComponent implements OnInit, OnDestroy{
   
     firebase.auth().onAuthStateChanged((authData) => {
       
-      let _id :string;
-
       if (authData) {//in  case loged in 
         /* redux user state */
         this.userService.getUserByGoogle(authData.uid).subscribe((data) =>{
@@ -45,13 +43,14 @@ export class AppComponent implements OnInit, OnDestroy{
             googleId: data[0].googleId,
             username: data[0].username,
             email: data[0].email,
-            photoUrl: data[0].photoUrl
+            photoUrl: data[0].photoUrl,
+            cProfile: data[0].cProfile
           }
           console.log(user);
           this.ngRedux.dispatch({type: UPDATE_USER, body: user});
           
           /* redux login state */
-          this.ngRedux.dispatch({type: LOG_IN_STATE, body: true});
+          this.ngRedux.dispatch({type: USER_LOG_IN});
        
           /* friends state */
           this.friendService.getFriendsList(data[0]._id).subscribe((fList) => {
@@ -60,9 +59,7 @@ export class AppComponent implements OnInit, OnDestroy{
         }, err =>{
           this.ngRedux.dispatch({type: UPDATE_USER_ERROR, body: err});
         });
-       
-       
-     
+   
       } else { // incase not loged in  
         // console.log(user);
       }

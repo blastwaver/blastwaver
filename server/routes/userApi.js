@@ -60,8 +60,7 @@ router.post('/create',( req, res, next) => {
 });
 
 //update
-router.post('/update',(req, res, next) => {
-    
+router.post('/update',(req, res, next) => { 
     let _id = req.body._id;
     let data = req.body;
     delete data._id;
@@ -98,6 +97,17 @@ router.get('/search/name/:username', (req, res,next) => {
         }
     }); 
  });
+
+//user cProfile change data = {my_id:"string", cProfile: boolean }
+router.post('/profile/select',(req, res, next) => {
+    User.update({"_id":req.body.my_id}, {$set:{"cProfile":req.body.cProfile}},(err, result) => {
+        if (err) 
+            return  res.status(500).send(err);
+        return res.status(200).send(result);
+    });
+});
+
+ //////////////////////////////////// friend API ///////////////////////////////////////////////////////
 
 //add(request) Friend
 router.post('/friends/add',(req, res, next) => {
@@ -137,16 +147,16 @@ router.post('/friends/add',(req, res, next) => {
 });
 
 
-router.post('/test',(req, res, next) => {
-    let my_id = req.body.my_id;
-    let f_id = req.body.f_id;
-    User.find({$and:[{"_id": my_id}, {"fList.f_id":f_id}]}, (err, result) => {
-        if(err)
-            res.status(500).send(err);
-        else
-            res.status(200).send(result);
-    });
-});
+// router.post('/test',(req, res, next) => {
+//     let my_id = req.body.my_id;
+//     let f_id = req.body.f_id;
+//     User.find({$and:[{"_id": my_id}, {"fList.f_id":f_id}]}, (err, result) => {
+//         if(err)
+//             res.status(500).send(err);
+//         else
+//             res.status(200).send(result);
+//     });
+// });
 
 // accept friend and state update
 router.post('/friends/accept',(req, res, next) => {

@@ -10,8 +10,8 @@ import { googleUser } from '../models/googleUser';
 
 //redux
 import { IAppState } from '../store';
-import { NgRedux, select } from '@angular-redux/store';
-import { UPDATE_USER } from '../actions';
+import { NgRedux, select, NgReduxModule } from '@angular-redux/store';
+import { UPDATE_USER, USER_LOG_OUT, UPDATE_FRIENDS } from '../actions';
 
 
 
@@ -87,8 +87,8 @@ export class AuthService {
               googleId: user.uid,
               username: user.displayName,
               email: user.email,
-              photoUrl: user.photoURL
-              // cProfile: false
+              photoUrl: user.photoURL,
+              cProfile: user.cProfile
             }
 
             if(result.length === 0) {
@@ -110,8 +110,8 @@ export class AuthService {
                 googleId: result[0].googleId,
                 username: result[0].username,
                 email: result[0].email,
-                photoUrl: result[0].photoUrl
-                // cProfile: result[0].cProfile
+                photoUrl: result[0].photoUrl,
+                cProfile: result[0].cProfile
               }
               //1.store
 
@@ -130,8 +130,13 @@ export class AuthService {
     // console.log(this.selectTest);
     this.afAuth.auth.signOut().then(() => {
         // this.router.navigate(['/']);
-        
+      console.log("signed out");
+      let user: User ={ _id: null, googleId: null, username: null, email: null, photoUrl: null, cProfile: false}
+      this.ngRedux.dispatch({type: UPDATE_USER, body: user});
+      this.ngRedux.dispatch({type:USER_LOG_OUT});
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: []});
         // console.log(firebase.auth().currentUser);
+      console.log(this.ngRedux.getState());
     });
   }
 }

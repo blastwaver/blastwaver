@@ -1,4 +1,5 @@
 export const UPDATE_USER = 'USER_PROFILE_UPDATE';
 export const UPDATE_USER_ERROR = 'USER_PROFILE_UPDATE_ERROR';
-export const LOG_IN_STATE = "LOGIN_STATUS";
+export const USER_LOG_IN = "USER_LOG_IN";
+export const USER_LOG_OUT = "USER_LOG_OUT";
 export const UPDATE_FRIENDS ="UPADTE_FRIENDS";
