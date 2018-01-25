@@ -1,11 +1,8 @@
 <mat-drawer-container class="nav-container" autosize (window:resize)="onResize($event)">
   <mat-drawer #drawerLeft [opened]="opened" class="sidenav" mode="side">
-    <side-bar-table
-      [data]="data"
-      [columns]="displayedColumns"
-      title="people"
-      [filter]='false'
-    ></side-bar-table>
+    <side-bar-table></side-bar-table>
+    <side-bar-table></side-bar-table>
+    <side-bar-table></side-bar-table>
   </mat-drawer>
   <mat-drawer #drawerRight  [opened]="opened" position="end" opened="true" class="sidenav" mode="side">  
   </mat-drawer>
@@ -20,10 +17,15 @@
       Toggle sidenav
     </button>
   </div>
+
   <!-- here are sub components -->
   <div id="test">
     <search></search>  
   </div>
+
+  <!-- <div id="test">
+      <search></search>  
+  </div> -->
 </mat-drawer-container>
 
 

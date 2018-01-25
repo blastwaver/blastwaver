@@ -9,7 +9,7 @@
             <div id="nav-right">
                 <div id="login-list">
                     <button mat-button *ngIf="loginState" >Profile</button>
-                    <button mat-button *ngIf="loginState" >Logout</button>
+                    <button mat-button *ngIf="loginState" (click)="auth.signOut()" >Logout</button>
                     <button mat-button *ngIf="!loginState"(click)="openModal()" >Sign In</button>
                     <button mat-button *ngIf="!loginState">Register</button>
                 </div>
@@ -21,7 +21,7 @@
                 ><mat-icon>view_headline</mat-icon></div>
                 <mat-menu #menu="matMenu">
                     <button *ngIf="loginState" mat-menu-item>Profile</button>
-                    <button *ngIf="loginState" (click)="auth.signOut()"mat-menu-item>Logout</button>
+                    <button *ngIf="loginState" (click)="auth.signOut()" mat-menu-item>Logout</button>
                     <button *ngIf="!loginState" mat-menu-item (click)="openModal()">Sign in</button>
                     <button *ngIf="!loginState" mat-menu-item>Register</button>
                 </mat-menu>

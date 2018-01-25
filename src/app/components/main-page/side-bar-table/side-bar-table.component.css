@@ -24,18 +24,39 @@
   
 .mat-form-field {
     font-size: 14px;
-    width: 90%;
+    width: 100%;
 }
   
 .mat-table {
     overflow: auto;
+    min-height: 280px;
     max-height: 300px;
 }
 
+.listImage {
+    width:40px;
+    height: 40px;
+}
 
-
-
+.stateButton {
+    font-size: 10px;
+    margin-left: -20px;
+    width:100px;
+}
   
+#_id{
+    margin-left: 0;
+}
+
+#photoUrl{
+    margin: 0;
+}
+#username{
+    font-size: 12px;
+    font-weight: 500;
+    padding:0;  
+}
+
 @media only screen and (max-width: 798px) {
     
 }

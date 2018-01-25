@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy{
             photoUrl: data[0].photoUrl,
             cProfile: data[0].cProfile
           }
-          console.log(user);
+          // console.log(user);
           this.ngRedux.dispatch({type: UPDATE_USER, body: user});
           
           /* redux login state */

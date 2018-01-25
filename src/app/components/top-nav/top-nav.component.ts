@@ -15,9 +15,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class TopNavComponent implements OnInit,OnDestroy  {
 
-  modalOn = false;
+  private modalOn = false;
   
-  loginState =false;
+  private loginState =false;
 
   private subForloginState :ISubscription;
 

@@ -14,7 +14,7 @@
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     min-width: 250px;
@@ -56,7 +56,7 @@ mat-card-title, mat-card-subtitle{
 @media only screen and (max-width: 798px) {
     .modal-content {
         background-color: #fefefe;
-        margin: 200px auto; 
+        margin: 150px auto; 
     }
 
     
