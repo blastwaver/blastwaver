@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material';
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { IAppState } from '../../../store';
 import { ISubscription } from 'rxjs/Subscription';
+import { FriendService } from '../../../services/friend.service';
+import { UPDATE_FRIENDS } from '../../../actions';
 
 @Component({
   selector: 'side-bar-table',
@@ -13,16 +15,15 @@ export class SideBarTableComponent implements OnInit, OnDestroy {
 
   private subscriptiton$ :ISubscription;
   
-  
-  dataSource ;
+  private dataSource;
 
-  constructor(private ngRedux: NgRedux<IAppState>) { }
+
+  constructor(private ngRedux: NgRedux<IAppState>,
+              private friendService :FriendService) { }
   
   ngOnInit() {
     this.subscriptiton$ = this.ngRedux.select('friends').subscribe((state) => {
       let array =[];  array.push(state); 
-      // let emtyLines = [{},{},{},{},{},{}];
-      // let friends =  [...array[0],emtyLines];
       this.dataSource = new MatTableDataSource(array[0]);
     }); 
   }
@@ -38,6 +39,19 @@ export class SideBarTableComponent implements OnInit, OnDestroy {
  
 
 
+  acceptFriend(f_id) {
+    let obj ={my_id:"",f_id:""};
+    obj.my_id = this.ngRedux.getState().user._id;
+    obj.f_id = f_id;
+    this.friendService.acceptFriend(obj).subscribe((result) =>{
+      if(result.result == 'succeed') {
+        this.friendService.getFriendsList(obj.my_id).subscribe((result)=>{   
+          this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: result })
+        },(err) => {console.log(err)})
+      }
+    },(err) =>{console.log(err)});
+  }
+
 
   ngOnDestroy(){
     this.subscriptiton$.unsubscribe();
@@ -45,16 +59,6 @@ export class SideBarTableComponent implements OnInit, OnDestroy {
 }
 
 
-// export interface Elements {
-//   id: string,
-//   conState: string;
-//   photo: string;
-//   username: string;
-//   state: string;
-// }
 
-const ELEMENT_DATA = [
-  {_id:"asd",email: "true", photoUrl: 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg', username: "nanana", status: "string"},
-  
-];
+
 

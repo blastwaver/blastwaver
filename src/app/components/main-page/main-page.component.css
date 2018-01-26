@@ -16,17 +16,16 @@ mat-drawer{
     z-index: 1;
   }
   
- .sidenav-content {
-    display: flex;
-    /* height: 100%; */
+ .top-nav {
+    position: fixed;
+    width: 100%;
+    background-color: aqua;
     align-items: center;
     justify-content: center;
   }
   
 .sidenav {
     box-shadow: 10px 0 12px -4px  rgba(80, 78, 78, 0.75), -10px 0 8px -4px  rgba(80, 78, 78, 0.75);
-        
-    /* padding: 20px; */
     width:300px;
 }
 
@@ -34,7 +33,6 @@ mat-drawer{
 .table-container {
     display: flex;
     flex-direction: column;
-    /* min-width: 00px; */
   }
 
 .table-name {
@@ -65,7 +63,7 @@ mat-drawer{
 }
 
 
-  
+
 @media only screen and (max-width: 798px) {
     .nav-container {
         top:100px;

@@ -43,7 +43,10 @@
     margin-left: -20px;
     width:100px;
 }
-  
+.fa-comment{
+    color:green;
+    font-size: 20px;
+}
 #_id{
     margin-left: 0;
 }

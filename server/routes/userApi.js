@@ -171,7 +171,7 @@ router.post('/friends/accept',(req, res, next) => {
                 if(err)
                     res.status(500).send(err);
                 else
-                    res.status(200).send(result);
+                    res.status(200).send({result:'succeed'});
             });
         }   
     });

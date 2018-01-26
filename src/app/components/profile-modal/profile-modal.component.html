@@ -5,7 +5,7 @@
   <mat-card class="example-card">
     <mat-card-header>
       <!-- <div mat-card-avatar class="example-header-image"></div> -->
-      <mat-card-title>{{data.username}}}</mat-card-title>
+      <mat-card-title>{{data.username}}</mat-card-title>
       <mat-card-subtitle>Email: {{data.email}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image id="profile-image" [src]="data.photoUrl">
@@ -17,7 +17,11 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="addFriend()"> Add </button>
+      <button *ngIf= "!buttonState || buttonState ==''" mat-button (click)="addFriend()"> Add </button>
+      <button *ngIf= " buttonState =='me'" mat-button disabled> Me </button>
+      <button *ngIf= "buttonState == 'request'" mat-button disabled> Requested </button>
+      <button *ngIf= "buttonState == 'recieve'" mat-button (click)="acceptFriend()"> Accept </button>
+      <button *ngIf= "buttonState == 'friend'" mat-button (click)="chat()"> Chat </button>
       <button mat-button (click)="close($event,'out')">Cancel</button>
     </mat-card-actions>
   </mat-card>

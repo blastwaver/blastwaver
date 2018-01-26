@@ -10,6 +10,8 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { SearchComponent } from './components/main-page/search/search.component';
+import { ChatComponent } from './components/main-page/chat/chat.component';
+
 
 //module
 import { MaterialModule } from './modules/material.module';
@@ -42,6 +44,7 @@ import { FriendService } from './services/friend.service';
     SearchComponent,
     PeopleSearchComponent,
     ProfileModalComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

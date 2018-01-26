@@ -34,9 +34,8 @@
       <ng-container matColumnDef="status" id="status">
         <mat-header-cell *matHeaderCellDef> Chat </mat-header-cell>
         <mat-cell *matCellDef="let element"> 
-        
-            <button *ngIf="element.status == 'friend'" mat-button color="accent" class="stateButton">Friend</button>
-            <button *ngIf="element.status == 'recieve'" mat-button color="warn" class="stateButton" (click) ="friendAccept()">Accept</button>
+            <button *ngIf="element.status == 'friend'" mat-icon-button color="basic" class="stateButton" ><i class="fas fa-comment"></i></button>
+            <button *ngIf="element.status == 'recieve'" mat-button color="warn" class="stateButton" (click) ="acceptFriend(element._id)">Accept</button>
             <button *ngIf="element.status == 'request'" mat-button color="accent" class="stateButton" disabled>Requested</button>            
         </mat-cell>
       </ng-container>
