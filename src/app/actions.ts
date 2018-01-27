@@ -3,3 +3,4 @@ export const UPDATE_USER_ERROR = 'USER_PROFILE_UPDATE_ERROR';
 export const USER_LOG_IN = "USER_LOG_IN";
 export const USER_LOG_OUT = "USER_LOG_OUT";
 export const UPDATE_FRIENDS ="UPADTE_FRIENDS";
+export const UPDATE_CHAT_ROOM = "UPDATE_CHAT_ROOM";

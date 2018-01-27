@@ -4,7 +4,7 @@ import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { IAppState } from '../../../store';
 import { ISubscription } from 'rxjs/Subscription';
 import { FriendService } from '../../../services/friend.service';
-import { UPDATE_FRIENDS } from '../../../actions';
+import { UPDATE_FRIENDS, UPDATE_CHAT_ROOM } from '../../../actions';
 
 @Component({
   selector: 'side-bar-table',
@@ -52,6 +52,10 @@ export class SideBarTableComponent implements OnInit, OnDestroy {
     },(err) =>{console.log(err)});
   }
 
+
+  openChatRoom(element) {
+    this.ngRedux.dispatch({type: UPDATE_CHAT_ROOM, body: element.chatRoom});
+  }
 
   ngOnDestroy(){
     this.subscriptiton$.unsubscribe();
