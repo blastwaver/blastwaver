@@ -11,6 +11,7 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { SearchComponent } from './components/main-page/search/search.component';
 import { ChatComponent } from './components/main-page/chat/chat.component';
+import { EmojiComponent } from './components/main-page/chat/emoji/emoji.component';
 
 
 //module
@@ -18,6 +19,8 @@ import { MaterialModule } from './modules/material.module';
 import { CoreModule } from './modules/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
+import { EmojiModule } from 'angular-emojione';
+
 
 //services
 import { UserService } from './services/user.service';
@@ -44,7 +47,8 @@ import { FriendService } from './services/friend.service';
     SearchComponent,
     PeopleSearchComponent,
     ProfileModalComponent,
-    ChatComponent
+    ChatComponent,
+    EmojiComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ import { FriendService } from './services/friend.service';
     MaterialModule,
     CoreModule,
     HttpClientModule,
-    NgReduxModule
+    NgReduxModule,
+    EmojiModule
   ],
   providers: [
     UserService,

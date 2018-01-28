@@ -17,7 +17,6 @@ export const INITIAL_STATE :IAppState = {
         email:null,
         photoUrl:null,
         cProfile: false,
-
     },
     chatRoom: null,
     error: null,

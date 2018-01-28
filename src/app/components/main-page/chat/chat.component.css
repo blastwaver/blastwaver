@@ -1,10 +1,55 @@
 .chat-container{
     padding: 30px;
+    
     height: 93%; 
     overflow:auto;
     /* min-height: auto; */
     background-color: #ffffff;
 }
+.input-container {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+    min-width: 80%;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+
+  .contents-container{
+      padding-bottom: 150px;
+  }
+  
+  .chatImg{
+    width: 32px;
+    height: 32px;
+  }
+
+  .inline{
+      display: inline-block;
+      margin-right: 10px;
+  }
+
+  .emoji{
+    position: absolute;  
+    bottom:0;
+    right: 0;
+  }
+
+  #name{
+    margin: 0;
+    padding-top: 2px;
+    font-size: 14px;
+  }
+
+  #content{
+    margin: 0;
+    padding-top: 2px;
+    font-size: 14px;
+  }
 
 @media only screen and (max-width: 798px) {
     

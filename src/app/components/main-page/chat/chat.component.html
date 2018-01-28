@@ -2,15 +2,36 @@
 <!--     
             <p>dddasd</p>
             <button (click)="test()">test</button>  -->
-
+<!-- 
             <h1>Socket.io</h1>
-            <label for="name">Say:</label>
-            <input type="text" id="name" #newInfo>
-            <button #button (click)="send(newInfo)">Say Hello</button>
-            <ul>
-                <li *ngFor=" let info of information">Room: {{info.room}}, Chat: {{info.chat}} </li>                
+            <label for="name">Say:</label> -->
+            
+            <ul class="contents-container">
+                <li *ngFor=" let content of contents; trackBy: trackContents "  >
+                    <img class="chatImg inline" [src]="content.photoUrl"> 
+                    <div class="inline">
+                        <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
+                        <p id="content" [innerHTML]="content.chat | emoji"></p>
+                    </div>
+                    
+                </li>                
             </ul>
 
+            <!-- <input type="text" id="name" #newInfo>
+            <button  (click)="send(newInfo)">Say Hello</button> -->
+
+            <form class="input-container">
+                <mat-form-field class="full-width">
+                    <!-- <p (click)='openEmojiDialog()'>aa</p> -->
+                  <input matInput
+                         #chat
+                         placeholder="say"
+                         value="" 
+                         (keydown.enter)="send(chat); $event.preventDefault(); chat.value = ''">  
+                </mat-form-field>
+            </form>
+
+            <!-- <emoji *ngIf="emojiOn" class="emoji"></emoji> -->
 </div>
 
 
