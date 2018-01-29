@@ -20,7 +20,7 @@
                             </td>
                             <td>
                                 <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
-                                <p id="content" [innerHTML]="content.chat | emoji"></p>
+                                <p id="content" [innerHTML]='content.chat | quotation | emoji '></p>
                             </td>
                         </tr>
                     </table>

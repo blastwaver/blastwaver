@@ -9,14 +9,17 @@ var client = redis.createClient(16379, '192.168.99.100');
 router.post('/add',( req, res, next) => {
     let data = req.body;
     let key = data.room + data.time;
+    //important- " store as  %,% it shoulbe replaced on client side; 
+    let chat = data.chat.replace(/"/g, "%,%");
+    let photoUrl = data.photoUrl.replace(/"/g, "%,%");
     client.hmset(key, 
                  "username", '{ "username": "' + data.username + '"',
-                 "photoUrl", '"photoUrl": "' + data.photoUrl + '"',
+                 "photoUrl", '"photoUrl": "' + photoUrl + '"',
                  "time", '"time": "' + data.time + '"',
-                 "chat", '"chat": "' + data.chat + '"',
+                 "chat", '"chat": "' + chat + '"',
                  "room", '"room": "' + data.room + '"}',
                  (err, result) => {
-                    console.log(result);
+                    // console.log(result);
                     if(err) {
                         res.status(500).send(err);
                     }

@@ -3,6 +3,8 @@ import * as io from 'socket.io-client';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../../store';
 import { ISubscription } from 'rxjs/Subscription';
+import { Chat } from '../../../models/Chat';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'chat',
@@ -23,12 +25,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private emojiOn: boolean = false;
 
-  constructor(private ngRedux :NgRedux<IAppState>) {}
+  constructor(private ngRedux :NgRedux<IAppState>,
+              private chatService :ChatService ) {}
 
   ngOnInit() {
 
     this.socket = io({transports:['websocket'], upgrade: false});
-    this.socket.on('chat', (data) =>{
+    this.socket.on('chat', (data :Chat) =>{
       console.log(data);
       this.contents.push(data);
       this.scrollBottom();
@@ -40,6 +43,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       this. roomNumber = array[0];
       this.socket.emit('room.join', this.roomNumber);
       //also get new data from radis server
+      this.chatService.getChat(this.roomNumber).subscribe(result =>{
+        console.log(result);
+        this.contents = result; 
+        //give a delay untill rendering is done.
+        this.scrollBottom();
+      }, err => {console.log(err)});
+
+      
     });    
   }
   
@@ -49,23 +60,31 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   send(content) {
+    
     if(!content.value|| content.value == undefined)
       return;
     let myProfile = this.ngRedux.getState().user;
     let array = []; array.push(myProfile);
     console.log(array[0]);
-    let data = { username: array[0].username,
-                 photoUrl: array[0].photoUrl,
-                 room: this.roomNumber,
-                 chat: content.value,
-                 time: new Date()
-                }
+    let data :Chat = { username: array[0].username,
+                       photoUrl: array[0].photoUrl,
+                       room: this.roomNumber,
+                       chat: content.value,
+                       time: new Date().toString()
+                      }
     this.socket.emit('chat', data);
     this.scrollBottom();
+    
+    this.chatService.addChat(data).subscribe(result =>{
+      console.log(data.room);
+      console.log(result);
+    }, err => {console.log(err)});
   }
 
   scrollBottom() {
-    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    setTimeout(() =>{
+    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight; 
+    }, 100);
   }
 
   openEmojiDialog() {
