@@ -1,6 +1,24 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  margin: 0;
+  margin-bottom: 5px;
+  padding:0;
+}
+tr{
+  margin: 0;
+  padding:0;
+}
+td{
+  margin: 0;
+  padding:0;
+}
+
 .chat-container{
     padding: 30px;
-    
+    font-family: 'Lato', sans-serif;
     height: 93%; 
     overflow:auto;
     /* min-height: auto; */
@@ -16,17 +34,15 @@
   }
   
   .full-width {
+    position: relative;
     width: 100%;
   }
 
   .contents-container{
-      padding-bottom: 150px;
+      padding-bottom: 120px;
+      
   }
-  
-  .chatImg{
-    width: 32px;
-    height: 32px;
-  }
+
 
   .inline{
       display: inline-block;
@@ -38,17 +54,36 @@
     bottom:0;
     right: 0;
   }
+  .content-wrraper{
+    margin-top: -4px;
+  }
 
+  .image{
+    vertical-align:top;
+    
+  }
+  #image{
+    margin-right: 10px;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+  }
   #name{
     margin: 0;
-    padding-top: 2px;
+    padding-bottom: 6px;
     font-size: 14px;
   }
 
   #content{
+    padding-bottom: 4px;
     margin: 0;
-    padding-top: 2px;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 14px ;
+  }
+  
+  #time {
+    font-size: 12px;
+    color: #808080;
   }
 
 @media only screen and (max-width: 798px) {
@@ -57,8 +92,8 @@
 
 @media screen and (min-width: 798px) {
     
-    .cat-container {
+    /* .chat-container {
         overflow: hidden;
-    }
+    } */
 
 }

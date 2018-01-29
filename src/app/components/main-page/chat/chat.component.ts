@@ -49,6 +49,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   send(content) {
+    if(!content.value|| content.value == undefined)
+      return;
     let myProfile = this.ngRedux.getState().user;
     let array = []; array.push(myProfile);
     console.log(array[0]);
