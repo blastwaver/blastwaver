@@ -12,6 +12,7 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { SearchComponent } from './components/main-page/search/search.component';
 import { ChatComponent } from './components/main-page/chat/chat.component';
 import { EmojiComponent } from './components/main-page/chat/emoji/emoji.component';
+import { HomeComponent } from './components/main-page/home/home.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
 
 
@@ -21,7 +22,7 @@ import { CoreModule } from './modules/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { EmojiModule } from 'angular-emojione';
-
+import { RouterModule, Routes } from '@angular/router';
 
 //services
 import { UserService } from './services/user.service';
@@ -38,7 +39,17 @@ import { environment } from '../environments/environment';
 //redux
 import { IAppState, rootReducer, INITIAL_STATE } from './store';
 import { NgRedux, NgReduxModule} from '@angular-redux/store';
+import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
 
+const routes :Routes = [
+  { path: '',
+    component: MainPageComponent,
+    children:[
+      {path: '', component: HomeComponent},
+      {path: 'chat',component: ChatComponent}
+    ]
+  }
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,8 +62,10 @@ import { NgRedux, NgReduxModule} from '@angular-redux/store';
     ProfileModalComponent,
     ChatComponent,
     EmojiComponent,
-    QuotationPipe
-  ],
+    QuotationPipe,
+    SanitizerHtmlPipe,
+    HomeComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -61,7 +74,8 @@ import { NgRedux, NgReduxModule} from '@angular-redux/store';
     CoreModule,
     HttpClientModule,
     NgReduxModule,
-    EmojiModule
+    EmojiModule,
+    RouterModule.forRoot(routes,{useHash: true})
   ],
   providers: [
     UserService,

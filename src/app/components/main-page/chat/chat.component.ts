@@ -61,8 +61,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   send(content) {
     
-    if(!content.value|| content.value == undefined)
+    if(!content.value || !this.roomNumber )
       return;
+
     let myProfile = this.ngRedux.getState().user;
     let array = []; array.push(myProfile);
     console.log(array[0]);
@@ -70,7 +71,7 @@ export class ChatComponent implements OnInit, OnDestroy {
                        photoUrl: array[0].photoUrl,
                        room: this.roomNumber,
                        chat: content.value,
-                       time: new Date().toString()
+                       time: new Date().getTime().toString()
                       }
     this.socket.emit('chat', data);
     this.scrollBottom();
@@ -84,7 +85,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   scrollBottom() {
     setTimeout(() =>{
     this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight; 
-    }, 100);
+    }, 50);
   }
 
   openEmojiDialog() {
