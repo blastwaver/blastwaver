@@ -23,8 +23,8 @@ export class LoginModalComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.subscription$ =  this.ngRedux.select('user').subscribe((user) =>{
-      console.log(user);
-      console.log(this.ngRedux.getState());
+      // console.log(user);
+      // console.log(this.ngRedux.getState());
     }) 
   }
 

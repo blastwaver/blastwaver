@@ -41,7 +41,7 @@ router.post('/add',( req, res, next) => {
 
 router.get('/get/:room', (req, res,next) => {
     let key = req.params.room;
-    console.log(key);
+    // console.log(key);
     client.sort(key, "by", "weight_*-> time",
                                  "get", "*->username",
                                  "get", "*->photoUrl",

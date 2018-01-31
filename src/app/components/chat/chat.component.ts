@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import * as io from 'socket.io-client';
 import { NgRedux } from '@angular-redux/store';
-import { IAppState } from '../../../store';
+import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
-import { Chat } from '../../../models/Chat';
-import { ChatService } from '../../../services/chat.service';
+import { Chat } from '../../models/Chat';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'chat',
@@ -32,7 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.socket = io({transports:['websocket'], upgrade: false});
     this.socket.on('chat', (data :Chat) =>{
-      console.log(data);
+      // console.log(data);
       this.contents.push(data);
       this.scrollBottom();
     });  

@@ -54,7 +54,7 @@ router.post('/create',( req, res, next) => {
             res.status(500).send(err);
         } else {
             res.status(200).send(user);
-            console.log(user);
+            // console.log(user);
         }
     });
 });
@@ -78,9 +78,9 @@ router.post('/delete',( req, res, next) => {
     let _id = req.body._id;
     // console.log(req.body._id);
     User.findById({"_id": _id}, (err, user) =>{
-        console.log(err);
+        // console.log(err);
     }).remove((err) => {
-        console.log(err);
+        // console.log(err);
     })
 });
 
@@ -124,7 +124,8 @@ router.post('/friends/add',(req, res, next) => {
             } else {
                  /* store friend info to mine */
                 User.update({"_id": my_id}, {$push: {"fList": {"f_id":f_id, "status":"request", "chatRoom":chatRoom}}}, (err, result) => {
-                    if(err) {console.log("add friend err(my side): " + err);
+                    if(err) {
+                        console.log("add friend err(my side): " + err);
                     } else {
                         if(result.n === 1) {
                             /* store my info to friend's */

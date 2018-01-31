@@ -1,40 +1,41 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges} from '@angular/core';
-import { User } from '../../models/user';
-import { NgRedux, NgReduxModule } from '@angular-redux/store';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IAppState } from '../../store';
-import { ISubscription } from 'rxjs/Subscription';
+import { NgRedux } from '@angular-redux/store';
 import { FriendService } from '../../services/friend.service';
-import { UPDATE_FRIENDS } from '../../actions';
-
+import { User } from '../../models/user';
+import { ISubscription } from 'rxjs/Subscription';
+import { UPDATE_FRIENDS, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, SEARCHED_USER_MODAL_ON } from '../../actions';
 
 @Component({
-  selector: 'profile-modal',
-  templateUrl: './profile-modal.component.html',
-  styleUrls: ['./profile-modal.component.css']
+  selector: 'users-modal',
+  templateUrl: './users-modal.component.html',
+  styleUrls: ['./users-modal.component.css']
 })
-export class ProfileModalComponent implements OnInit, OnChanges, OnDestroy {
+export class UsersModalComponent implements OnInit, OnDestroy {
   
-  @Input('modal') modalOn :boolean;
-  @Input('data') data :User;
-  @Output() notify = new EventEmitter();
-
-  private subscriptiton$ :ISubscription;
-  
-  private buttonState :string = null ;
+  subscriptitonModal$ :ISubscription;
+  subscriptitonUserData$ :ISubscription;
+  buttonState :string = null ;
+  modalOn :boolean = false;
+  data :User = null;
   
   constructor(private ngRedux: NgRedux<IAppState>,
               private friendService :FriendService) { }
 
   ngOnInit() {
-  }
+    this.subscriptitonModal$ = this.ngRedux.select('searchUserModal').subscribe((modalState) => {
+      this.modalOn = modalState ? true : false;
+      // console.log(this.modalOn)
+    });
 
-  //@Input data is undefined initailly before click button from parent compoenet
-  //when the data come from the parent component ngOnchage works
-  ngOnChanges() {
-    console.log(this.data)
-    this.buttonState = null;
-    if(this.data) {
-      this.subscriptiton$ = this.ngRedux.select('friends').subscribe((state) => {
+    this.subscriptitonUserData$ = this.ngRedux.select('searchUserData').subscribe((userState) => {
+      let array = []; array.push(userState);
+      this.data = array[0];
+      let my_id = this.ngRedux.getState().user._id; 
+      
+      this.buttonState = null;
+      if(this.data) {
+        let state = this.ngRedux.getState().friends
         let array =[];  array.push(state); 
         array[0].forEach(element => {
           //check the clicked user profile is one of my friend in my f list.  
@@ -45,12 +46,10 @@ export class ProfileModalComponent implements OnInit, OnChanges, OnDestroy {
         let my_id = this.ngRedux.getState().user._id; 
         if(my_id === this.data._id)
         this.buttonState = "me";
-      }); 
-      console.log(this.buttonState)
-      
-    }
+      }
+        
+    });
   }
-
 
   addFriend() {
     let obj ={my_id:"",f_id:""};
@@ -65,7 +64,6 @@ export class ProfileModalComponent implements OnInit, OnChanges, OnDestroy {
           this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: result })
         },(err) => {console.log(err)})
       }
-
     },(err) =>{console.log(err)});
   }
 
@@ -84,16 +82,20 @@ export class ProfileModalComponent implements OnInit, OnChanges, OnDestroy {
       }
     },(err) =>{console.log(err)});
   }
-  
+
   close($event, position) {
+    // console.log(position);
     if(position == 'out'){
-      this.modalOn = false;
+      
+      this.ngRedux.dispatch({type: SEARCHED_USER_MODAL_OFF});
     }
-    this.notify.emit(this.modalOn);
+    this.ngRedux.dispatch({type: SEARCHED_USER_MODAL_OFF});
+    // console.log(this.modalOn)
     event.stopPropagation();
   }
 
   ngOnDestroy() {
-    this.subscriptiton$.unsubscribe();
+    this.subscriptitonModal$.unsubscribe();
+    this.subscriptitonUserData$.unsubscribe();
   }
 }
