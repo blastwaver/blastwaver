@@ -1,10 +1,10 @@
 import { Component, OnInit,OnDestroy, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
-import { IAppState } from '../../../store';
+import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
-import { FriendService } from '../../../services/friend.service';
-import { UPDATE_FRIENDS, UPDATE_CHAT_ROOM } from '../../../actions';
+import { FriendService } from '../../services/friend.service';
+import { UPDATE_FRIENDS, UPDATE_CHAT_ROOM } from '../../actions';
 
 @Component({
   selector: 'side-bar-table',
@@ -16,8 +16,7 @@ export class SideBarTableComponent implements OnInit, OnDestroy {
   private subscriptiton$ :ISubscription;
   
   private dataSource;
-
-
+  
   constructor(private ngRedux: NgRedux<IAppState>,
               private friendService :FriendService) { }
   

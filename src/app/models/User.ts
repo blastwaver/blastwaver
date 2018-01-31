@@ -1,10 +1,10 @@
 
 export interface User {
     _id?: string;
-    googleId: string;
+    googleId?: string;
     username: string;
     email: string;
     photoUrl: string;
-    cProfile: boolean;
+    cProfile?: boolean;
     // favoriteColor?:string;
 }

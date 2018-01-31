@@ -8,32 +8,31 @@
   <mat-table #table [dataSource]="dataSource">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+    <ng-container matColumnDef="Users">
+      <mat-header-cell *matHeaderCellDef> USERS </mat-header-cell>
       <mat-cell *matCellDef="let element"> <img [src]="element.photoUrl" class="smallImage"> </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+    <ng-container matColumnDef="Email">
+      <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="openModal(element)" > {{element.googleId}} </mat-cell>
+    <ng-container matColumnDef="State">
+      <mat-header-cell *matHeaderCellDef> STATE </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="openModal(element)" > CLICK </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-
-<profile-modal [(modal)]="modalOn" (notify)='closeModal($event)' [data]="clickedUser"></profile-modal>
+<!-- <profile-modal [(modal)]="modalOn" (notify)='closeModal($event)' [data]="clickedUser"></profile-modal> -->

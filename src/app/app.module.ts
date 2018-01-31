@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 //components & pipes
-import { PeopleSearchComponent } from './components/main-page/search/people-search/people-search.component';
+import { PeopleSearchComponent } from './components/people-search/people-search.component';
 import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
-import { SideBarTableComponent } from './components/main-page/side-bar-table/side-bar-table.component';
+import { SideBarTableComponent } from './components/side-bar-table/side-bar-table.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
-import { SearchComponent } from './components/main-page/search/search.component';
-import { ChatComponent } from './components/main-page/chat/chat.component';
-import { EmojiComponent } from './components/main-page/chat/emoji/emoji.component';
-import { HomeComponent } from './components/main-page/home/home.component';
+import { SearchComponent } from './components/search/search.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { EmojiComponent } from './components/emoji/emoji.component';
+import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UsersModalComponent } from './components/users-modal/users-modal.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
 
 
@@ -41,15 +43,6 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store';
 import { NgRedux, NgReduxModule} from '@angular-redux/store';
 import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
 
-const routes :Routes = [
-  { path: '',
-    component: MainPageComponent,
-    children:[
-      {path: '', component: HomeComponent},
-      {path: 'chat',component: ChatComponent}
-    ]
-  }
-]
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +57,9 @@ const routes :Routes = [
     EmojiComponent,
     QuotationPipe,
     SanitizerHtmlPipe,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent,
+    UsersModalComponent
     ],
   imports: [
     BrowserModule,
@@ -75,7 +70,14 @@ const routes :Routes = [
     HttpClientModule,
     NgReduxModule,
     EmojiModule,
-    RouterModule.forRoot(routes,{useHash: true})
+    // RouterModule.forRoot(routes,{useHash: true})
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent},
+      { path: 'home', component: HomeComponent},
+      { path:'search', component: SearchComponent},
+      { path:'main', component: MainPageComponent},
+      { path: '**', component: NotFoundComponent}
+    ])
   ],
   providers: [
     UserService,
