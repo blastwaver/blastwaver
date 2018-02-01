@@ -3,5 +3,10 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
+    position: relative;
     margin: 0;
+    overflow:hidden;
+    /* background-color: ; */
 }
+
+.mat-drawer-content { overflow: hidden !important;}

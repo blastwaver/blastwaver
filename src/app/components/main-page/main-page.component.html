@@ -6,9 +6,13 @@
   </mat-drawer>
 
   <div class="top-nav">
-    <button type="button" mat-button (click)="drawerLeft.toggle()">
-      Toggle sidenav
+    <button class="inline" *ngIf="drawerLeft._opened"  type="button" mat-button (click)="drawerLeft.toggle(); test(drawerLeft); ">
+      <i class="inline" class="fas fa-angle-double-left" ></i>
     </button>
+    <button *ngIf="!drawerLeft._opened" type="button" mat-button (click)="drawerLeft.toggle(); test(drawerLeft); ">
+      <i class="fas fa-align-justify"></i>
+    </button>
+    <p class="inline center">{{roomTitle}}</p>
   </div>
   <!-- here are sub components -->
 

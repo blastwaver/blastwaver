@@ -5,42 +5,45 @@
 <!-- 
             <h1>Socket.io</h1>
             <label for="name">Say:</label> -->
-            
-            <ul class="contents-container">
-                <li *ngFor=" let content of contents; trackBy: trackContents "  >
-                    <!-- <img id="image" class="inline" [src]="content.photoUrl"> 
-                    <div class="inline content-wrraper">
-                        <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
-                        <p id="content" [innerHTML]="content.chat | emoji"></p>
-                    </div> -->
-                    <table>
-                        <tr>
-                            <td class="image">
-                                <img id="image" [src]="content.photoUrl"> 
-                            </td>
-                            <td>
+            <div class="wrapper">
+                <ul class="contents-container">
+                        <li *ngFor=" let content of contents; trackBy: trackContents "  >
+                            <!-- <img id="image" class="inline" [src]="content.photoUrl"> 
+                            <div class="inline content-wrraper">
                                 <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
-                                <p id="content" [innerHTML]='content.chat | quotation | emoji '></p>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                </li>                
-            </ul>
+                                <p id="content" [innerHTML]="content.chat | emoji"></p>
+                            </div> -->
+                            <table>
+                                <tr>
+                                    <td class="image">
+                                        <img id="image" [src]="content.photoUrl"> 
+                                    </td>
+                                    <td>
+                                        <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
+                                        <p id="content" [innerHTML]='content.chat | quotation | emoji '></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </li>                
+                    </ul>
+        
+                    <!-- <input type="text" id="name" #newInfo>
+                    <button  (click)="send(newInfo)">Say Hello</button> -->
+        
+                    <form class="input-container">
+                        <mat-form-field class="full-width">
+                            <!-- <p (click)='openEmojiDialog()'>aa</p> -->
+                            <input matInput
+                                    #chat
+                                    placeholder="say"
+                                    value="" 
+                                    (keydown.enter)="send(chat); $event.preventDefault(); chat.value = ''">  
+                        </mat-form-field>
+                    </form>
 
-            <!-- <input type="text" id="name" #newInfo>
-            <button  (click)="send(newInfo)">Say Hello</button> -->
-
-            <form class="input-container">
-                <mat-form-field class="full-width">
-                    <!-- <p (click)='openEmojiDialog()'>aa</p> -->
-                  <input matInput
-                         #chat
-                         placeholder="say"
-                         value="" 
-                         (keydown.enter)="send(chat); $event.preventDefault(); chat.value = ''">  
-                </mat-form-field>
-            </form>
+            </div>
+            
 
             <!-- <emoji *ngIf="emojiOn" class="emoji"></emoji> -->
 </div>

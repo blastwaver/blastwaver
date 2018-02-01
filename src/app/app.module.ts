@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 //components & pipes
 import { PeopleSearchComponent } from './components/people-search/people-search.component';
-import { ProfileModalComponent } from './components/profile-modal/profile-modal.component';
 import { SideBarTableComponent } from './components/side-bar-table/side-bar-table.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
@@ -15,6 +14,7 @@ import { EmojiComponent } from './components/emoji/emoji.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersModalComponent } from './components/users-modal/users-modal.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
 
 
@@ -52,14 +52,14 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
     LoginModalComponent,
     SearchComponent,
     PeopleSearchComponent,
-    ProfileModalComponent,
     ChatComponent,
     EmojiComponent,
     QuotationPipe,
     SanitizerHtmlPipe,
     HomeComponent,
     NotFoundComponent,
-    UsersModalComponent
+    UsersModalComponent,
+    ProfileComponent,
     ],
   imports: [
     BrowserModule,
@@ -76,6 +76,7 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
       { path: 'home', component: HomeComponent},
       { path:'search', component: SearchComponent},
       { path:'main', component: MainPageComponent},
+      { path:'profile', component: ProfileComponent},      
       { path: '**', component: NotFoundComponent}
     ])
   ],

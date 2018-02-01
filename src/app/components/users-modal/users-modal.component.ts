@@ -26,7 +26,7 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     this.subscriptitonModal$ = this.ngRedux.select('searchUserModal').subscribe((modalState) => {
       this.modalOn = modalState ? true : false;
       // console.log(this.modalOn)
-    });
+    }, (err) => console.log(err));
 
     this.subscriptitonUserData$ = this.ngRedux.select('searchUserData').subscribe((userState) => {
       let array = []; array.push(userState);
@@ -48,7 +48,7 @@ export class UsersModalComponent implements OnInit, OnDestroy {
         this.buttonState = "me";
       }
         
-    });
+    }, (err) => console.log(err));
   }
 
   addFriend() {

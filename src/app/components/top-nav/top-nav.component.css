@@ -1,10 +1,24 @@
 
+nav {
+    -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
+    -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+    box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+    z-index: 10;
+}
 mat-toolbar {
     min-height: 50px;
     height: auto;
     -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
     -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
     box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+}
+
+i:focus {
+    outline:0;
+}
+
+i:hover {
+    cursor: pointer;
 }
 
 button{
@@ -23,15 +37,18 @@ button{
     position: absolute;
     width: 100%;
 }
-
-mat-icon{
-    margin: auto;
-    padding: 10px;
-}
-mat-icon:hover{
-    cursor:pointer;
+.responsive-line-one {
+    font-size: 16px;    
+    -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
+        -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+        box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75); 
 }
 
+.fa-bell, .fa-user,.fa-sign-out-alt,
+.fa-sign-in-alt, .fa-list-ul{
+    font-size: 20px;
+    /* color: #ffff; */
+}
 
 @media only screen and (max-width: 798px) {
     #login-list {
