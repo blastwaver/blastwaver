@@ -2,6 +2,10 @@ mat-drawer{
     margin: 0;
     padding: 0;
 }
+.mat-drawer-container {
+    background-color: #ffff;
+}
+
 
 .nav-container {
     position: fixed;
@@ -10,18 +14,34 @@ mat-drawer{
     left: 0;
     right: 0;
     bottom: 0;
-    width:100%;
+    /* width:100%; */
     /* height: 100%; */
     /* padding-right: 10px; */
-    z-index: 1;
+    /* z-index: 1; */
   }
   
  .top-nav {
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
-    background-color: aqua;
+    background-color:  rgba(80, 78, 78, 0.75);
     align-items: center;
     justify-content: center;
+    /* text-align: center; */
+  }
+  .inline{
+      display: inline-block; 
+  }
+  .center{
+    margin-top:6px;
+    padding:0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffff;
+  }
+  .fa-angle-double-left, .fa-align-justify {
+      font-size: 20px;
+      color: #ffff;
   }
   
 .sidenav {

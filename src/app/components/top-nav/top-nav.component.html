@@ -1,36 +1,38 @@
 <nav>
     <mat-toolbar color="accent">
             <div id="nav-left">
-                <a><i routerLink="/main">blastwaver</i></a>
+                <i routerLink="/main" matTooltip="KYEONGHO NA">blastwaver</i>
                 <button routerLink="/home" mat-button class="responsive-line-one">Home</button>
                 <button routerLink="/main" mat-button class="responsive-line-one">Projects</button>
                 <button routerLink="/search" mat-button class="responsive-line-one">Search</button>        
             </div> 
             <div id="nav-right">
                 <div id="login-list">
-                    <button mat-button *ngIf="loginState" >Profile</button>
-                    <button mat-button *ngIf="loginState" (click)="auth.signOut()" >Logout</button>
-                    <button mat-button *ngIf="!loginState"(click)="openModal()" >Sign In</button>
-                    <button mat-button *ngIf="!loginState">Register</button>
+                    <button mat-button *ngIf="loginState" matTooltip="Notification"><i class="far fa-bell"></i></button>
+                    <button mat-button *ngIf="loginState" matTooltip="Profile" ><i class="far fa-user"></i></button>
+                    <button mat-button *ngIf="loginState"  matTooltip="Logout" (click)="auth.signOut()" ><i class="fas fa-sign-out-alt"></i></button>
+                    <button mat-button *ngIf="!loginState" matTooltip="Sign In" (click)="openModal()" ><i class="fas fa-sign-in-alt"></i> SIGN IN</button>
+                    <!-- <button mat-button *ngIf="!loginState">Register</button> -->
                 </div>
                 <div class="mat-icon-wrapper"
-                [matMenuTriggerFor]="menu" 
+                [matMenuTriggerFor]="menu"  
                 mat-button id="nav-list"
                 matTooltip="Menu" 
                 matTooltipPosition="below"
-                ><mat-icon>view_headline</mat-icon></div>
+                ><i class="fas fa-list-ul"></i></div>
                 <mat-menu #menu="matMenu">
-                    <button *ngIf="loginState" mat-menu-item>Profile</button>
-                    <button *ngIf="loginState" (click)="auth.signOut()" mat-menu-item>Logout</button>
-                    <button *ngIf="!loginState" mat-menu-item (click)="openModal()">Sign in</button>
-                    <button *ngIf="!loginState" mat-menu-item>Register</button>
+                    <button *ngIf="loginState" mat-menu-item><i class="far fa-bell"></i> Notification</button>
+                    <button *ngIf="loginState" mat-menu-item><i class="far fa-user"></i> Profile</button>
+                    <button *ngIf="loginState" (click)="auth.signOut()" mat-menu-item><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    <button *ngIf="!loginState" mat-menu-item (click)="openModal()"><i class="fas fa-sign-in-alt"></i >Sign in</button>
+                    <!-- <button *ngIf="!loginState" mat-menu-item>Register</button> -->
                 </mat-menu>
             </div> 
         </mat-toolbar>
         <mat-toolbar class="responsive-line-two " color="accent">      
-            <button routerLink="/home" mat-button class="nav-button" >Home</button>
-            <button routerLink="/main" mat-button class="nav-button">Projects</button>
-            <button routerLink="/search" mat-button class="nav-button">Search</button>   
+            <button routerLink="/home" mat-button class="nav-button" >HOME</button>
+            <button routerLink="/main" mat-button class="nav-button">PROJECTS</button>
+            <button routerLink="/search" mat-button class="nav-button">SEARCH</button>   
         </mat-toolbar>
 </nav>
 
