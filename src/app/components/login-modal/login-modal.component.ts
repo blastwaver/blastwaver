@@ -22,14 +22,16 @@ export class LoginModalComponent implements OnInit,OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscription$ =  this.ngRedux.select('user').subscribe((user) =>{
-      // console.log(user);
-      // console.log(this.ngRedux.getState());
+    this.subscription$ =  this.ngRedux.select('loginState').subscribe((state) =>{
+      if(state == true) {
+        this.modalOn = false;
+        this.notify.emit(this.modalOn);
+      }
+      this.notify.emit(this.modalOn);
     }) 
   }
 
   close($event, position) {
-
     if(position == 'out'){
       this.modalOn = false;
     }

@@ -11,7 +11,7 @@ import { googleUser } from '../models/googleUser';
 //redux
 import { IAppState } from '../store';
 import { NgRedux, select, NgReduxModule } from '@angular-redux/store';
-import { UPDATE_USER, USER_LOG_OUT, UPDATE_FRIENDS } from '../actions';
+import { UPDATE_USER, USER_LOG_OUT, UPDATE_FRIENDS, USER_LOG_IN } from '../actions';
 
 
 
@@ -88,6 +88,7 @@ export class AuthService {
               username: user.displayName,
               email: user.email,
               photoUrl: user.photoURL,
+              comment: user.comment,
               cProfile: user.cProfile
             }
 
@@ -100,7 +101,7 @@ export class AuthService {
                 //2.state change in redux
                 console.log( newUser);
                 this.ngRedux.dispatch({type: UPDATE_USER, body: newUser});
-
+                this.ngRedux.dispatch({type:USER_LOG_IN});
               },(err) => {console.log(err)})
             } else {
 
@@ -111,6 +112,7 @@ export class AuthService {
                 username: result[0].username,
                 email: result[0].email,
                 photoUrl: result[0].photoUrl,
+                comment: result[0].comment,
                 cProfile: result[0].cProfile
               }
               //1.store
@@ -131,7 +133,7 @@ export class AuthService {
     this.afAuth.auth.signOut().then(() => {
         // this.router.navigate(['/']);
       console.log("signed out");
-      let user: User ={ _id: null, googleId: null, username: null, email: null, photoUrl: null, cProfile: false}
+      let user: User ={ _id: null, googleId: null, username: null, email: null, photoUrl: null,comment: null, cProfile: false}
       this.ngRedux.dispatch({type: UPDATE_USER, body: user});
       this.ngRedux.dispatch({type:USER_LOG_OUT});
       this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: []});

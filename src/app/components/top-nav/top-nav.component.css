@@ -40,8 +40,8 @@ button{
 .responsive-line-one {
     font-size: 16px;    
     -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
-        -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
-        box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75); 
+    -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+    box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75); 
 }
 
 .fa-bell, .fa-user,.fa-sign-out-alt,

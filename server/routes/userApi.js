@@ -195,7 +195,7 @@ router.get('/friends/list/:_id',(req, res, next) => {
             });
         }        
     }).then(() => {
-        User.find({"_id": {$in: list}}).select('_id username email photoUrl fList.f_id fList.chatRoom fList.status')
+        User.find({"_id": {$in: list}}).select('_id username email photoUrl comment fList.f_id fList.chatRoom fList.status')
             // .populate({match: {"fList.f_id": my_id},select:'status'})    
             .exec((err, result) =>{
             if (err) {
@@ -207,6 +207,7 @@ router.get('/friends/list/:_id',(req, res, next) => {
                     fUser.username = friend.username;
                     fUser.email = friend.email;
                     fUser.photoUrl = friend.photoUrl;
+                    fUser.comment = friend.comment;
                     friend.fList.forEach(list =>{ 
                         if(list.f_id === my_id){ 
                             if(list.status == "recieve") {

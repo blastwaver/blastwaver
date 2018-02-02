@@ -44,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy{
             username: data[0].username,
             email: data[0].email,
             photoUrl: data[0].photoUrl,
+            comment: data[0].comment,
             cProfile: data[0].cProfile
           }
           // console.log(user);

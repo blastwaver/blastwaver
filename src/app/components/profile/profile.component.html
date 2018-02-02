@@ -1,5 +1,40 @@
-<div class="profile-cintainer">
-  <p>Lorem ipsum dolor sit amet consectetur adipisi
-    cing elit. Dicta, nihil iure pariatur enim beatae laboriosam neque. Quasi ut, sit iste at
-    , facere officiis fuga a necessitatibus labore inventore atque? Eligendi!</p>
+
+<div class="profile-container">
+  <nav>
+      <span>Custom Profile</span>
+      <mat-slide-toggle
+      #check
+      [checked]="checked" 
+      (change) ="toggleChange(check)"
+      >
+      </mat-slide-toggle>
+  </nav>
+  <!-- <div class="wrapper"> -->
+    <div class="inline inline-left">
+        <div class="card">
+            <img [src]="user.photoUrl" alt="Avatar" style="width:100%">
+            <button mat-raised-button color="accent" [disabled]="!checked"><i class="fas fa-upload"></i> image upload</button>
+            <div class="card-container">
+              <h4><b>{{user.username}}</b></h4> 
+              <p>Architect  Engineer</p> 
+            </div>
+        </div>
+    </div>
+    <div class="inline inline-right">
+        <form class="profile-form">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="USER NAME" [value]="user.username" [disabled]="!checked">
+            </mat-form-field>
+            <mat-form-field class="input-full-width">
+                <input matInput placeholder="EMAIL" [value]="user.email" [disabled]="!checked">
+              </mat-form-field>
+            <mat-form-field class="input-full-width">
+              <textarea [disabled]="!checked" matInput placeholder="Leave a comment" [value]="user.comment" rows="4"></textarea>
+            </mat-form-field>
+            <button mat-raised-button class="bottom-btn" color="primary" [disabled]="!checked">SAVE</button>            
+            <button mat-raised-button class="bottom-btn" routerLink="/main" color="bottom-btn">CANCEL</button>
+            
+        </form>    
+    </div>
+  <!-- </div> -->
 </div>
