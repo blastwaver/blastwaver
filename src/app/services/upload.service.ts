@@ -34,11 +34,13 @@ export class UploadService {
 
   }
 
-
+  
   deleteFile(fileName :string) {
     return this.http.delete(`${this.url}/api/upload/delete/${fileName}`)
-                    .map((res: Response) => { return res;})
-                    .catch(this.handleError); 
+                    .map((res: Response) => { return res.body;})
+                    // .catch(this.handleError); 
+
+                    //json parson plobel need to fix.
   }
   
   handleError (err: any) {

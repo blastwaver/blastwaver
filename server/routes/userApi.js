@@ -66,9 +66,9 @@ router.post('/update',(req, res, next) => {
     delete data._id;
     User.findByIdAndUpdate({"_id": _id}, data, (err, user) =>{
         if(err){
-            res.status(500).send(err);
+            res.status(500).send({result: 'error', body: err});
         } else {
-            res.status(200).send(user);
+            res.status(200).send({result: 'success', body: user});
         }
     });
 })

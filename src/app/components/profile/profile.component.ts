@@ -43,11 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private uploadedFilePath : string;
 
-  private uploaded : boolean;
-
-  private saved : boolean;
-
-  private storedImages :string[] = [];
+  private uploaded : boolean = false;
 
   constructor(private ngRedux :NgRedux<IAppState>,
               private uploadService :UploadService,
@@ -81,7 +77,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   }
   
-
   checkcProfileFromUser() {
     this.userSubscription$ = this.ngRedux.select('user').subscribe((state) => {
       let array = []; array.push(state);
@@ -92,24 +87,53 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, (err) => { console.log(err)});
   }
 
-  getUploadedFileName() {
+  async getUploadedFileName() {
+    
     this.uploader = this.uploadService.uploader;
+    let file = null;
+    
 
-    this.uploadedFileNameSubscription$ = this.uploadService.fileNameSubscription$.subscribe((fileName) => {
+    let result = await new Promise( (resolve) => {
+        
+      this.uploadedFileNameSubscription$ =  this.uploadService.fileNameSubscription$.subscribe((fileName) => {
+        if(fileName) {  
+          
+          file = fileName;
 
-      if(fileName) {  
-        //records storeds image names for delete
-        this.storedImages.push(fileName);
-        console.log(this.storedImages)
-        this.uploadedFilePath = this.uploadService.destination + fileName;
-        this.uploaded = true;
-        // console.log(this.uploadedFilePath)
-      } else {
-        this.uploaded = false;
-        // console.log(this.uploadedFilePath)   
-      }
-      console.log(this.uploaded)
-    },(err) => console.log(err));
+          //when upload is done, change the image url to generate new image to img tag
+          this.uploadedFilePath = this.uploadService.destination + fileName;
+          this.uploaded = true;
+
+          //get the old filename before update
+          let oldImageUrl = this.ngRedux.getState().user.photoUrl.split('/');
+          let oldImage = oldImageUrl[oldImageUrl.length -1];
+          
+          //upadate
+          //second promise called to awit update result
+          resolve(this.update()); 
+
+          // delete old image ;
+          this.uploadService.deleteFile(oldImage).subscribe((res) =>{
+            //reste uploaded 
+            this.uploaded = false;
+          }, (err) =>{/* leave emty for parse issue*/}); 
+        } else {
+          // in the case upload failed then uploaded has to be false to prevent update 
+          this.uploaded = false;
+        }
+          console.log(this.uploaded)
+        },(err) => console.log(err));
+    }); 
+
+    //retun value of observable(promise) needs type conversion to be used as an object, in the case use array
+    let resutBox= []; resutBox.push(result);
+      
+    if(resutBox[0].result == 'success') {
+      
+    } else {
+
+    }
+  
   }
 
 
@@ -134,15 +158,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, (err) => {console.log(err)})
   }
 
-  toggleChange(check) {
+ async toggleChange(check) {
     this.checked.next(check.checked);
-    this.cProfileCheck =check.checked;
+    this.cProfileCheck = check.checked;
+    let result  = await this.update();     
   }
   
-  save() {
+  async save() {
+    this.update(); 
+    let result  = await this.update();  
+    // console.log(result)
+  }
+
+  //update return promise value of update result;
+  update() {
     let changes :User = {_id:"", username:"", email: "", photoUrl: "", comment:"", cProfile: false};
     let userFromRedux = this.ngRedux.getState().user;
     let userFromForm = this.form.value;
+    let returnValue = null;
 
     changes._id = userFromRedux._id;
     changes.cProfile = this.cProfileCheck;
@@ -150,24 +183,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     changes.email = (userFromForm.email) ? userFromForm.email : userFromRedux.email;
     changes.comment = (userFromForm.comment) ? userFromForm.comment : userFromRedux.comment;
     changes.photoUrl = (this.uploaded) ? this.uploadedFilePath : userFromRedux.photoUrl;
+    return new Promise((resolve) => {
+      this.userService.updateUser(changes).subscribe((result) => {
+        //the result shows the data before update but aleady the data is updated in mongoDb, therefore ignore it.
+        //statechange
+        this.ngRedux.dispatch({type: UPDATE_USER, body: changes});
+        resolve(result);
+      },(err) => {
+        resolve(err);
+      });
+    }) 
     
-    this.userService.updateUser(changes).subscribe((result) => {
-      //the result shows the data before update but aleady the data is updated in mongoDb, therefore ignore it.
-      //statechange
-      this.ngRedux.dispatch({type: UPDATE_USER, body: changes});
-    },(err) => {});
     
   }
   
   cancel () {
-    if(this.uploaded) {
-      let photoUrlFromRedux = this.ngRedux.getState().user.photoUrl;
-
-    }
-    // let photoUrlFrom
-
-    //rest uploaded state
-    this.uploaded = false;
+    
   }
 
   ngOnDestroy() {
