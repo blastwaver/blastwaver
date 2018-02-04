@@ -4,7 +4,7 @@
       <span>Custom Profile</span>
       <mat-slide-toggle
       #check
-      [checked]="checked" 
+      [checked]="cProfileCheck" 
       (change) ="toggleChange(check)"
       >
       </mat-slide-toggle>
@@ -12,8 +12,9 @@
   <!-- <div class="wrapper"> -->
     <div class="inline inline-left">
         <div class="card">
-            <img [src]="user.photoUrl" alt="Avatar" style="width:100%">
-            <button mat-raised-button color="accent" [disabled]="!checked"><i class="fas fa-upload"></i> image upload</button>
+            <img  [src]="!uploaded ? user.photoUrl : uploadedFilePath" alt="Avatar" style="width:100%">
+            <input type="file" name="photo" ng2FileSelect [uploader]="uploader" accept="image/png,image/gif,image/jpeg"  [disabled]="!cProfileCheck">
+            <button mat-raised-button color="accent" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"><i class="fas fa-upload"></i> image upload</button>
             <div class="card-container">
               <h4><b>{{user.username}}</b></h4> 
               <p>Architect  Engineer</p> 
@@ -21,19 +22,27 @@
         </div>
     </div>
     <div class="inline inline-right">
-        <form class="profile-form">
+        <form class="profile-form" [formGroup]="form" (ngSubmit)="save()">
+
             <mat-form-field class="input-full-width">
-              <input matInput placeholder="USER NAME" [value]="user.username" [disabled]="!checked">
+              <input formControlName ="username" matInput placeholder="USER NAME" [value]="user.username">
             </mat-form-field>
-            <mat-form-field class="input-full-width">
-                <input matInput placeholder="EMAIL" [value]="user.email" [disabled]="!checked">
-              </mat-form-field>
-            <mat-form-field class="input-full-width">
-              <textarea [disabled]="!checked" matInput placeholder="Leave a comment" [value]="user.comment" rows="4"></textarea>
-            </mat-form-field>
-            <button mat-raised-button class="bottom-btn" color="primary" [disabled]="!checked">SAVE</button>            
-            <button mat-raised-button class="bottom-btn" routerLink="/main" color="bottom-btn">CANCEL</button>
+            <div *ngIf="!username.pristine && username.hasError('required')" class="alert-box warning"><i class="fas fa-exclamation-circle"></i> Username is required</div>
+            <div *ngIf="!username.pristine && username.hasError('minlength')" class="alert-box warning"><i class="fas fa-exclamation-circle"></i> Username should be more than {{username.errors.minlength.requiredLength}} characters</div>
+            <div *ngIf="!username.pristine && username.hasError('maxlength')" class="alert-box warning"><i class="fas fa-exclamation-circle"></i> Username should be less than {{username.errors.maxlength.requiredLength}} characters</div>
             
+            <mat-form-field class="input-full-width">
+                <input formControlName ="email" matInput placeholder="EMAIL" [value]="user.email" >
+            </mat-form-field>
+            <div *ngIf="!email.pristine && email.hasError('email')" class="alert-box warning"><i class="fas fa-exclamation-circle"></i> Wrong Email Form. </div>            
+            
+            <mat-form-field class="input-full-width">
+              <textarea formControlName ="comment" [attr.disabled]="!checked" matInput placeholder="Leave a comment" [value]="user.comment" rows="4"></textarea>
+            </mat-form-field>
+            <div *ngIf="!comment.pristine && comment.hasError('maxlength')" class="alert-box warning"><i class="fas fa-exclamation-circle"></i>It allows {{comment.errors.maxlength.requiredLength}} characters characters.</div>            
+            
+            <button mat-raised-button class="bottom-btn" color="primary" [disabled]="!cProfileCheck" >SAVE</button>            
+            <button mat-raised-button class="bottom-btn" routerLink="/main" color="bottom-btn">CANCEL</button>
         </form>    
     </div>
   <!-- </div> -->

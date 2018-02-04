@@ -4,6 +4,15 @@ import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
 import { User } from '../../models/user';
+import { UploadService } from '../../services/upload.service';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { BehaviorSubject } from 'rxjs';
+import { UPDATE_USER } from '../../actions';
+import { Router, NavigationStart } from '@angular/router';
+
+// const path ="http://localhost:3000/images/";
 
 @Component({
   selector: 'app-profile',
@@ -12,31 +21,159 @@ import { User } from '../../models/user';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   
-  private checked: boolean;
+  private cProfileCheck : boolean;
+
+  private checked = new BehaviorSubject<boolean>(null);
   
-  private disabled: boolean;
+  private checkedObservable = this.checked.asObservable();
+  
+  private checkedSubscription$ : ISubscription;
+
+  private disabled : boolean;
 
   private user : User;
   
-  private subscription$: ISubscription;
+  private userSubscription$ : ISubscription;
 
-  constructor(private ngRedux :NgRedux<IAppState>) { }
+  private uploadedFileNameSubscription$ : ISubscription;
+
+  private routerChangeSubscription$ : ISubscription;
+
+  private uploader : FileUploader;
+
+  private uploadedFilePath : string;
+
+  private uploaded : boolean;
+
+  private saved : boolean;
+
+  private storedImages :string[] = [];
+
+  constructor(private ngRedux :NgRedux<IAppState>,
+              private uploadService :UploadService,
+              private userService :UserService,
+              private router: Router) { }
+
+  form = new FormGroup({
+    username: new FormControl('',[
+      Validators.maxLength(50),
+      Validators.minLength(3),
+      Validators.required
+    ]),
+    email: new FormControl('', Validators.email),
+    comment: new FormControl('', Validators.maxLength(200))
+  })
+
+  get username() { return this.form.get('username');}  
+  get email() { return this.form.get('email');}  
+  get comment() { return this.form.get('comment');}  
+  
 
   ngOnInit() {
-    this.subscription$ = this.ngRedux.select('user').subscribe((state) => {
+
+    this.checkcProfileFromUser();
+
+    this.observeCheckedForDisablityOfInput();
+    
+    this.getUploadedFileName();
+
+    this.observeRouterChangeForDeletingSotoredFile()
+
+  }
+  
+
+  checkcProfileFromUser() {
+    this.userSubscription$ = this.ngRedux.select('user').subscribe((state) => {
       let array = []; array.push(state);
       this.user = array[0];
-      this.checked = this.user.cProfile;
-    }, (err) => { console.log(err)})
+      // console.log(this.user.cProfile)
+      this.cProfileCheck = this.user.cProfile;
+      this.checked.next(this.user.cProfile);
+    }, (err) => { console.log(err)});
+  }
+
+  getUploadedFileName() {
+    this.uploader = this.uploadService.uploader;
+
+    this.uploadedFileNameSubscription$ = this.uploadService.fileNameSubscription$.subscribe((fileName) => {
+
+      if(fileName) {  
+        //records storeds image names for delete
+        this.storedImages.push(fileName);
+        console.log(this.storedImages)
+        this.uploadedFilePath = this.uploadService.destination + fileName;
+        this.uploaded = true;
+        // console.log(this.uploadedFilePath)
+      } else {
+        this.uploaded = false;
+        // console.log(this.uploadedFilePath)   
+      }
+      console.log(this.uploaded)
+    },(err) => console.log(err));
+  }
+
+
+  observeCheckedForDisablityOfInput() {
+    this.checkedSubscription$ = this.checkedObservable.subscribe((check) => {
+      if(check) {
+        this.username.enable();
+        this.email.enable();
+        this.comment.enable();
+      } else if(!check) {
+        this.username.disable();
+        this.email.disable();
+        this.comment.disable();
+      }
+    },(err) => console.log(err));
+  }
+
+  observeRouterChangeForDeletingSotoredFile() {
+    this.routerChangeSubscription$ = this.router.events.filter(event => event instanceof NavigationStart).subscribe((val) => {
+      let array=[]; array.push(val);
+      console.log(array[0].url);
+    }, (err) => {console.log(err)})
   }
 
   toggleChange(check) {
-    this.checked = check.checked;
+    this.checked.next(check.checked);
+    this.cProfileCheck =check.checked;
+  }
+  
+  save() {
+    let changes :User = {_id:"", username:"", email: "", photoUrl: "", comment:"", cProfile: false};
+    let userFromRedux = this.ngRedux.getState().user;
+    let userFromForm = this.form.value;
+
+    changes._id = userFromRedux._id;
+    changes.cProfile = this.cProfileCheck;
+    changes.username = (userFromForm.username) ? userFromForm.username : userFromRedux.username;
+    changes.email = (userFromForm.email) ? userFromForm.email : userFromRedux.email;
+    changes.comment = (userFromForm.comment) ? userFromForm.comment : userFromRedux.comment;
+    changes.photoUrl = (this.uploaded) ? this.uploadedFilePath : userFromRedux.photoUrl;
     
-    // console.log(this.checked)
+    this.userService.updateUser(changes).subscribe((result) => {
+      //the result shows the data before update but aleady the data is updated in mongoDb, therefore ignore it.
+      //statechange
+      this.ngRedux.dispatch({type: UPDATE_USER, body: changes});
+    },(err) => {});
+    
+  }
+  
+  cancel () {
+    if(this.uploaded) {
+      let photoUrlFromRedux = this.ngRedux.getState().user.photoUrl;
+
+    }
+    // let photoUrlFrom
+
+    //rest uploaded state
+    this.uploaded = false;
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    this.userSubscription$.unsubscribe();
+    this.uploadedFileNameSubscription$.unsubscribe();
+    this.checkedSubscription$.unsubscribe();
+    this.routerChangeSubscription$ .unsubscribe();
   }
 }

@@ -31,7 +31,7 @@
                     <!-- <input type="text" id="name" #newInfo>
                     <button  (click)="send(newInfo)">Say Hello</button> -->
         
-                    <form class="input-container">
+                    <div class="input-container">
                         <mat-form-field class="full-width">
                             <!-- <p (click)='openEmojiDialog()'>aa</p> -->
                             <input matInput
@@ -40,7 +40,7 @@
                                     value="" 
                                     (keydown.enter)="send(chat); $event.preventDefault(); chat.value = ''">  
                         </mat-form-field>
-                    </form>
+                    </div>
 
             </div>
             

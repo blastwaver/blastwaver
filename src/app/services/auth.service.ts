@@ -81,7 +81,7 @@ export class AuthService {
       // console.log(data);
       this.userService.getUserByGoogle(data.uid)
           .subscribe((result) => {
-            
+            // console.log(result)
             //this.for first user
             let newUser: User = {
               googleId: user.uid,
@@ -103,6 +103,7 @@ export class AuthService {
                 this.ngRedux.dispatch({type: UPDATE_USER, body: newUser});
                 this.ngRedux.dispatch({type:USER_LOG_IN});
               },(err) => {console.log(err)})
+              console.log("aaa")
             } else {
 
               // this for exist user (this is for keep ex)
@@ -119,7 +120,9 @@ export class AuthService {
 
               //2.state change
               // console.log(existUser);
-              this.ngRedux.dispatch({type: UPDATE_USER, body:existUser});         
+              this.ngRedux.dispatch({type: UPDATE_USER, body:existUser});  
+              this.ngRedux.dispatch({type:USER_LOG_IN});  
+              console.log("xxx")     
             } 
           },(err) => { console.log(err) }
         );

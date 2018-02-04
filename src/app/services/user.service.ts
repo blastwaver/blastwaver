@@ -34,7 +34,7 @@ export class UserService {
                     .catch(this.handleError); 
   }
 
-  updateUser(data,id) {
+  updateUser(data) {
     return this.http.post(`${this.url}/api/users/update`,data)
                     .map((res: Response) => { return res})
                     .catch(this.handleError); 

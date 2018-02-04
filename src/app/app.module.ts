@@ -25,11 +25,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { EmojiModule } from 'angular-emojione';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //services
 import { UserService } from './services/user.service';
 import { ChatService } from './services/chat.service';
 import { FriendService } from './services/friend.service';
+import { UploadService } from './services/upload.service';
+
 
 //ng material
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +45,9 @@ import { environment } from '../environments/environment';
 import { IAppState, rootReducer, INITIAL_STATE } from './store';
 import { NgRedux, NgReduxModule} from '@angular-redux/store';
 import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
+
+//directive
+import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -60,6 +66,7 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
     NotFoundComponent,
     UsersModalComponent,
     ProfileComponent,
+    FileSelectDirective,
     ],
   imports: [
     BrowserModule,
@@ -70,6 +77,7 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
     HttpClientModule,
     NgReduxModule,
     EmojiModule,
+    ReactiveFormsModule,
     // RouterModule.forRoot(routes,{useHash: true})
     RouterModule.forRoot([
       { path: '', component: HomeComponent},
@@ -83,7 +91,8 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
   providers: [
     UserService,
     FriendService,
-    ChatService
+    ChatService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })
