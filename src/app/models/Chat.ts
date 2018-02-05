@@ -1,6 +1,5 @@
 export interface Chat {
-    username :string;
-    photoUrl :string;
+    _id: string;
     chat: string;
     time: string;
     room: string;

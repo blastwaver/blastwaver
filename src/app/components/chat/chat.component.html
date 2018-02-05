@@ -16,10 +16,10 @@
                             <table>
                                 <tr>
                                     <td class="image">
-                                        <img id="image" [src]="content.photoUrl"> 
+                                        <img id="image" [src]="content._id | imgUrl"> 
                                     </td>
                                     <td>
-                                        <h4 id="name">{{content.username}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
+                                        <h4 id="name">{{content._id | name}} <span id="time">{{content.time | date:"HH:mm"}}</span></h4>
                                         <p id="content" [innerHTML]='content.chat | quotation | emoji '></p>
                                     </td>
                                 </tr>

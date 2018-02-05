@@ -32,7 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.socket = io({transports:['websocket'], upgrade: false});
     this.socket.on('chat', (data :Chat) =>{
-      // console.log(data);
+      console.log(data);
       this.contents.push(data);
       this.scrollBottom();
     });  
@@ -44,12 +44,11 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.socket.emit('room.join', this.roomNumber);
       //also get new data from radis server
       this.chatService.getChat(this.roomNumber).subscribe(result =>{
-        console.log(result);
+        // console.log(result)
+        // console.log(this.)
         this.contents = result; 
-        //give a delay untill rendering is done.
         this.scrollBottom();
       }, err => {console.log(err)});
-
       
     });    
   }
@@ -66,9 +65,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     let myProfile = this.ngRedux.getState().user;
     let array = []; array.push(myProfile);
-    console.log(array[0]);
-    let data :Chat = { username: array[0].username,
-                       photoUrl: array[0].photoUrl,
+    // console.log(array[0]);
+    let data :Chat = { 
+                       _id: array[0]._id,
                        room: this.roomNumber,
                        chat: content.value,
                        time: new Date().getTime().toString()
@@ -77,8 +76,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.scrollBottom();
     
     this.chatService.addChat(data).subscribe(result =>{
-      console.log(data.room);
-      console.log(result);
+      // console.log(data.room);
+      // console.log(result);
     }, err => {console.log(err)});
   }
 

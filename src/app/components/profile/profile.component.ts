@@ -121,7 +121,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           // in the case upload failed then uploaded has to be false to prevent update 
           this.uploaded = false;
         }
-          console.log(this.uploaded)
+          // console.log(this.uploaded)
         },(err) => console.log(err));
     }); 
 
@@ -135,7 +135,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   
   }
-
 
   observeCheckedForDisablityOfInput() {
     this.checkedSubscription$ = this.checkedObservable.subscribe((check) => {
@@ -154,7 +153,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   observeRouterChangeForDeletingSotoredFile() {
     this.routerChangeSubscription$ = this.router.events.filter(event => event instanceof NavigationStart).subscribe((val) => {
       let array=[]; array.push(val);
-      console.log(array[0].url);
+      // console.log(array[0].url);
     }, (err) => {console.log(err)})
   }
 
@@ -198,7 +197,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   
   cancel () {
-    
+    this.router.navigate(['/main']);
   }
 
   ngOnDestroy() {

@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersModalComponent } from './components/users-modal/users-modal.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
+import { NamePipe } from './pipes/name.pipe';
 
 
 //module
@@ -48,6 +49,7 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
 
 //directive
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ImgUrlPipe } from './pipes/img-url.pipe';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     UsersModalComponent,
     ProfileComponent,
     FileSelectDirective,
+    NamePipe,
+    ImgUrlPipe,
     ],
   imports: [
     BrowserModule,

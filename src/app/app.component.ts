@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy{
        
           /* friends state */
           this.friendService.getFriendsList(data[0]._id).subscribe((fList) => {
+            console.log(fList)
             this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: fList })
           });
         }, err =>{
