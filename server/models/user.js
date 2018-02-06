@@ -8,6 +8,15 @@ const friendsSchema = mongoose.Schema({
     "chatRoom":{type: String}
 },{ timestamps: true });
 
+const messageSchema = mongoose.Schema({
+    "from": {type:String},
+    "to": {type: String},
+    "type": {type: String},
+    "message":{type: String},
+    "read": {type: Boolean, default: false},
+    "contents":{type: Schema.Types.Mixed}
+},{ timestamps: true });
+
 const UserSchema = mongoose.Schema({
 
     "googleId":{
@@ -26,8 +35,9 @@ const UserSchema = mongoose.Schema({
         type:String,
         default: "Hi, there!"
     },
-    "fList" : [friendsSchema],
     "cProfile": {type: Boolean, default: false},
+    "fList" : [friendsSchema],
+    "messages":[messageSchema],
 },{ timestamps: true });
 
 

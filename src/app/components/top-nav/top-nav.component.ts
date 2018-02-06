@@ -42,7 +42,7 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   }
 
   openNotification() {
-    let data :Message = {room:"5a78bec9372f7f2d54538620", message:"aaa", type:"xx", time: new Date()}
+    let data :Message = {from:"5a78bec9372f7f2d54538620",to:"", message:"aaa", type:"xx" }
     this.socketService.socket.emit('message', data);
   }
 

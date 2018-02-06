@@ -9,6 +9,7 @@ const app = express();
 const user = require('./server/routes/userApi');
 const friends =require('./server/routes/friendsApi');
 const upload = require('./server/routes/uploadApi');
+const messages = require('./server/routes/messagesApi');
 //allow cross origin
 app.use(cors());
 
@@ -25,6 +26,7 @@ app.use('/images',express.static(path.join(__dirname,'/images')))
 app.use('/api/users', user);
 app.use('/api/upload', upload);
 app.use('/api/friends', friends);
+app.use('/api/messages', messages);
 
 
 // Send all other requests to the Angular app

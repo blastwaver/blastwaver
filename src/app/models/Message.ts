@@ -1,7 +1,8 @@
 export interface Message {
+    from: string;
+    to: string | Array<string>;
     type: string;
-    room: string;
-    time: Date;
     message: string;
-    content?: any;
+    read?: boolean;
+    contents?: any;
 }
