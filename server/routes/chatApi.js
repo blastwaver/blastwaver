@@ -52,7 +52,7 @@ router.get('/get/:room', (req, res,next) => {
                                         res.status(500).send(err);
                                     } else {
                                         //number return 1 or 0
-                                        console.log(result)
+                                        // console.log(result)
                                       let string = "[" + result.toString() + "]";
                                       let jsonString = JSON.parse(string);
                                     //    console.log(string);

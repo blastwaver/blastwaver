@@ -15,19 +15,19 @@ export class FriendService {
   
   //data sould be {my_id:"abc",f_id:"abc"}
   addFriend (data :{my_id:string, f_id:string}) {
-    return this.http.post(`${this.url}/api/users/friends/add`, data)
+    return this.http.post(`${this.url}/api/friends/add`, data)
                     .map((res: Response) => { return res;})
                     .catch(this.handleError); 
   }
 
   acceptFriend( data :{my_id:string, f_id:string}) {
-    return this.http.post(`${this.url}/api/users/friends/accept`, data)
+    return this.http.post(`${this.url}/api/friends/accept`, data)
                     .map((res :Response) => { return res;})
                     .catch(this.handleError);
   }
 
   getFriendsList (id :string) {
-    return this.http.get(`${this.url}/api/users/friends/list/${id}`)
+    return this.http.get(`${this.url}/api/friends/list/${id}`)
                     .map((res: Response) => {return res;})
                     .catch(this.handleError)  
   }

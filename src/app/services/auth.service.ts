@@ -103,7 +103,7 @@ export class AuthService {
                 this.ngRedux.dispatch({type: UPDATE_USER, body: newUser});
                 this.ngRedux.dispatch({type:USER_LOG_IN});
               },(err) => {console.log(err)})
-              console.log("aaa")
+              // console.log("aaa")
             } else {
 
               // this for exist user (this is for keep ex)

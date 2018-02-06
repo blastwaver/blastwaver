@@ -7,6 +7,7 @@ const app = express();
 
 // API file for interacting with MongoDB
 const user = require('./server/routes/userApi');
+const friends =require('./server/routes/friendsApi');
 const upload = require('./server/routes/uploadApi');
 //allow cross origin
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/images',express.static(path.join(__dirname,'/images')))
 // API location
 app.use('/api/users', user);
 app.use('/api/upload', upload);
+app.use('/api/friends', friends);
 
 
 // Send all other requests to the Angular app

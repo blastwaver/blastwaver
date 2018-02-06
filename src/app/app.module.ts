@@ -33,7 +33,7 @@ import { UserService } from './services/user.service';
 import { ChatService } from './services/chat.service';
 import { FriendService } from './services/friend.service';
 import { UploadService } from './services/upload.service';
-
+import { SocketService } from './services/socket.service';
 
 //ng material
 import { BrowserModule } from '@angular/platform-browser';
@@ -96,7 +96,8 @@ import { ImgUrlPipe } from './pipes/img-url.pipe';
     UserService,
     FriendService,
     ChatService,
-    UploadService
+    UploadService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

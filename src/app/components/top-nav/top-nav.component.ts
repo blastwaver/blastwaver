@@ -4,6 +4,8 @@ import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
 import { AuthService } from '../../services/auth.service';
+import { SocketService } from '../../services/socket.service';
+import { Message } from '../../models/Message';
 
 
 
@@ -22,7 +24,8 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   private subForloginState :ISubscription;
 
   constructor(private ngRedux: NgRedux<IAppState>,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              private socketService :SocketService) { }
   
   ngOnInit() {
     this.subForloginState =  this.ngRedux.select('loginState').subscribe((state) =>{
@@ -36,6 +39,11 @@ export class TopNavComponent implements OnInit,OnDestroy  {
 
   closeModal(modalState) {
     this.modalOn = modalState;
+  }
+
+  openNotification() {
+    let data :Message = {room:"5a78bec9372f7f2d54538620", message:"aaa", type:"xx", time: new Date()}
+    this.socketService.socket.emit('message', data);
   }
 
   ngOnDestroy() {
