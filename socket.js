@@ -46,8 +46,8 @@ io.on('connection', (socket) => {
 
     //for message
     socket.on('message', (data) => {
-        if(data.room){
-            io.sockets.in(data.room).emit('message', data);
+        if(data.to){
+            io.sockets.in(data.to).emit('message', data);
         }  
     });
 });

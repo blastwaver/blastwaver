@@ -1,0 +1,83 @@
+import { Component, OnInit } from '@angular/core';
+import {MatSnackBar} from '@angular/material';
+import { Message } from '../../models/Message';
+import { SocketService } from '../../services/socket.service';
+import { FREIND_REQUEST, FREIND_ACCEPT } from '../../messageTypes';
+import { FriendService } from '../../services/friend.service';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../../store';
+import { UPDATE_FRIENDS } from '../../actions';
+
+@Component({
+  selector: 'snack-bar',
+  templateUrl: './snack-bar.component.html',
+  styleUrls: ['./snack-bar.component.css']
+})
+export class SnackBarComponent implements OnInit {
+
+  constructor(private snackBar :MatSnackBar,
+              private socketService :SocketService,
+              private ngRedux :NgRedux<IAppState>,
+              private friendService :FriendService 
+             ) { }
+
+  ngOnInit() {
+    this.handleMessage();
+  }
+
+  handleMessage() {
+    this.socketService.socket.on('message', (data :Message) =>{
+      switch(data.type) {
+        case FREIND_REQUEST :  return this.handleFriendRequest(data);
+        case FREIND_ACCEPT : return this.handleFriendAceept(data);
+      }
+        
+    });  
+  }
+  
+  handleFriendRequest(data :Message) {
+    
+    let _id = this.ngRedux.getState().user._id;
+    let f_name ="";
+    this.friendService.getFriendsList(_id).subscribe((fList) => {
+      
+      //refresh fList from db
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: fList });
+
+      //find the sender's name with data.from(sender id) from friend list 
+      let fListBox = []; fListBox.push(fList);
+      fListBox[0].forEach((val) => {
+        if(val._id = data.from)
+          f_name = val.username;
+      });
+      let message = `${f_name} ${data.message}`;
+      this.openSnackBar(message);
+    });    
+  }
+
+  handleFriendAceept(data :Message) {
+    
+    let _id = this.ngRedux.getState().user._id;
+    let f_name ="";
+    this.friendService.getFriendsList(_id).subscribe((fList) => {
+      //refresh fList from db
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: fList });
+      
+      //find the sender's name with data.from(sender id) from friend list 
+      let fListBox = []; fListBox.push(fList);
+
+      fListBox[0].forEach((val) => {
+        if(val._id = data.from)
+          f_name = val.username;
+      });
+      let message = `${f_name} ${data.message}`;
+      this.openSnackBar(message);
+    });   
+  }
+
+  openSnackBar(message: string, action?: string, duration? :number) {
+    this.snackBar.open(message, action, {
+      duration: duration | 5000,
+    });
+  }W
+}

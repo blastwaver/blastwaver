@@ -90,9 +90,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.socketService.socket.emit('room.join', this.messageContainerNumber);
     });
 
-    this.socketService.socket.on('message', (data :Message) =>{
-      console.log(data);
-    });  
+    // this.socketService.socket.on('message', (data :Message) =>{
+    //   console.log(data);
+    // });  
   }
 
   connectSokcetForChat() {

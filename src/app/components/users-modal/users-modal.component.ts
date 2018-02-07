@@ -5,6 +5,10 @@ import { FriendService } from '../../services/friend.service';
 import { User } from '../../models/user';
 import { ISubscription } from 'rxjs/Subscription';
 import { UPDATE_FRIENDS, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, SEARCHED_USER_MODAL_ON } from '../../actions';
+import { Message } from '../../models/Message';
+import { FREIND_ACCEPT, FREIND_REQUEST } from '../../messageTypes';
+import { MessageService } from '../../services/message.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'users-modal',
@@ -20,7 +24,9 @@ export class UsersModalComponent implements OnInit, OnDestroy {
   data :User = null;
   
   constructor(private ngRedux: NgRedux<IAppState>,
-              private friendService :FriendService) { }
+              private friendService :FriendService,
+              private messageService :MessageService,
+              private socketServiece :SocketService) { }
 
   ngOnInit() {
     this.subscriptitonModal$ = this.ngRedux.select('searchUserModal').subscribe((modalState) => {
@@ -33,9 +39,10 @@ export class UsersModalComponent implements OnInit, OnDestroy {
       this.data = array[0];
       let my_id = this.ngRedux.getState().user._id; 
       
+      //reset button state
       this.buttonState = null;
       if(this.data) {
-        let state = this.ngRedux.getState().friends
+        let state = this.ngRedux.getState().friends;
         let array =[];  array.push(state); 
         array[0].forEach(element => {
           //check the clicked user profile is one of my friend in my f list.  
@@ -55,14 +62,23 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     let obj ={my_id:"",f_id:""};
     obj.my_id = this.ngRedux.getState().user._id;
     obj.f_id = this.data._id;
-    // console.log("my_id" + this.ngRedux.getState().user._id );
-    // console.log("f_id" + obj.f_id );
+    //add a firend to both side
     this.friendService.addFriend(obj).subscribe((result) =>{
       if(result.result == 'succeed') {
+        //change the button text
         this.buttonState = 'request';
+        //refresh friends list in redux
         this.friendService.getFriendsList(obj.my_id).subscribe((result)=>{   
-          this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: result })
-        },(err) => {console.log(err)})
+          this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: result });
+        },(err) => {console.log(err)});
+        
+        //send a message
+        let message :Message = { from: obj.my_id, to: obj.f_id, message:`requested to be your friend.`, type: FREIND_REQUEST};
+        //send a message to friend's db
+        this.messageService.addMessage(message).subscribe((result) => {
+          //send a message by socket
+          this.socketServiece.socket.emit('message', message);
+        },(err) => {console.log(err)});  
       }
     },(err) =>{console.log(err)});
   }
@@ -71,14 +87,22 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     let obj ={my_id:"",f_id:""};
     obj.my_id = this.ngRedux.getState().user._id;
     obj.f_id = this.data._id;
-    // console.log("my_id" + this.ngRedux.getState().user._id );
-    // console.log("f_id" + obj.f_id );
     this.friendService.acceptFriend(obj).subscribe((result) =>{
       if(result.result == 'succeed') {
+        //chage button text
         this.buttonState = 'friend';
+        //refresh friends list in redux
         this.friendService.getFriendsList(obj.my_id).subscribe((result)=>{   
           this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: result })
-        },(err) => {console.log(err)})
+        },(err) => {console.log(err)});
+
+        let message :Message = { from: obj.my_id, to: obj.f_id, message:`accepted your friends request.`, type: FREIND_ACCEPT};  
+        //send a message to friend's db
+        this.messageService.addMessage(message).subscribe((result) => {
+          //send a message by socket
+          this.socketServiece.socket.emit('message', message);
+        },(err) => {console.log(err)});
+        
       }
     },(err) =>{console.log(err)});
   }

@@ -17,6 +17,7 @@ import { UsersModalComponent } from './components/users-modal/users-modal.compon
 import { ProfileComponent } from './components/profile/profile.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
 import { NamePipe } from './pipes/name.pipe';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 
 
 //module
@@ -73,6 +74,7 @@ import { ImgUrlPipe } from './pipes/img-url.pipe';
     FileSelectDirective,
     NamePipe,
     ImgUrlPipe,
+    SnackBarComponent,
     ],
   imports: [
     BrowserModule,

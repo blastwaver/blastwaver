@@ -1,0 +1,3 @@
+export const FREIND_REQUEST = "FREIND_REQUEST";
+export const FREIND_ACCEPT = "FREIND_ACCEPT";
+
