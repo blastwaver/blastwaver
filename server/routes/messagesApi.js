@@ -13,7 +13,7 @@ router.post('/add',(req, res, next) => {
         
     let to = req.body.to;
     let from = req.body.from;
-    let type = req.body.message;
+    let type = req.body.type;
     let message = req.body.message;
     let contents = req.body.contents;
 
@@ -31,7 +31,7 @@ router.post('/add/multiple',(req, res, next) => {
         console.log(req.body.to)
     let to = req.body.to; //sould be array
     let from = req.body.from; 
-    let type = req.body.message;
+    let type = req.body.type;
     let message = req.body.message;
     let contents = req.body.contents;
     // to sould be array
@@ -54,7 +54,7 @@ router.get('/get/:_id', (req, res, next) => {
         if(err)
             res.status(500).send({result:"fail", body:err})
         else{
-            let messages = result[0];
+            let messages = result[0].messages;
             res.status(200).send(messages);
         } 
     });
@@ -112,7 +112,14 @@ router.post('/delete', (req, res, next) => {
         if(err)
             res.status(500).send({result:"fail", body:err})
         else{           
-            res.status(200).send({result:"success", body:result});
+            User.find({"_id": _id}).select('messages').exec((err, result) => {
+                if(err)
+                    res.status(500).send({result:"fail", body:err})
+                else{
+                    let messages = result[0].messages;
+                    res.status(200).send(messages);
+                } 
+            });
         } 
     });
 });
@@ -124,7 +131,14 @@ router.post('/delete/all', (req, res, next) => {
         if(err)
             res.status(500).send({result:"fail", body:err})
         else{           
-            res.status(200).send({result:"success", body:result});
+            User.find({"_id": _id}).select('messages').exec((err, result) => {
+                if(err)
+                    res.status(500).send({result:"fail", body:err})
+                else{
+                    let messages = result[0].messages;
+                    res.status(200).send(messages);
+                } 
+            });
         } 
     });
 });

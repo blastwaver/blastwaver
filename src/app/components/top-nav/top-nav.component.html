@@ -8,7 +8,7 @@
             </div> 
             <div id="nav-right">
                 <div id="login-list">
-                    <button mat-button *ngIf="loginState" matTooltip="Notification" (click)="openNotification()"><i class="far fa-bell"></i></button>
+                    <button mat-button *ngIf="loginState" matTooltip="Notification"  (click)="toggleNotification()"><i class="far fa-bell"></i></button>
                     <button mat-button *ngIf="loginState" matTooltip="Profile" routerLink="/profile"><i class="far fa-user"></i></button>
                     <button mat-button *ngIf="loginState"  matTooltip="Logout" (click)="auth.signOut()" ><i class="fas fa-sign-out-alt"></i></button>
                     <button mat-button *ngIf="!loginState" matTooltip="Sign In" (click)="openModal()" ><i class="fas fa-sign-in-alt"></i> SIGN IN</button>
@@ -39,3 +39,4 @@
 
 <login-modal [(modal)]="modalOn" (notify)='closeModal($event)'></login-modal>
 
+<notification *ngIf="notificationOn"></notification>    

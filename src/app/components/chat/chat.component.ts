@@ -86,7 +86,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   connectSokcetForMassage() {
     this.userSubscription$ = this.ngRedux.select('user').subscribe((user) => {
       this.messageContainerNumber = this.ngRedux.getState().user._id;  //defualt roomNumber(user _id) for recieving message
-      console.log(this.messageContainerNumber);
       this.socketService.socket.emit('room.join', this.messageContainerNumber);
     });
 

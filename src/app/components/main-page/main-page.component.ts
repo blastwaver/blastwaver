@@ -5,7 +5,6 @@ import { ISubscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
-
 @Component({
   selector: 'main-page',
   templateUrl: './main-page.component.html',

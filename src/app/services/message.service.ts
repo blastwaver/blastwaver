@@ -23,7 +23,7 @@ export class MessageService {
   }
 
   getMessages(_id :string){
-    return this.http.get(`${this.url}/api/messages/get${_id}`)
+    return this.http.get(`${this.url}/api/messages/get/${_id}`)
                     .map((res :Response) => { return res})
                     .catch(this.handleError);
   }

@@ -1,8 +1,8 @@
 
 nav {
-    -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
+    /* -moz-box-shadow:0 5px 5px rgba(80, 78, 78, 0.75);
     -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
-    box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
+    box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75); */
     z-index: 10;
 }
 mat-toolbar {

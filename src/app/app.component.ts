@@ -3,13 +3,15 @@ import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as firebase from 'firebase/app';
 import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { NgRedux, select } from '@angular-redux/store';
+import { NgRedux, select, NgReduxModule } from '@angular-redux/store';
 import { IAppState } from './store';
-import { UPDATE_USER, UPDATE_USER_ERROR, USER_LOG_IN, UPDATE_FRIENDS } from './actions';
+import { UPDATE_USER, UPDATE_USER_ERROR, USER_LOG_IN, UPDATE_FRIENDS, UPDATE_MESSAGES } from './actions';
 import { UserService } from './services/user.service';
+import { FriendService } from './services/friend.service';
+import { MessageService } from './services/message.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from './models/user';
-import { FriendService } from './services/friend.service';
+
 
 
 @Component({
@@ -25,7 +27,8 @@ export class AppComponent implements OnInit, OnDestroy{
               private sanitizer: DomSanitizer,
               private ngRedux :NgRedux<IAppState>,
               private userService :UserService,
-              private friendService :FriendService
+              private friendService :FriendService,
+              private messageService :MessageService
               ) {
     iconRegistry.addSvgIcon('google',
                             sanitizer.bypassSecurityTrustResourceUrl('../assets/icons/google.svg')); 
@@ -55,9 +58,14 @@ export class AppComponent implements OnInit, OnDestroy{
        
           /* friends state */
           this.friendService.getFriendsList(data[0]._id).subscribe((fList) => {
-            // console.log(fList)
-            this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: fList })
+            this.ngRedux.dispatch({type:UPDATE_FRIENDS, body: fList })
           });
+          /* messages state */
+          this.messageService.getMessages(data[0]._id).subscribe((messages) => {
+            this.ngRedux.dispatch({type:UPDATE_MESSAGES, body: messages})
+            console.log(this.ngRedux.getState().messages);
+          });
+         
         }, err =>{
           this.ngRedux.dispatch({type: UPDATE_USER_ERROR, body: err});
         });

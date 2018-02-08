@@ -21,6 +21,8 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   
   private loginState =false;
 
+  private notificationOn = false;
+
   private subForloginState :ISubscription;
 
   constructor(private ngRedux: NgRedux<IAppState>,
@@ -41,9 +43,10 @@ export class TopNavComponent implements OnInit,OnDestroy  {
     this.modalOn = modalState;
   }
 
-  openNotification() {
-    let data :Message = {from:"5a79223ba40dd03ba0646355",to:"5a79223ba40dd03ba0646355", message:"aaa", type:"xx" }
-    this.socketService.socket.emit('message', data);
+
+
+  toggleNotification() {
+    this.notificationOn = (this.notificationOn)? false :true;
   }
 
   ngOnDestroy() {

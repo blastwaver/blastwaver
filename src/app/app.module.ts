@@ -18,6 +18,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { QuotationPipe } from './pipes/quotation.pipe';
 import { NamePipe } from './pipes/name.pipe';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 //module
@@ -75,6 +76,7 @@ import { ImgUrlPipe } from './pipes/img-url.pipe';
     NamePipe,
     ImgUrlPipe,
     SnackBarComponent,
+    NotificationComponent,
     ],
   imports: [
     BrowserModule,

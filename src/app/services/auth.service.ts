@@ -92,38 +92,39 @@ export class AuthService {
               cProfile: user.cProfile
             }
 
+            //new user
             if(result.length === 0) {
               this.userService.createUser(newUser).subscribe((nUser) => {
                 //add mongo _id from newUser Object 
                 newUser._id = nUser._id;
-                //1.store in webstore
-
-                //2.state change in redux
-                console.log( newUser);
+      
+                //state change in redux
+                // console.log( newUser);
                 this.ngRedux.dispatch({type: UPDATE_USER, body: newUser});
                 this.ngRedux.dispatch({type:USER_LOG_IN});
               },(err) => {console.log(err)})
               // console.log("aaa")
-            } else {
+            }
+            //  else {
 
-              // this for exist user (this is for keep ex)
-              let existUser: User = {
-                _id: result[0]._id,
-                googleId: result[0].googleId,
-                username: result[0].username,
-                email: result[0].email,
-                photoUrl: result[0].photoUrl,
-                comment: result[0].comment,
-                cProfile: result[0].cProfile
-              }
-              //1.store
+            //   // this for exist user (this is for keep ex)
+            //   let existUser: User = {
+            //     _id: result[0]._id,
+            //     googleId: result[0].googleId,
+            //     username: result[0].username,
+            //     email: result[0].email,
+            //     photoUrl: result[0].photoUrl,
+            //     comment: result[0].comment,
+            //     cProfile: result[0].cProfile
+            //   }
+            //   //1.store
 
-              //2.state change
-              // console.log(existUser);
-              this.ngRedux.dispatch({type: UPDATE_USER, body:existUser});  
-              this.ngRedux.dispatch({type:USER_LOG_IN});  
-              console.log("xxx")     
-            } 
+            //   //2.state change
+            //   // console.log(existUser);
+            //   this.ngRedux.dispatch({type: UPDATE_USER, body:existUser});  
+            //   this.ngRedux.dispatch({type:USER_LOG_IN});  
+            //   console.log("xxx")     
+            // } 
           },(err) => { console.log(err) }
         );
     });
@@ -135,13 +136,13 @@ export class AuthService {
     // console.log(this.selectTest);
     this.afAuth.auth.signOut().then(() => {
         // this.router.navigate(['/']);
-      console.log("signed out");
+      // console.log("signed out");
       let user: User ={ _id: null, googleId: null, username: null, email: null, photoUrl: null,comment: null, cProfile: false}
       this.ngRedux.dispatch({type: UPDATE_USER, body: user});
       this.ngRedux.dispatch({type:USER_LOG_OUT});
       this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: []});
         // console.log(firebase.auth().currentUser);
-      console.log(this.ngRedux.getState());
+      // console.log(this.ngRedux.getState());
     });
   }
 }
