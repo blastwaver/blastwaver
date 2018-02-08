@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy{
           /* messages state */
           this.messageService.getMessages(data[0]._id).subscribe((messages) => {
             this.ngRedux.dispatch({type:UPDATE_MESSAGES, body: messages})
-            console.log(this.ngRedux.getState().messages);
+            // console.log(this.ngRedux.getState().messages);
           });
          
         }, err =>{

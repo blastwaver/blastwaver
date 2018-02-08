@@ -49,7 +49,7 @@ export class MessageService {
                     .catch(this.handleError);
   }
 
-  deleteMessageAll(_id :string, m_id :string) {
+  deleteMessageAll(_id :string) {
     let data  = {_id: _id};
     return this.http.post(`${this.url}/api/messages/delete/all`,data)
                     .map((res :Response) => { return res})

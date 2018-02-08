@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
@@ -18,21 +18,26 @@ import { Message } from '../../models/Message';
 export class TopNavComponent implements OnInit,OnDestroy  {
 
   private modalOn = false;
+
+  private newNotificationNumber :number; 
   
   private loginState =false;
 
   private notificationOn = false;
 
-  private subForloginState :ISubscription;
+  private loginStateSubscription$ :ISubscription;
+
+  private messageSubscription$ :ISubscription;
+  
+  @ViewChild('menuTrigger') menu: any;
 
   constructor(private ngRedux: NgRedux<IAppState>,
               private auth: AuthService,
               private socketService :SocketService) { }
   
   ngOnInit() {
-    this.subForloginState =  this.ngRedux.select('loginState').subscribe((state) =>{
-      this.loginState = (state) ? true : false;
-    });
+    this.loginstateSubscription();
+    this.messageSubscription();
   }
 
   openModal(){
@@ -43,15 +48,44 @@ export class TopNavComponent implements OnInit,OnDestroy  {
     this.modalOn = modalState;
   }
 
+  loginstateSubscription() {
+    this.loginStateSubscription$ =  this.ngRedux.select('loginState').subscribe((state) =>{
+      this.loginState = (state) ? true : false;
+    });
+  }
 
+  messageSubscription() {
+    this.messageSubscription$ = this.ngRedux.select('messages').subscribe((messages) => {
+      let messagesBox = []; messagesBox.push(messages);
+      let counter = 0;
+      messagesBox[0].forEach(message => {
+        if(!message.read) counter++;
+      });
+      this.newNotificationNumber = counter;
+    });
+  }
 
   toggleNotification() {
-    this.notificationOn = (this.notificationOn)? false :true;
+      this.notificationOn = (this.notificationOn)? false :true;
+      event.preventDefault();
+      event.stopPropagation();
+      this.menu.closeMenu();
+  }
+
+  //click out side notificationcomponent
+  @HostListener('document:click', ['$event']) clickedOutsideOfNofication(event){
+    this.notificationOn = false;
+  }
+  
+  //click inside of notificationcomponent
+  clickInsideOfNofication(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   ngOnDestroy() {
-    this.subForloginState.unsubscribe();
+    this.loginStateSubscription$.unsubscribe();
   }
- 
+
 }
 

@@ -1,27 +1,32 @@
 <div class="notification-container">
   <div class="wrapper">
     <nav>
-        <i class="far fa-times-circle"></i>
+        <button  class="navButton" (click)="removeAll()"><i class="far fa-trash-alt"></i> DELETE All</button>  
     </nav>
-      <ul>
-          <li *ngIf="messages.length == 0" style="text-align:center">
-              No Messages
-          </li>
-          <li *ngFor="let message of messages; trackBy: trackNotification"  (click)="listClick($event, message.type)">
-            <div class="list-contents">
-                <div *ngIf="message.type == FREIND_ACCEPT || FREIND_REQUEST">
-                    <div class="message ">
-                        <p> <img class="profile-image" [src]="message.from | imgUrl"> <span>{{message.from | name }}</span> {{message.message}}</p>
-                        <i class="fas fa-times" (click)="deleteMessage(message.to ,message._id);"></i>
-                        <i class="fas fa-angle-down" ></i>
-                    </div>
-                    <div *ngIf="message.type == FREIND_REQUEST " class="hidden-message" (click)="stopPropagation($event)">
+    <div class="message-container">
+        <ul>
+            <li *ngIf="messages.length == 0" style="text-align:center">
+                No Messages
+            </li>
+            <li *ngFor="let message of messages; trackBy: trackNotification"  
+                (click)="listClick($event, message)"
+                [ngClass]="message.read ? 'readWhite' :'readBlue'">
+                <div class="list-contents">
+                    <div *ngIf="message.type == FREIND_ACCEPT || FREIND_REQUEST">
+                        <div class="message ">
+                            <p> <img class="profile-image" [src]="message.from | imgUrl"> <span>{{message.from | name }}</span> {{message.message}}</p>
+                            <button mat-icon-button class="deleteOne" (click)="deleteMessage(message.to ,message._id)"><i class="fas fa-times" ></i></button>
+                            <i *ngIf="message.type == FREIND_REQUEST" class="fas fa-angle-down" ></i>
+                        </div>
+                        <div *ngIf="message.type == FREIND_REQUEST " class="hidden-message" (click)="stopPropagation($event)">
                             <button mat-raised-button color="accent">ACCEPT</button>
                             <button mat-raised-button color="warn" (click)="deleteMessage(message.to ,message._id);">REFUSE</button>
-                    </div>
-                </div>           
-            </div>
-          </li>
-      </ul>
+                        </div>
+                    </div>           
+                </div>
+            </li>
+        </ul>
+    </div>
+      
   </div> 
 <div>

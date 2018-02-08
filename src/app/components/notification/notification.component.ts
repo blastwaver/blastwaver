@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, HostListener } from '@angular/core';
 import { Message } from '../../models/Message';
 import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { IAppState } from '../../store';
@@ -15,6 +15,8 @@ import { UPDATE_MESSAGES } from '../../actions';
 })
 export class NotificationComponent implements OnInit, OnDestroy {
 
+ 
+  
   private messages :Array<Message> =[];
 
   private messageSubscription$ :ISubscription;
@@ -22,7 +24,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private readonly FREIND_ACCEPT = FREIND_ACCEPT;
 
   private readonly FREIND_REQUEST = FREIND_REQUEST;
-
+  
   constructor(private renderer :Renderer2,
               private ngRedux :NgRedux<IAppState>,
               private messageService :MessageService) { }
@@ -39,11 +41,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
     return massage ? massage.createdAt : undefined;
   }
 
-  listClick(event :any, messageType :string) {
+  listClick(event :any, message :Message) {
     let li = event.currentTarget;
     let hidden = event.currentTarget.children[0].children[0].children[1];
     // console.log(hidden)
-    if(messageType ==  FREIND_REQUEST ){
+    if(message.type ==  FREIND_REQUEST ){
       if(li.classList.contains("expand")) {
         this.renderer.removeClass(li,"expand");
       if(hidden)
@@ -54,12 +56,30 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.renderer.addClass(hidden, "display");
       }
     }
+
+    //change to read true
+    if(!message.read) {
+      this.messageService.setRead(message.to.toString(), message._id).subscribe((result) => {
+        this.ngRedux.dispatch({type:UPDATE_MESSAGES, body:result});
+      },(err) => {console.log(err)});
+    }
   }
 
 
   deleteMessage(_id :string ,m_id :string) {
-    console.log(_id)
+    // console.log(_id)
+    event.stopPropagation();
+    // this.ngRedux.getState()
     this.messageService.deleteMessage(_id, m_id).subscribe((result) => {
+      this.ngRedux.dispatch({type:UPDATE_MESSAGES, body:result});
+    },(err) => console.log(err));
+  }
+
+  
+
+  removeAll() {
+    let _id = this.ngRedux.getState().user._id;
+    this.messageService.deleteMessageAll(_id).subscribe((result) => {
       this.ngRedux.dispatch({type:UPDATE_MESSAGES, body:result});
     },(err) => console.log(err));
   }

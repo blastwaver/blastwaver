@@ -67,8 +67,16 @@ router.post('/read', (req, res, next) => {
     User.update({"_id": _id, "messages._id":m_id},{ $set:{"messages.$.read":true}}, {multi: true},(err, result) => {
         if(err)
             res.status(500).send({result:"fail", body:err});
-        else           
-            res.status(200).send({result:"success", body:result});   
+        else   {
+            User.find({"_id": _id}).select('messages').exec((err, result) => {
+                if(err)
+                    res.status(500).send({result:"fail", body:err})
+                else{
+                    let messages = result[0].messages;
+                    res.status(200).send(messages);
+                } 
+            });
+        }           
     }); 
 });
 

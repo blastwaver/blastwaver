@@ -43,6 +43,51 @@ button{
     -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
     box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75); 
 }
+.number-circle {
+    position:absolute;
+    right: 252px;
+    top:11px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 660;
+    color: #ffffff;
+    background-color: #ff0101;
+    z-index: 100;
+}
+
+.number-circle-second{
+    position:absolute;
+    right: 32px;
+    top:8px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 660;
+    color: #ffffff;
+    background-color: #ff0101;
+    z-index: 100;
+}
+
+.number-circle-menu {
+    all: unset;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 660;
+    background-color: #ff0101;
+    color: #ff0101 !important;
+}
 
 .fa-bell, .fa-user,.fa-sign-out-alt,
 .fa-sign-in-alt, .fa-list-ul{
@@ -65,6 +110,10 @@ button{
         -webkit-box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);
         box-shadow: 0 5px 5px rgba(80, 78, 78, 0.75);  
     }
+
+    .number-circle {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 798px) {
@@ -77,6 +126,10 @@ button{
         width: 100%;
         margin:0;
         padding:0;
+    }
+
+    .number-circle-second {
+        display: none;
     }
 
 }
