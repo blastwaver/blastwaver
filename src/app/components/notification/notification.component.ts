@@ -4,7 +4,7 @@ import { NgRedux } from '@angular-redux/store/lib/src/components/ng-redux';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { FREIND_ACCEPT, FREIND_REQUEST } from '../../messageTypes';
+import { FREIND_ACCEPT, FREIND_REQUEST, GENERAL_MESSAGE, GREETING_MESSAGE } from '../../messageTypes';
 import { MessageService } from '../../services/message.service';
 import { UPDATE_MESSAGES } from '../../actions';
 
@@ -24,14 +24,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private readonly FREIND_ACCEPT = FREIND_ACCEPT;
 
   private readonly FREIND_REQUEST = FREIND_REQUEST;
+
+  private readonly GENERAL_MESSAGE = GENERAL_MESSAGE;
+  
+  private readonly GREETING_MESSAGE = GREETING_MESSAGE;
   
   constructor(private renderer :Renderer2,
               private ngRedux :NgRedux<IAppState>,
               private messageService :MessageService) { }
   ngOnInit() {
     this.messageSubscription$ = this.ngRedux.select('messages').subscribe((state) => {
-      let messagesBox = []; messagesBox.push(state);
+      if(state) {
+        let messagesBox = []; messagesBox.push(state);
       this.messages = messagesBox[0];
+      }
       // console.log(this.messages)
     }, (err) => console.log(err));
   }
@@ -44,18 +50,24 @@ export class NotificationComponent implements OnInit, OnDestroy {
   listClick(event :any, message :Message) {
     let li = event.currentTarget;
     let hidden = event.currentTarget.children[0].children[0].children[1];
-    // console.log(hidden)
-    if(message.type ==  FREIND_REQUEST ){
-      if(li.classList.contains("expand")) {
-        this.renderer.removeClass(li,"expand");
-      if(hidden)
+    let angleIcon = event.currentTarget.children[0].children[0].children[0].children[2];
+
+    
+    if(li.classList.contains("expand")) {
+      this.renderer.removeClass(li,"expand");
+      if(hidden) {
         this.renderer.removeClass(hidden, "display");
-      } else {
-          this.renderer.addClass(li, "expand");
-        if(hidden)
-          this.renderer.addClass(hidden, "display");
+        this.renderer.removeClass(angleIcon, "fa-angle-up");
+        this.renderer.addClass(angleIcon, "fa-angle-down");
       }
+    } else {
+        this.renderer.addClass(li, "expand");
+      if(hidden)
+        this.renderer.addClass(hidden, "display");
+        this.renderer.removeClass(angleIcon, "fa-angle-down");
+        this.renderer.addClass(angleIcon, "fa-angle-up");
     }
+    
 
     //change to read true
     if(!message.read) {
@@ -75,7 +87,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
     },(err) => console.log(err));
   }
 
-  
+  readAll() {
+    let _id = this.ngRedux.getState().user._id;
+    this.messageService.setReadAll(_id).subscribe((result) => {
+      this.ngRedux.dispatch({type:UPDATE_MESSAGES, body:result});
+    });
+  }
 
   removeAll() {
     let _id = this.ngRedux.getState().user._id;

@@ -43,6 +43,13 @@ io.on('connection', (socket) => {
             io.sockets.in(data.room).emit('chat', data);
         }  
     });
+    
+    //for typing
+    socket.on('typing', (data) => {
+        if(data.room) {
+            io.sockets.in(data.room).emit('typing', data);
+        }
+    })
 
     //for message
     socket.on('message', (data) => {

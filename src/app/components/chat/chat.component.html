@@ -36,7 +36,8 @@
                             <!-- <p (click)='openEmojiDialog()'>aa</p> -->
                             <input matInput
                                     #chat
-                                    placeholder="say"
+                                    (blur)="onBlur()" (focus)="onFocus()"
+                                    [placeholder]="placeholder"
                                     value="" 
                                     (keydown.enter)="send(chat); $event.preventDefault(); chat.value = ''">  
                         </mat-form-field>

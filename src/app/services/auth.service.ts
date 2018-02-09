@@ -11,7 +11,10 @@ import { googleUser } from '../models/googleUser';
 //redux
 import { IAppState } from '../store';
 import { NgRedux, select, NgReduxModule } from '@angular-redux/store';
-import { UPDATE_USER, USER_LOG_OUT, UPDATE_FRIENDS, USER_LOG_IN } from '../actions';
+import { UPDATE_USER, USER_LOG_OUT, UPDATE_FRIENDS, USER_LOG_IN, UPDATE_MESSAGES, UPDATE_CHAT_ROOM } from '../actions';
+import { MessageService } from './message.service';
+import { Message } from '../models/Message';
+import { GENERAL_MESSAGE, GREETING_MESSAGE } from '../messageTypes';
 
 
 
@@ -25,7 +28,8 @@ export class AuthService {
   constructor(private afAuth:AngularFireAuth,
               private afs: AngularFirestore,
               private userService: UserService,
-              private ngRedux: NgRedux<IAppState>
+              private ngRedux :NgRedux<IAppState>,
+              private messageService :MessageService
               // private router: Router
   ) {
     //// Get auth data, then get firestore user document || null
@@ -99,50 +103,35 @@ export class AuthService {
                 newUser._id = nUser._id;
       
                 //state change in redux
-                // console.log( newUser);
                 this.ngRedux.dispatch({type: UPDATE_USER, body: newUser});
                 this.ngRedux.dispatch({type:USER_LOG_IN});
+                
+                // send welcome message
+                let joinMessage :Message = 
+                {from:"admin", to: nUser._id, message:"Congratulations on joining this site", type: GREETING_MESSAGE };
+                this.messageService.addMessage(joinMessage).subscribe((result) => {
+                  if(result) {
+                    this.messageService.getMessages(nUser._id).subscribe((messages) => {
+                      this.ngRedux.dispatch({type:UPDATE_MESSAGES, body: messages});
+                    },(err) => console.log(err));
+                  }
+                },(err) => {console.log(err)});
               },(err) => {console.log(err)})
-              // console.log("aaa")
             }
-            //  else {
-
-            //   // this for exist user (this is for keep ex)
-            //   let existUser: User = {
-            //     _id: result[0]._id,
-            //     googleId: result[0].googleId,
-            //     username: result[0].username,
-            //     email: result[0].email,
-            //     photoUrl: result[0].photoUrl,
-            //     comment: result[0].comment,
-            //     cProfile: result[0].cProfile
-            //   }
-            //   //1.store
-
-            //   //2.state change
-            //   // console.log(existUser);
-            //   this.ngRedux.dispatch({type: UPDATE_USER, body:existUser});  
-            //   this.ngRedux.dispatch({type:USER_LOG_IN});  
-            //   console.log("xxx")     
-            // } 
+            
           },(err) => { console.log(err) }
         );
     });
   }
 
   signOut() {
-
-    // console.log(firebase.auth().currentUser);
-    // console.log(this.selectTest);
     this.afAuth.auth.signOut().then(() => {
-        // this.router.navigate(['/']);
-      // console.log("signed out");
       let user: User ={ _id: null, googleId: null, username: null, email: null, photoUrl: null,comment: null, cProfile: false}
       this.ngRedux.dispatch({type: UPDATE_USER, body: user});
       this.ngRedux.dispatch({type:USER_LOG_OUT});
       this.ngRedux.dispatch({type:UPDATE_FRIENDS,body: []});
-        // console.log(firebase.auth().currentUser);
-      // console.log(this.ngRedux.getState());
+      this.ngRedux.dispatch({type:UPDATE_MESSAGES, body:[]});
+      this.ngRedux.dispatch({type:UPDATE_CHAT_ROOM, body:null});
     });
   }
 }

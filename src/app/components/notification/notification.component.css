@@ -83,6 +83,8 @@ li:hover {
     left: 0;
     display:none;
     width: 100%;  
+    font-size: 14px;
+    padding-left: 10px;
 }
 
 .display { 
@@ -147,9 +149,21 @@ img{
     background-color: #ffffff;
 }
 
-.navButton{
+.nav-button-remove{
     position:absolute;
-    right: 0;
+    right: 10px;
+    top:9px;
+    color: #ffff;
+    background-color: transparent;
+    font-size: 16px;
+    opacity: 1;
+    cursor: pointer;
+    border: none;
+}
+
+.nav-button-read{
+    position:absolute;
+    right: 80px;
     top:9px;
     color: #ffff;
     background-color: transparent;

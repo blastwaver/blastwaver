@@ -7,7 +7,8 @@ import { ChatService } from '../../services/chat.service';
 import { Message } from '../../models/Message';
 import { SocketService } from '../../services/socket.service';
 import { Router, NavigationStart } from '@angular/router';
-import { UPDATE_CHAT_ROOM } from '../../actions';
+import { UPDATE_CHAT_ROOM, UPDATE_TYPING_USERS } from '../../actions';
+import { TypingUsers } from '../../models/TypingUser';
 
 @Component({
   selector: 'chat',
@@ -32,6 +33,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private emojiOn: boolean = false;
 
+  private placeholder :string = "Type here";
+
   constructor(private ngRedux :NgRedux<IAppState>,
               private chatService :ChatService,
               private socketService :SocketService,
@@ -42,7 +45,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.connectSokcetForMassage();
     this.observeRouterChangeForResetChatRoom();
     this.connectSokcetForChat();
-      
+    
   }
   
   //it allow refesh only changed element on html
@@ -67,10 +70,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.socketService.socket.emit('chat', data);
     this.scrollBottom();
     
-    this.chatService.addChat(data).subscribe(result =>{
-      //if it fails then someting has to be done for recall the chat
+    //if it fails then someting has to be done for recall the chat
       //***something******/
-    }, err => {console.log(err)});
+    // this.chatService.addChat(data).subscribe(result =>{
+      
+    // }, err => {console.log(err)});
   }
 
   scrollBottom() {
@@ -88,10 +92,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.messageContainerNumber = this.ngRedux.getState().user._id;  //defualt roomNumber(user _id) for recieving message
       this.socketService.socket.emit('room.join', this.messageContainerNumber);
     });
-
-    // this.socketService.socket.on('message', (data :Message) =>{
-    //   console.log(data);
-    // });  
   }
 
   connectSokcetForChat() {
@@ -107,6 +107,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.contents = result; 
         this.scrollBottom();
       }, err => {console.log(err)});
+
+      //reset typing User state
+      this.ngRedux.dispatch({type: UPDATE_TYPING_USERS, body: []});
     });  
     
     //listen new chat through socket and add it to chat page
@@ -116,8 +119,32 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.scrollBottom();
     });  
 
+    //knows the users who is typing 
+    this.socketService.socket.on('typing', (data :TypingUsers) => {
+      let users :Array<string> = this.ngRedux.getState().typingUsers;
+      
+      if(data.typing && !users.includes(data.username)){
+        users.push(data.username);
+      }
+       
+      if(!data.typing && users.includes(data.username)) {
+        let index = users.indexOf(data.username);
+        if (index !== -1) {
+          users.splice(index, 1);
+        // console.log(users)          
+        }
+      }
+      
+      //update state typing user
+      this.ngRedux.dispatch({type:UPDATE_TYPING_USERS, body: users});
+      //change the placeholder
+      this.handleTypingUsers(this.ngRedux.getState().typingUsers);
+      // console.log(this.ngRedux.getState().typingUsers)
+    });
+
   }
   
+
 
   observeRouterChangeForResetChatRoom() {
     this.routerChangeSubscription$ = this.router.events.filter(event => event instanceof NavigationStart).subscribe((val) => {
@@ -126,13 +153,43 @@ export class ChatComponent implements OnInit, OnDestroy {
       //if user move to another page or tep then rest the charRoom for clear
       this.ngRedux.dispatch({type: UPDATE_CHAT_ROOM, body: null});
 
+      //if user move to another page send a typinguser false signal
+      let name = this.ngRedux.getState().user.username;
+      let roomNum = this.ngRedux.getState().chatRoom;
+      let data :TypingUsers = {room: roomNum, username: name, typing:false };
+      this.socketService.socket.emit('typing', data);
     }, (err) => {console.log(err)});
   }
 
+  handleTypingUsers(array) {  
+   let users =  array.join(); 
+    if(array == 0)
+      this.placeholder = "Type here";
+    if(array.length == 1)
+      this.placeholder = users + " is typing...";
+    if(array.length > 1)
+      this.placeholder = users + " are typing..." 
+  }
+
+  onBlur(){
+    let name = this.ngRedux.getState().user.username;
+    let roomNum = this.ngRedux.getState().chatRoom;
+    let data :TypingUsers = {room: roomNum, username: name, typing:false };
+    this.socketService.socket.emit('typing', data);
+  }
+
+  onFocus(){
+    let name = this.ngRedux.getState().user.username;
+    let roomNum = this.ngRedux.getState().chatRoom;
+    let data :TypingUsers = {room: roomNum, username: name, typing: true};
+    this.socketService.socket.emit('typing', data);
+  }
 
   ngOnDestroy(){
     this.chatRoomSubscription$.unsubscribe();
     this.routerChangeSubscription$.unsubscribe();
+    this.chatRoomSubscription$.unsubscribe();
+
   }
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
-
+import { Ng2DeviceService } from 'ng2-device-detector';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
@@ -28,14 +28,18 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   private loginStateSubscription$ :ISubscription;
 
   private messageSubscription$ :ISubscription;
+
+  private browser :string;
   
   @ViewChild('menuTrigger') menu: any;
 
   constructor(private ngRedux: NgRedux<IAppState>,
               private auth: AuthService,
-              private socketService :SocketService) { }
+              private socketService :SocketService,
+              private deviceService: Ng2DeviceService) { }
   
   ngOnInit() {
+    this. browser = this.deviceService.getDeviceInfo().browser;
     this.loginstateSubscription();
     this.messageSubscription();
   }
@@ -66,6 +70,7 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   }
 
   toggleNotification() {
+
       this.notificationOn = (this.notificationOn)? false :true;
       event.preventDefault();
       event.stopPropagation();
@@ -74,7 +79,8 @@ export class TopNavComponent implements OnInit,OnDestroy  {
 
   //click out side notificationcomponent
   @HostListener('document:click', ['$event']) clickedOutsideOfNofication(event){
-    this.notificationOn = false;
+    if(this.browser != 'firefox')
+      this.notificationOn = false;
   }
   
   //click inside of notificationcomponent

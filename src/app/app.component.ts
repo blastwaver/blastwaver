@@ -35,7 +35,6 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   
   ngOnInit(){
-  
     firebase.auth().onAuthStateChanged((authData) => {
       
       if (authData) {//in  case loged in 

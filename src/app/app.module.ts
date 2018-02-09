@@ -29,6 +29,7 @@ import { AngularFireModule } from 'angularfire2';
 import { EmojiModule } from 'angular-emojione';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 
 //services
 import { UserService } from './services/user.service';
@@ -88,6 +89,7 @@ import { ImgUrlPipe } from './pipes/img-url.pipe';
     NgReduxModule,
     EmojiModule,
     ReactiveFormsModule,
+    Ng2DeviceDetectorModule.forRoot(),
     // RouterModule.forRoot(routes,{useHash: true})
     RouterModule.forRoot([
       { path: '', component: HomeComponent},

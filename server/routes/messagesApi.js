@@ -54,7 +54,7 @@ router.get('/get/:_id', (req, res, next) => {
         if(err)
             res.status(500).send({result:"fail", body:err})
         else{
-            let messages = result[0].messages;
+            let messages = result[0].messages.reverse();
             res.status(200).send(messages);
         } 
     });
@@ -72,7 +72,7 @@ router.post('/read', (req, res, next) => {
                 if(err)
                     res.status(500).send({result:"fail", body:err})
                 else{
-                    let messages = result[0].messages;
+                    let messages = result[0].messages.reverse()
                     res.status(200).send(messages);
                 } 
             });
@@ -97,16 +97,20 @@ router.post('/read/all', (req, res, next) => {
             if(messages[i].read == false) {
                 User.update({"_id": _id, "messages.read": false},{ $set:{"messages.$.read":true}},(err, result) => {
                     if(err)
-                        errors.push(err);
-                    else           
-                        success.push(result);    
+                        errors.push(err);    
+                });  
+            }
+            if(i == messages.length - 1) {
+                User.find({"_id": _id}).select('messages').exec((err, result) => {
+                    if(err)
+                        res.status(500).send({result:"fail", body:err})
+                    else{
+                        let messages = result[0].messages.reverse()
+                        res.status(200).send(messages);
+                    } 
                 });
             }
         }
-        if(errors.length != 0)
-            res.status(500).send({result:"fail", body:errors});
-        else
-            res.status(200).send({result:"success", body:success});
     });
 });
 
@@ -124,7 +128,7 @@ router.post('/delete', (req, res, next) => {
                 if(err)
                     res.status(500).send({result:"fail", body:err})
                 else{
-                    let messages = result[0].messages;
+                    let messages = result[0].messages.reverse();
                     res.status(200).send(messages);
                 } 
             });
@@ -143,7 +147,7 @@ router.post('/delete/all', (req, res, next) => {
                 if(err)
                     res.status(500).send({result:"fail", body:err})
                 else{
-                    let messages = result[0].messages;
+                    let messages = result[0].messages.reverse();
                     res.status(200).send(messages);
                 } 
             });

@@ -49,8 +49,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   test(test) {
-    console.log(test
-    );
+    // console.log(test
+    // );
   }
 
   ngOnDestroy() {

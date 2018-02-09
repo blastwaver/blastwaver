@@ -2,7 +2,8 @@ import { User } from "./models/user";
 import { Friend } from "./models/Friend";
 import { Message } from "./models/Message";
 import { UPDATE_USER, UPDATE_USER_ERROR, USER_LOG_IN, UPDATE_FRIENDS, USER_LOG_OUT, UPDATE_CHAT_ROOM,
-         SEARCHED_USER_MODAL_ON, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, UPDATE_MESSAGES } from './actions';
+         SEARCHED_USER_MODAL_ON, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, UPDATE_MESSAGES, UPDATE_TYPING_USERS } from './actions';
+
 
 
 export interface IAppState {
@@ -14,6 +15,7 @@ export interface IAppState {
     messages:Array<Message>
     searchUserModal: boolean;
     searchUserData: User;
+    typingUsers: Array<string>;
 }
 
 export const INITIAL_STATE :IAppState = { 
@@ -31,6 +33,7 @@ export const INITIAL_STATE :IAppState = {
     loginState: false,
     friends: [],
     messages: [],
+    typingUsers:[],
     searchUserModal: false,
     searchUserData: null,
 }
@@ -45,9 +48,10 @@ export function rootReducer(state :IAppState, action): IAppState {
         case UPDATE_FRIENDS: return {...state, friends: action.body};
         case UPDATE_MESSAGES: return  {...state, messages: action.body};
         case UPDATE_CHAT_ROOM: return {...state, chatRoom: action.body};
+        case UPDATE_TYPING_USERS: return {...state, typingUsers: action.body}; 
         case SEARCHED_USER_MODAL_ON: return {...state, searchUserModal: true}; 
         case SEARCHED_USER_MODAL_OFF: return {...state, searchUserModal: false}; 
-        case SEARCHED_USER_DATA: return {...state, searchUserData: action.body};
+        case SEARCHED_USER_DATA: return {...state, searchUserData: action.body};       
     }
     return state;
 }
