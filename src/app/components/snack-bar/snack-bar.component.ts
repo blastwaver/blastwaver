@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import { Message } from '../../models/Message';
 import { SocketService } from '../../services/socket.service';
-import { FREIND_REQUEST, FREIND_ACCEPT } from '../../messageTypes';
+import { FREIND_REQUEST, FREIND_ACCEPT, CONNECT_NOTICE } from '../../messageTypes';
 import { FriendService } from '../../services/friend.service';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
@@ -23,6 +23,7 @@ export class SnackBarComponent implements OnInit {
 
   ngOnInit() {
     this.handleMessage();
+
   }
 
   handleMessage() {
@@ -30,8 +31,8 @@ export class SnackBarComponent implements OnInit {
       switch(data.type) {
         case FREIND_REQUEST :  return this.handleFriendRequest(data);
         case FREIND_ACCEPT : return this.handleFriendAceept(data);
-      }
-        
+        case CONNECT_NOTICE : return this.handleConnectNotice(data);
+      }  
     });  
   }
   
@@ -75,6 +76,33 @@ export class SnackBarComponent implements OnInit {
     });   
   }
 
+  handleConnectNotice (data :Message) {
+    let fList = this.ngRedux.getState().friends;
+    let ss = fList;
+    
+    //fList becomes fList - sender 
+    let sender = fList.splice(fList.findIndex((friend) => {return friend._id == data._id;},1));
+
+    if(sender[0]) {
+      let newInfo = data.contents.connected;
+      let oldInfo = sender[0].connected;
+      //connected
+      if(!oldInfo && newInfo) {
+        sender[0].connected =true;
+        fList.push(sender[0]);
+        // console.log(fList)
+        this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
+      }
+      //disconnected
+      if(oldInfo && !newInfo){
+        sender[0].connected =false;
+        fList.push(sender[0]);
+        // console.log(fList)
+        this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
+      }
+    }
+  }
+  
   openSnackBar(message: string, action?: string, duration? :number) {
     this.snackBar.open(message, action, {
       duration: duration | 5000,

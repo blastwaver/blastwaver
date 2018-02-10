@@ -11,9 +11,9 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="_id" id="_id">
         <mat-header-cell *matHeaderCellDef> On/Off </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <i class="fas fa-circle" *ngIf="true" style="color:green"></i>
-          <i class="fas fa-circle" *ngIf="false" style="color:red"></i>
+        <mat-cell *matCellDef="let element" >
+          <i class="fas fa-circle"  *ngIf="element.connected" style="color:green"></i>
+          <i class="fas fa-circle" *ngIf="!element.connected" style="color:red"></i>   
         </mat-cell>
       </ng-container>
 

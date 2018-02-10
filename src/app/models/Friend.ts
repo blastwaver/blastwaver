@@ -6,4 +6,5 @@ export interface Friend {
     photoUrl: string;
     comment: boolean;
     createdAt?: Date;
+    connected?: boolean;
 }

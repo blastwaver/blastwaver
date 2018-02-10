@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private chatRoomSubscription$ :ISubscription;
   
-  private userSubscription$ :ISubscription;
+  // private userSubscription$ :ISubscription;
 
   private routerChangeSubscription$ :ISubscription;
 
@@ -42,7 +42,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     
-    this.connectSokcetForMassage();
     this.observeRouterChangeForResetChatRoom();
     this.connectSokcetForChat();
     
@@ -70,11 +69,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.socketService.socket.emit('chat', data);
     this.scrollBottom();
     
-    //if it fails then someting has to be done for recall the chat
+    
+    this.chatService.addChat(data).subscribe(result =>{
+      //if it fails then someting has to be done for recall the chat
       //***something******/
-    // this.chatService.addChat(data).subscribe(result =>{
-      
-    // }, err => {console.log(err)});
+    }, err => {console.log(err)});
   }
 
   scrollBottom() {
@@ -87,20 +86,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.emojiOn = !this.emojiOn;
   }
 
-  connectSokcetForMassage() {
-    this.userSubscription$ = this.ngRedux.select('user').subscribe((user) => {
-      this.messageContainerNumber = this.ngRedux.getState().user._id;  //defualt roomNumber(user _id) for recieving message
-      this.socketService.socket.emit('room.join', this.messageContainerNumber);
-    });
-  }
 
   connectSokcetForChat() {
     this.chatRoomSubscription$ = this.ngRedux.select('chatRoom').subscribe((state)=> {
       
       //whenever the room number changes client should joined new room
+      let messageRoom = this.ngRedux.getState().user._id;
       let array =[];  array.push(state); 
       this. roomNumber = array[0]; //the room want to join
-      this.socketService.socket.emit('room.join', [this.messageContainerNumber, this.roomNumber]);
+      this.socketService.socket.emit('room.join', [messageRoom, this.roomNumber]);
       
       //also get new data from radis server
       this.chatService.getChat(this.roomNumber).subscribe(result =>{
@@ -188,8 +182,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.chatRoomSubscription$.unsubscribe();
     this.routerChangeSubscription$.unsubscribe();
-    this.chatRoomSubscription$.unsubscribe();
-
   }
 }
 
