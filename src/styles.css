@@ -5,8 +5,13 @@
 body {
     position: relative;
     margin: 0;
-    /* overflow:hidden; */
+    overflow: auto; /* Added */
+    /* overflow: inherit; */
     /* background-color: ; */
+   font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
 }
 
-.mat-drawer-content { overflow: hidden !important;}
+.mat-drawer-content {
+     overflow: hidden !important;
+}
+

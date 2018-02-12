@@ -7,4 +7,6 @@ export interface Friend {
     comment: boolean;
     createdAt?: Date;
     connected?: boolean;
+    status?:string;
+    chatRoom:string;
 }

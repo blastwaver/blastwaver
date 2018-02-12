@@ -136,5 +136,5 @@ export class SnackBarComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: duration | 5000,
     });
-  }W
+  }
 }

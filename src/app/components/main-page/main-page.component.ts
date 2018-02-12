@@ -3,6 +3,7 @@ import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { UPDATE_CHAT_ROOM } from '../../actions';
 
 
 @Component({
@@ -48,10 +49,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.opened = (width > 799) ? true: false;
   }
 
+  closeChat() {
+    this.roomTitle = null;  
+    this.ngRedux.dispatch({type:UPDATE_CHAT_ROOM, body:null});
+  }
+
   test(test) {
     // console.log(test
     // );
   }
+
+
 
   ngOnDestroy() {
     this.roomSubscription$.unsubscribe();

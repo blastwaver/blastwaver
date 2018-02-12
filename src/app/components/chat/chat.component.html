@@ -31,7 +31,7 @@
                     <!-- <input type="text" id="name" #newInfo>
                     <button  (click)="send(newInfo)">Say Hello</button> -->
         
-                    <div class="input-container">
+                    <div class="input-container" *ngIf="roomNumber">
                         <mat-form-field class="full-width">
                             <!-- <p (click)='openEmojiDialog()'>aa</p> -->
                             <input matInput

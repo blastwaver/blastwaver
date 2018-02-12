@@ -1,0 +1,21 @@
+header {
+    width: 100%;
+    height: 500px;
+    background: #2f0c18;
+}
+footer{
+    width: 100%;
+    height: 60px;
+    background-color: #ff4081;
+    position: absolute;
+    bottom:0;
+    z-index: 2;
+}
+.home-container {
+    min-height: 1000px;
+    position: relative;
+    /* height: 400px; */
+    overflow: auto;
+}
+
+

@@ -39,7 +39,12 @@ mat-drawer{
     transform: translateX(-50%);
     color: #ffff;
   }
-  .fa-angle-double-left, .fa-align-justify {
+
+  .right-close {
+        position: absolute;
+        right:10px;
+  }
+  .fa-angle-double-left, .fa-align-justify, .fa-times-circle {
       font-size: 20px;
       color: #ffff;
   }

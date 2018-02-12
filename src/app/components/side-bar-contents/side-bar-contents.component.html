@@ -2,19 +2,25 @@
   <div class="friends-container">
     <nav>Friends</nav>
     <ul>
-      <li *ngFor="let friend of friends" (click)="chat(friend.chatRoom)">
+      <li *ngFor="let friend of friends" (click)="chat(friend)" >
         <div class="list-contents">
             <div class="list-contents" [matTooltip]="friend.username" >
               <img class="profile-image" [src]="friend.photoUrl" >
               <h6 class="username" >{{friend.username}}</h6>
             </div>
-            <div class="list-contents" *ngIf="friend.connected" matTooltip="ON" [matTooltipPosition]="below">
+            <div class="list-contents" *ngIf="friend.status == 'friend' && friend.connected" matTooltip="ON">
               <i  class="fas fa-circle-notch icon" style="color: #ff4081"></i>
             </div>
-            <div class="list-contents" *ngIf="!friend.connected" matTooltip="OFF" >
+            <div class="list-contents" *ngIf="friend.status == 'friend' && !friend.connected" matTooltip="OFF" >
               <i  class="fas fa-circle-notch icon" style="color: #3f51b5"></i>
             </div>
-            <div class="list-contents" matTooltip="PROFILE" >
+            <div class="list-contents" *ngIf="friend.status == 'request'" matTooltip="REQUESTED" >
+              <i  class="fas fa-circle-notch icon" style="color: #afafaf"></i>
+            </div>
+            <div class="list-contents" *ngIf="friend.status == 'recieve'" matTooltip="ACCEPT IT" >
+              <i  class="fas fa-circle-notch icon rotate" style="color: #ff6f4b"></i>
+            </div>
+            <div class="list-contents" matTooltip="PROFILE" (click)="openModal(friend); $event.stopPropagation(); false;" >
               <i class="fas fa-address-card icon" ></i> 
             </div>
         </div>
