@@ -6,7 +6,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { AuthService } from '../../services/auth.service';
 import { SocketService } from '../../services/socket.service';
 import { Message } from '../../models/Message';
-import { CONNECT_NOTICE } from '../../messageTypes';
+import { CONNECT_NOTICE, DISCONNECT_NOTICE } from '../../messageTypes';
 
 
 
@@ -99,11 +99,10 @@ export class TopNavComponent implements OnInit,OnDestroy  {
     });
 
     //send a message
-    friends_id.forEach((f_id) => {
-      let message = {from: user._id, to:f_id, type:CONNECT_NOTICE,
-                     message: `${user.username} has disconnected`, contents: {connected:false}};
-      this.socketService.socket.emit('message',message);
-    });
+    let message = {from: user._id, to:friends_id, type:DISCONNECT_NOTICE,
+                    message: `${user.username} has disconnected`, contents: {connected:false}};
+    this.socketService.socket.emit('message',message);
+ 
     
     //auth sign out
     this.auth.signOut();

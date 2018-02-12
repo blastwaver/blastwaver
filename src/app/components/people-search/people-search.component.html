@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="search($event.target.value)" placeholder="Search">
+      <input matInput (keyup)="search($event.target.value)" placeholder="SEARCH">
     </mat-form-field>
   </div>
 
@@ -10,25 +10,25 @@
     <!-- Position Column -->
     <ng-container matColumnDef="Users">
       <mat-header-cell *matHeaderCellDef> USERS </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <img [src]="element.photoUrl" class="smallImage"> </mat-cell>
+      <mat-cell *matCellDef="let element" (click)="openModal(element)"> <img [src]="element.photoUrl" class="smallImage"> </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+      <mat-cell *matCellDef="let element" (click)="openModal(element)"> {{element.username}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="Email">
       <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      <mat-cell *matCellDef="let element" > {{element.email}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="State">
       <mat-header-cell *matHeaderCellDef> STATE </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="openModal(element)" > CLICK </mat-cell>
+      <mat-cell *matCellDef="let element" (click)="openModal(element)" > <button mat-button color="primary">CLICK</button> </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

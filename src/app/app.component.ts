@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from './models/user';
 import { SocketService } from './services/socket.service';
 import { Friend } from './models/Friend';
-import { CONNECT_NOTICE } from './messageTypes';
+import { CONNECT_NOTICE, DISCONNECT_NOTICE } from './messageTypes';
 
 
 
@@ -115,16 +115,12 @@ export class AppComponent implements OnInit, OnDestroy{
     let fList = this.ngRedux.getState().friends;
     let user = this.ngRedux.getState().user;
     //sort friends id
-    let friends_id = fList.map((friend) => {
-      return friend._id;
-    });
+    let friends_id = fList.map((friend) => {return friend._id;});
 
     //send a message
-    friends_id.forEach((f_id) => {
-      let message = {from: user._id, to:f_id, type:CONNECT_NOTICE,
-                     message: `${user.username} has disconnected`, contents: {connected:false}};
-      this.socketService.socket.emit('message',message);
-    });
+    let message = {from: user._id, to:friends_id, type:DISCONNECT_NOTICE,
+      message: `${user.username} has disconnected`, contents: {connected:false}};
+    this.socketService.socket.emit('message',message);
     
     /* 브라우저가 꺼지면 로그아웃 되는게 맞나??? 미정*/
     //auth sign out 

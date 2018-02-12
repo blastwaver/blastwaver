@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import { Message } from '../../models/Message';
 import { SocketService } from '../../services/socket.service';
-import { FREIND_REQUEST, FREIND_ACCEPT, CONNECT_NOTICE } from '../../messageTypes';
+import { FREIND_REQUEST, FREIND_ACCEPT, CONNECT_NOTICE, CONNECT_ANSWER, DISCONNECT_NOTICE } from '../../messageTypes';
 import { FriendService } from '../../services/friend.service';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
@@ -28,10 +28,13 @@ export class SnackBarComponent implements OnInit {
 
   handleMessage() {
     this.socketService.socket.on('message', (data :Message) =>{
+      console.log(data)
       switch(data.type) {
         case FREIND_REQUEST :  return this.handleFriendRequest(data);
         case FREIND_ACCEPT : return this.handleFriendAceept(data);
         case CONNECT_NOTICE : return this.handleConnectNotice(data);
+        case CONNECT_ANSWER : return this.handeleConnectAnswer(data);
+        case DISCONNECT_NOTICE: return this.handleDisconnectNotice(data);
       }  
     });  
   }
@@ -66,7 +69,7 @@ export class SnackBarComponent implements OnInit {
       
       //find the sender's name with data.from(sender id) from friend list 
       let fListBox = []; fListBox.push(fList);
-
+      
       fListBox[0].forEach((val) => {
         if(val._id = data.from)
           f_name = val.username;
@@ -77,32 +80,58 @@ export class SnackBarComponent implements OnInit {
   }
 
   handleConnectNotice (data :Message) {
-    let fList = this.ngRedux.getState().friends;
-    let ss = fList;
-    
-    //fList becomes fList - sender 
-    let sender = fList.splice(fList.findIndex((friend) => {return friend._id == data._id;},1));
+    let friendsList = this.ngRedux.getState().friends;
 
+    /*Object.assign is critical part here not to change the this.this.ngRedux.getState().friends */
+    let  fList = Object.assign([], friendsList);
+    
+    //fList becomes fList - sender
+    let sender = fList.splice(fList.findIndex((friend) => {return friend._id == data.from;}),1);
+
+    //send a answer
+    if(data.contents.connected) {
+      let message ={from:data.to, to:data.from, message:"", type:CONNECT_ANSWER};
+      this.socketService.socket.emit('message',message);
+    }
+
+    //update friends list
     if(sender[0]) {
-      let newInfo = data.contents.connected;
-      let oldInfo = sender[0].connected;
-      //connected
-      if(!oldInfo && newInfo) {
-        sender[0].connected =true;
-        fList.push(sender[0]);
-        // console.log(fList)
-        this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
-      }
-      //disconnected
-      if(oldInfo && !newInfo){
-        sender[0].connected =false;
-        fList.push(sender[0]);
-        // console.log(fList)
-        this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
-      }
+      sender[0].connected =true;
+      fList.push(sender[0]);
+      this.openSnackBar(data.message);
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
     }
   }
-  
+
+  handeleConnectAnswer(data :Message) {
+    let friendsList = this.ngRedux.getState().friends;
+    let  fList = Object.assign([], friendsList);
+    //fList becomes fList - sender 
+    let sender = fList.splice(fList.findIndex((friend) => {return friend._id == data.from;}),1);
+    if(sender[0]) {
+      sender[0].connected =true;
+      fList.push(sender[0]);
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
+    }
+  }
+
+  handleDisconnectNotice(data) {
+    let friendsList = this.ngRedux.getState().friends;
+
+    /*Object.assign is critical part here not to change the this.this.ngRedux.getState().friends */
+    let  fList = Object.assign([], friendsList);
+    
+    //fList becomes fList - sender
+    let sender = fList.splice(fList.findIndex((friend) => {return friend._id == data.from;}),1);
+
+    //disconnected
+    if(sender[0]){
+      sender[0].connected =false;
+      fList.push(sender[0]);
+      this.ngRedux.dispatch({type:UPDATE_FRIENDS, body:fList});
+    }
+  }
+
   openSnackBar(message: string, action?: string, duration? :number) {
     this.snackBar.open(message, action, {
       duration: duration | 5000,

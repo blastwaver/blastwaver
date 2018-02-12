@@ -54,7 +54,16 @@ io.on('connection', (socket) => {
     //for message
     socket.on('message', (data) => {
         if(data.to){
-            io.sockets.in(data.to).emit('message', data);
+            //when user close browser without logout it hadle on server side.
+            if(data.type == 'DISCONNECT_NOTICE'){
+                 data.to.forEach((destination) =>{
+                    let newData = {from:data.from, to: destination, message: data.message, type: data.type}; 
+                    io.sockets.in(destination).emit('message', newData); 
+                });
+            } else {
+                io.sockets.in(data.to).emit('message', data);
+            }
+            
         }  
     });
 });

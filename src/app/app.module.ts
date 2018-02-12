@@ -55,6 +55,7 @@ import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
 //directive
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ImgUrlPipe } from './pipes/img-url.pipe';
+import { SideBarContentsComponent } from './components/side-bar-contents/side-bar-contents.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ImgUrlPipe } from './pipes/img-url.pipe';
     ImgUrlPipe,
     SnackBarComponent,
     NotificationComponent,
+    SideBarContentsComponent,
     ],
   imports: [
     BrowserModule,

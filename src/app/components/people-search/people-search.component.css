@@ -25,3 +25,18 @@
     height: 40px;
   
   }
+
+  .fa-search{
+    position: absolute !important;
+    top:25px;
+    left:20px;
+  }
+
+  mat-header-row{
+    display: none;
+  }
+  
+  mat-row:hover{
+    background-color: #faf3f5;
+    cursor: pointer;
+  }

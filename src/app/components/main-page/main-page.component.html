@@ -1,8 +1,9 @@
 <mat-drawer-container class="nav-container" autosize (window:resize)="onResize($event)">
   <mat-drawer #drawerLeft [opened]="opened" class="sidenav" mode="side">
+    <!-- <side-bar-table></side-bar-table>
     <side-bar-table></side-bar-table>
-    <side-bar-table></side-bar-table>
-    <side-bar-table></side-bar-table>
+    <side-bar-table></side-bar-table> -->
+    <side-bar-contents></side-bar-contents>
   </mat-drawer>
 
   <div class="top-nav">
