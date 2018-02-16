@@ -22,17 +22,17 @@ import { MatSnackBar } from '@angular/material';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   
-  private cProfileCheck : boolean;
+  public cProfileCheck : boolean;
 
-  private checked = new BehaviorSubject<boolean>(null);
+  public checked = new BehaviorSubject<boolean>(null);
   
   private checkedObservable = this.checked.asObservable();
   
   private checkedSubscription$ : ISubscription;
 
-  private disabled : boolean;
+  public disabled : boolean;
 
-  private user : User;
+  public user : User;
   
   private userSubscription$ : ISubscription;
 
@@ -40,11 +40,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private routerChangeSubscription$ : ISubscription;
 
-  private uploader : FileUploader;
+  public uploader : FileUploader;
 
-  private uploadedFilePath : string;
+  public uploadedFilePath : string;
 
-  private uploaded : boolean = false;
+  public uploaded : boolean = false;
 
   constructor(private ngRedux :NgRedux<IAppState>,
               private uploadService :UploadService,

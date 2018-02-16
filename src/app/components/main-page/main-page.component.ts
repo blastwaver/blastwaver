@@ -14,8 +14,8 @@ import { UPDATE_CHAT_ROOM } from '../../actions';
 export class MainPageComponent implements OnInit, OnDestroy {
 
   private innerWidth: any;
-  private opened: boolean;
-  private roomTitle: string;
+  public opened: boolean;
+  public roomTitle: string;
   private roomSubscription$: ISubscription;
 
   constructor(private ngRedux :NgRedux<IAppState>) { 

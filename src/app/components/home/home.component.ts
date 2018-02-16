@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private loginStateSubscription$ :ISubscription;
 
-  private loginState :boolean;
+  loginState :boolean;
 
-  private modalOn :boolean;
+  modalOn :boolean;
 
   constructor(private ngRedux :NgRedux<IAppState>,
               private router :Router) { }

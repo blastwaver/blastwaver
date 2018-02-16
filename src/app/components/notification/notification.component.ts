@@ -18,7 +18,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
  
   
-  private messages :Array<Message> =[];
+  messages :Array<Message> =[];
 
   private messageSubscription$ :ISubscription;
 

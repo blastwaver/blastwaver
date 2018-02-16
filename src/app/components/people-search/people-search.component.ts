@@ -23,7 +23,7 @@ export class PeopleSearchComponent implements OnInit {
 
   // clickedUser;
 
-  private dataSource :MatTableDataSource<any>;
+  dataSource :MatTableDataSource<any>;
 
   constructor(private userService: UserService,
               private ngRedux: NgRedux<IAppState> ) {

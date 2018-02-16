@@ -20,11 +20,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private searchedUserDataSubscription$ :ISubscription;
 
-  private selectedUser :User;
+  public selectedUser :User;
 
-  private defaultSelect :boolean;
+  public defaultSelect :boolean;
 
-  private buttonState :string;
+  public buttonState :string;
   
   constructor(private ngRedux :NgRedux<IAppState>,
               private friendService :FriendService,

@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class SideBarContentsComponent implements OnInit, OnDestroy {
 
-  private friends :Array<Friend>;
+  friends :Array<Friend>;
 
   private fListSubscription$ :ISubscription;
 

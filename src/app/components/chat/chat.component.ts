@@ -19,11 +19,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('scrollContainer') private scrollContainer: ElementRef;
 
-  private contents = new Array();
+  contents = new Array();
 
-  private messageContainerNumber: string;
+  messageContainerNumber: string;
 
-  private roomNumber :string;
+  roomNumber :string;
 
   private chatRoomSubscription$ :ISubscription;
   

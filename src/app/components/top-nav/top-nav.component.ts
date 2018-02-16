@@ -19,19 +19,19 @@ import { Router } from '@angular/router';
 })
 export class TopNavComponent implements OnInit,OnDestroy  {
 
-  private modalOn = false;
+  public modalOn = false;
 
-  private newNotificationNumber :number; 
+  public newNotificationNumber :number; 
   
-  private loginState =false;
+  public loginState =false;
 
-  private notificationOn = false;
+  public notificationOn = false;
 
-  private loginStateSubscription$ :ISubscription;
+  public loginStateSubscription$ :ISubscription;
 
-  private messageSubscription$ :ISubscription;
+  public messageSubscription$ :ISubscription;
 
-  private browser :string;
+  public browser :string;
   
   @ViewChild('menuTrigger') menu: any;
 
