@@ -29,6 +29,7 @@ import { EmojiModule } from 'angular-emojione';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+import { FileUploadModule } from 'ng2-file-upload';
 
 //services
 import { UserService } from './services/user.service';
@@ -53,7 +54,7 @@ import { NgRedux, NgReduxModule} from '@angular-redux/store';
 import { SanitizerHtmlPipe } from './pipes/sanitizer-html.pipe';
 
 //directive
-import { FileSelectDirective } from 'ng2-file-upload';
+// import { FileSelectDirective } from 'ng2-file-upload';
 import { ImgUrlPipe } from './pipes/img-url.pipe';
 import { SideBarContentsComponent } from './components/side-bar-contents/side-bar-contents.component';
 
@@ -73,7 +74,7 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     NotFoundComponent,
     UsersModalComponent,
     ProfileComponent,
-    FileSelectDirective,
+    // FileSelectDirective,
     NamePipe,
     ImgUrlPipe,
     SnackBarComponent,
@@ -91,6 +92,7 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     EmojiModule,
     ReactiveFormsModule,
     Ng2DeviceDetectorModule.forRoot(),
+    FileUploadModule,
     // RouterModule.forRoot(routes,{useHash: true})
     RouterModule.forRoot([
       { path: '', component: HomeComponent},

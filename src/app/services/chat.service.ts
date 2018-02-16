@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ChatService {
 
-  private readonly url: String ='http://localhost:8889';
+  private readonly url: String ='http://localhost:3000';
 
   constructor(private http:HttpClient) { }
 
