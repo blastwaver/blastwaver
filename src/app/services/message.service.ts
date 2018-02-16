@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class MessageService {
   
-  private port = process.env.port || 3000;
+  private port =  3000;
   private readonly url: String =`http://localhost:${this.port}`;
 
   constructor(private http :HttpClient) { }
