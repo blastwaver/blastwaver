@@ -4,11 +4,12 @@ import { NgRedux } from '@angular-redux/store';
 import { FriendService } from '../../services/friend.service';
 import { User } from '../../models/user';
 import { ISubscription } from 'rxjs/Subscription';
-import { UPDATE_FRIENDS, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, SEARCHED_USER_MODAL_ON } from '../../actions';
+import { UPDATE_FRIENDS, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, SEARCHED_USER_MODAL_ON, UPDATE_CHAT_ROOM } from '../../actions';
 import { Message } from '../../models/Message';
 import { FREIND_ACCEPT, FREIND_REQUEST } from '../../messageTypes';
 import { MessageService } from '../../services/message.service';
 import { SocketService } from '../../services/socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'users-modal',
@@ -26,7 +27,9 @@ export class UsersModalComponent implements OnInit, OnDestroy {
   constructor(private ngRedux: NgRedux<IAppState>,
               private friendService :FriendService,
               private messageService :MessageService,
-              private socketServiece :SocketService) { }
+              private socketServiece :SocketService,
+              private router :Router
+            ) { }
 
   ngOnInit() {
     this.subscriptitonModal$ = this.ngRedux.select('searchUserModal').subscribe((modalState) => {
@@ -116,6 +119,17 @@ export class UsersModalComponent implements OnInit, OnDestroy {
     this.ngRedux.dispatch({type: SEARCHED_USER_MODAL_OFF});
     // console.log(this.modalOn)
     event.stopPropagation();
+  }
+
+  chat(user) {
+    let friends = Object.assign([], this.ngRedux.getState().friends)
+    let room = null;
+    friends.forEach((friend) => {
+    if(user._id == friend._id)
+      this.ngRedux.dispatch({type: UPDATE_CHAT_ROOM, body:friend.chatRoom});
+    });
+    
+    this.router.navigate(['/main']); 
   }
 
   ngOnDestroy() {

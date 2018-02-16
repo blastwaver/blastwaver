@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import { BehaviorSubject } from 'rxjs';
 import { UPDATE_USER } from '../../actions';
 import { Router, NavigationStart } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 // const path ="http://localhost:3000/images/";
 
@@ -48,7 +49,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private ngRedux :NgRedux<IAppState>,
               private uploadService :UploadService,
               private userService :UserService,
-              private router: Router) { }
+              private router: Router,
+              private snackBar :MatSnackBar
+            ) { }
 
   form = new FormGroup({
     username: new FormControl('',[
@@ -164,9 +167,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   
   async save() {
-    this.update(); 
-    let result  = await this.update();  
-    // console.log(result)
+    let result;
+    if(this.username.status == 'INVALID') {
+      this.snackBar.open('please change the value', null, {
+        duration: 5000,
+      });
+    }else {
+      result = await this.update(); 
+      if(result.result == 'success'){
+        this.snackBar.open('Data has successfully changed ', null, {
+          duration: 5000,
+        });
+      } else {
+        this.snackBar.open("Error. Data hasn't updated.", null, {
+          duration: 5000,
+        });
+      }
+    }
+        
   }
 
   //update return promise value of update result;

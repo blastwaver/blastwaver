@@ -17,6 +17,13 @@ const messageSchema = mongoose.Schema({
     "contents":{type: Schema.Types.Mixed}
 },{ timestamps: true });
 
+// const defaultProfileSchema = mongoose.Schema({
+//     "username": {type: String},
+//     "photoUrl": {type: String},
+//     "email": {type: String},
+//     "comment":{type: String}
+// },{timestamps: false});
+
 const UserSchema = mongoose.Schema({
 
     "googleId":{
@@ -37,7 +44,12 @@ const UserSchema = mongoose.Schema({
     },
     "cProfile": {type: Boolean, default: false},
     "fList" : [friendsSchema],
-    "messages":[messageSchema],
+    "messages":[messageSchema]
+    // "dProfile": {"username":{type: String},
+    //             "email":{type: String},
+    //             "photoUrl":{type: String},
+    //             "comment":{type: String, default: "Hi, there!"}
+    //             }
 },{ timestamps: true });
 
 

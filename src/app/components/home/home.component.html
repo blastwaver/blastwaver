@@ -1,16 +1,43 @@
 <header>
-
+  <div>
+    <div class="header-wrapper">
+        <h1 class="title">NAKY : STUDENT MESSEGING SERVICE</h1>
+        <h4 class="description">Kyeongho Na's Portfolio</h4>
+        <button mat-raised-button (click)="start()">START</button>
+    </div>
+  </div>
 </header>
 <div class="home-container">
-  <div>
-    
+  <!--  -->
+  <div class="content-first">
+      <div class="wrapper">
+        <div class="imac-container">
+            <div class="monitor">
+              <div class="browser">
+              </div>
+              <div class="monitor-bottom"></div>
+              <div class="monitor-brand"><i class="fab fa-apple"></i></div>
+              <div class="trapezoid-top"></div>
+              <div class="trapezoid-bottom"></div>
+            </div>
+          </div>
+      </div>
+      <div class="wrapper disapear">
+        <div class="intro-container">
+            <h2>Lorem</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore maxime illo atque culpa, praes</p>
+      </div>
   </div>
-  <div>
-
+  <!--  -->
+  <div class="content-second">
+      <div class="wrapper"></div>
+      <div class="wrapper"></div>
   </div>
-</div>
   
+</div>
 <footer class="footer">
-    sdf
+  <p class="copyright">©Copyright 2018. Powered by <span class="copyright-name">Kyeongho Na</span></p>
 </footer>
+<login-modal [(modal)]="modalOn" (notify)='closeModal($event)'></login-modal>
+
 

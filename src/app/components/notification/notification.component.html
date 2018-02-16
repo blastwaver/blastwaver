@@ -21,7 +21,7 @@
                         </div>
                         <div class="hidden-message" (click)="stopPropagation($event)">
                             <p *ngIf="message.type == FREIND_REQUEST"> Check your friends list. <button mat-raised-button color="accent"> GO </button></p>
-                            <p *ngIf="message.type == FREIND_ACCEPT"><button mat-raised-button color="warn" (click)="deleteMessage(message.to ,message._id);">CHAT</button></p> 
+                            <p *ngIf="message.type == FREIND_ACCEPT"><button mat-raised-button color="warn" (click)="chat(message.from)">CHAT</button></p> 
                         </div>
                     </div>
                     <div *ngIf="message.type == GREETING_MESSAGE">

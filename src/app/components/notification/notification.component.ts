@@ -6,7 +6,8 @@ import { ISubscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { FREIND_ACCEPT, FREIND_REQUEST, GENERAL_MESSAGE, GREETING_MESSAGE } from '../../messageTypes';
 import { MessageService } from '../../services/message.service';
-import { UPDATE_MESSAGES } from '../../actions';
+import { UPDATE_MESSAGES, UPDATE_CHAT_ROOM } from '../../actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'notification',
@@ -31,7 +32,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   
   constructor(private renderer :Renderer2,
               private ngRedux :NgRedux<IAppState>,
-              private messageService :MessageService) { }
+              private messageService :MessageService,
+              private router :Router) { }
   ngOnInit() {
     this.messageSubscription$ = this.ngRedux.select('messages').subscribe((state) => {
       if(state) {
@@ -103,6 +105,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   stopPropagation(event) {  
     event.stopPropagation();
+  }
+
+  chat(f_id) {
+    let friends = Object.assign([], this.ngRedux.getState().friends)
+    friends.forEach((friend) => {
+      console.log(friend)
+      if(f_id == friend._id)
+        this.ngRedux.dispatch({type: UPDATE_CHAT_ROOM, body:friend.chatRoom});
+    });
+    this.router.navigate(['/main']); 
   }
 
   ngOnDestroy() {

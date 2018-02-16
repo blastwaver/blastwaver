@@ -20,7 +20,7 @@
         <button *ngIf= " buttonState =='me'" mat-button disabled> Me </button>
         <button *ngIf= "buttonState == 'request'" mat-button disabled> Requested </button>
         <button *ngIf= "buttonState == 'recieve'" mat-button (click)="acceptFriend()"> Accept </button>
-        <button *ngIf= "buttonState == 'friend'" mat-button (click)="chat()"> Chat </button>
+        <button *ngIf= "buttonState == 'friend'" mat-button (click)="chat(data)"> Chat </button>
         <button mat-button (click)="close($event,'out')">Cancel</button>
       </mat-card-actions>
     </mat-card>

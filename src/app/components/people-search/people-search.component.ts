@@ -55,17 +55,11 @@ export class PeopleSearchComponent implements OnInit {
   }
   
   openModal(user){
-    // this.clickedUser = user; 
-    // this.modalOn = true;
-    this.ngRedux.dispatch({type:SEARCHED_USER_MODAL_ON});
+    
+    // this.ngRedux.dispatch({type:SEARCHED_USER_MODAL_ON});
     this.ngRedux.dispatch({type:SEARCHED_USER_DATA, body:user});
 
-    // console.log(this.ngRedux.getState().searchUserData);
   }
-
-  // closeModal(modalState) {
-  //   this.modalOn = modalState;
-  // }
 
 }
 

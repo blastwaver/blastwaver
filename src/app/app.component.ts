@@ -14,6 +14,7 @@ import { User } from './models/user';
 import { SocketService } from './services/socket.service';
 import { Friend } from './models/Friend';
 import { CONNECT_NOTICE, DISCONNECT_NOTICE } from './messageTypes';
+import { Router } from '@angular/router';
 
 
 
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit, OnDestroy{
               private userService :UserService,
               private friendService :FriendService,
               private messageService :MessageService,
-              private socketService :SocketService
+              private socketService :SocketService,
+              private router :Router,
               ) {
     iconRegistry.addSvgIcon('google',
                             sanitizer.bypassSecurityTrustResourceUrl('../assets/icons/google.svg')); 
@@ -40,9 +42,15 @@ export class AppComponent implements OnInit, OnDestroy{
   
   ngOnInit(){
     this.handleFirebaseAuth();
-    
+    // this.changeBackgroundColorByRouter();
   }
-
+  
+  // changeBackgroundColorByRouter(){
+  //   this.router.events.subscribe((val) => {
+  //     console.log(val)
+  //   });
+    
+  // }
 
   handleFirebaseAuth() {
     firebase.auth().onAuthStateChanged((authData) => {
@@ -79,7 +87,8 @@ export class AppComponent implements OnInit, OnDestroy{
             // console.log(this.ngRedux.getState().messages);
           });
 
-         
+         /* go to main page*/
+         this.router.navigate(['/main']);
          
         }, err =>{
           this.ngRedux.dispatch({type: UPDATE_USER_ERROR, body: err});

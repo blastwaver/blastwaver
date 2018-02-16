@@ -13,10 +13,20 @@
   <div class="info-container">
     <nav></nav>
     <div class="card">
-      <img src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg" alt="Avatar" style="width:100%">
+      <img [src]="selectedUser.photoUrl" alt="Avatar" style="width:100%">
       <div class="card-info">
-        <h4><b>UNDER CONSTRUCTION</b></h4> 
+            <h4 class="inline"><b>{{selectedUser.username}}</b></h4> 
+            <mat-card-actions class="linline">
+              <button *ngIf= "!buttonState && !defaultSelect" mat-icon-button color="warn" (click)="addFriend()"> Add </button>
+              <button *ngIf= " buttonState =='me'" mat-raised-button  disabled> Me </button>
+              <button *ngIf= "buttonState == 'request'" mat-raised-button disabled> Requested </button>
+              <button *ngIf= "buttonState == 'recieve'" mat-raised-button color="accent" (click)="acceptFriend()"> Accept </button>
+              <button *ngIf= "buttonState == 'friend'" mat-raised-button color="primary" (click)="chat(selectedUser)"> Chat </button>
+            </mat-card-actions>
+        <p id="email">{{selectedUser.email}}</p>
+        <p>{{selectedUser.comment}}</p>
       </div>
+      
     </div>
   </div> 
 </div>

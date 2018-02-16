@@ -3,7 +3,10 @@
   margin-top:50px;
   margin-left: 15%;
   margin-right: 15%;
+  margin-bottom: 10%;
+  background-color: #ffff;
 }
+
 nav{
   height: 25px;
   background-color: #3f51b5;
@@ -38,12 +41,29 @@ nav{
 }
 
 
-.card {
+/* .card {
   
-}
+} */
 
 .card-info {
   padding: 2px 16px;
+}
+
+#email{
+  color: rgb(114, 114, 114);
+  font-style: italic;
+}
+.action-buttons {
+  text-align: center;
+  
+}
+.inline{
+  display: inline-block;
+}
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  font-size: 18px;
+  margin-left: 10px;
 }
 @media only screen and (max-width: 798px) {
   .search-container{
@@ -60,7 +80,5 @@ nav{
 }
 
 @media screen and (min-width: 798px) {
-  
-
 
 }
