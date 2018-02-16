@@ -10,7 +10,7 @@ import { UserService } from './services/user.service';
 import { FriendService } from './services/friend.service';
 import { MessageService } from './services/message.service';
 import { Observable } from 'rxjs/Observable';
-import { User } from './models/user';
+import { User } from './models/User';
 import { SocketService } from './services/socket.service';
 import { Friend } from './models/Friend';
 import { CONNECT_NOTICE, DISCONNECT_NOTICE } from './messageTypes';

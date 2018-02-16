@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
-import { User } from '../../models/user';
+import { User } from '../../models/User';
 import { MessageService } from '../../services/message.service';
 import { FriendService } from '../../services/friend.service';
 import { SocketService } from '../../services/socket.service';

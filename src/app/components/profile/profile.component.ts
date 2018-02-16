@@ -3,7 +3,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
 import { IAppState } from '../../store';
 import { ISubscription } from 'rxjs/Subscription';
-import { User } from '../../models/user';
+import { User } from '../../models/User';
 import { UploadService } from '../../services/upload.service';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

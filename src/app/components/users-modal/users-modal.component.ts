@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IAppState } from '../../store';
 import { NgRedux } from '@angular-redux/store';
 import { FriendService } from '../../services/friend.service';
-import { User } from '../../models/user';
+import { User } from '../../models/User';
 import { ISubscription } from 'rxjs/Subscription';
 import { UPDATE_FRIENDS, SEARCHED_USER_MODAL_OFF, SEARCHED_USER_DATA, SEARCHED_USER_MODAL_ON, UPDATE_CHAT_ROOM } from '../../actions';
 import { Message } from '../../models/Message';
