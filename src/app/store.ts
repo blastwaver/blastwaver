@@ -1,4 +1,4 @@
-import { User } from "./models/user";
+import { User } from "./models/User";
 import { Friend } from "./models/Friend";
 import { Message } from "./models/Message";
 import { UPDATE_USER, UPDATE_USER_ERROR, USER_LOG_IN, UPDATE_FRIENDS, USER_LOG_OUT, UPDATE_CHAT_ROOM,
