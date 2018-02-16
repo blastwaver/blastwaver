@@ -59,6 +59,10 @@ p.copyright{
     background: #2f0c18;
     /* overflow: auto; */
 }
+
+.content-first {
+    padding-top: 30px;
+}
 .wrapper{
     display: inline-block;
     min-height: 500px;
@@ -132,6 +136,7 @@ p.copyright{
 }
 .intro-container h2{
     margin: 0;
+    
 }
 
 .content-second {

@@ -17,7 +17,7 @@
       <div class="card-info">
             <h4 class="inline"><b>{{selectedUser.username}}</b></h4> 
             <mat-card-actions class="linline">
-              <button *ngIf= "!buttonState && !defaultSelect" mat-icon-button color="warn" (click)="addFriend()"> Add </button>
+              <button *ngIf= "!buttonState && !defaultSelect" mat-raised-button color="warn" (click)="addFriend()"> Add </button>
               <button *ngIf= " buttonState =='me'" mat-raised-button  disabled> Me </button>
               <button *ngIf= "buttonState == 'request'" mat-raised-button disabled> Requested </button>
               <button *ngIf= "buttonState == 'recieve'" mat-raised-button color="accent" (click)="acceptFriend()"> Accept </button>

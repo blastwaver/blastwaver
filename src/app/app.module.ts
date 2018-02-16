@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 //components & pipes
 import { PeopleSearchComponent } from './components/people-search/people-search.component';
-import { SideBarTableComponent } from './components/side-bar-table/side-bar-table.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
@@ -38,6 +37,7 @@ import { FriendService } from './services/friend.service';
 import { UploadService } from './services/upload.service';
 import { SocketService } from './services/socket.service';
 import { MessageService } from './services/message.service';
+import { AuthGardService } from './services/auth-gard.service';
 
 
 //ng material
@@ -62,7 +62,6 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     AppComponent,
     TopNavComponent,
     MainPageComponent,
-    SideBarTableComponent,
     LoginModalComponent,
     SearchComponent,
     PeopleSearchComponent,
@@ -96,9 +95,9 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     RouterModule.forRoot([
       { path: '', component: HomeComponent},
       { path: 'home', component: HomeComponent},
-      { path:'search', component: SearchComponent},
-      { path:'main', component: MainPageComponent},
-      { path:'profile', component: ProfileComponent},      
+      { path:'search', component: SearchComponent, canActivate: [ AuthGardService ]},
+      { path:'main', component: MainPageComponent,  canActivate: [ AuthGardService ]},
+      { path:'profile', component: ProfileComponent,  canActivate: [ AuthGardService ]},      
       { path: '**', component: NotFoundComponent}
     ])
   ],
@@ -108,7 +107,8 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     ChatService,
     UploadService,
     SocketService,
-    MessageService
+    MessageService,
+    AuthGardService
   ],
   bootstrap: [AppComponent]
 })

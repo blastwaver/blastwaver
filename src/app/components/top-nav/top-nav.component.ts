@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { SocketService } from '../../services/socket.service';
 import { Message } from '../../models/Message';
 import { CONNECT_NOTICE, DISCONNECT_NOTICE } from '../../messageTypes';
+import { Router } from '@angular/router';
 
 
 
@@ -37,7 +38,8 @@ export class TopNavComponent implements OnInit,OnDestroy  {
   constructor(private ngRedux: NgRedux<IAppState>,
               private auth: AuthService,
               private socketService :SocketService,
-              private deviceService: Ng2DeviceService) { }
+              private deviceService: Ng2DeviceService,
+              private router :Router) { }
   
   ngOnInit() {
     this. browser = this.deviceService.getDeviceInfo().browser;
@@ -106,6 +108,9 @@ export class TopNavComponent implements OnInit,OnDestroy  {
     
     //auth sign out
     this.auth.signOut();
+
+    //navigate to home
+    this.router.navigate(['/home']);
   }
 
   ngOnDestroy() {

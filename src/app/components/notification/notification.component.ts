@@ -6,7 +6,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { FREIND_ACCEPT, FREIND_REQUEST, GENERAL_MESSAGE, GREETING_MESSAGE } from '../../messageTypes';
 import { MessageService } from '../../services/message.service';
-import { UPDATE_MESSAGES, UPDATE_CHAT_ROOM } from '../../actions';
+import { UPDATE_MESSAGES, UPDATE_CHAT_ROOM, SEARCHED_USER_MODAL_ON, SEARCHED_USER_DATA } from '../../actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -116,7 +116,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
     this.router.navigate(['/main']); 
   }
-
+  
+  openModal(f_id){
+    let friends = Object.assign([], this.ngRedux.getState().friends)
+    friends.forEach((friend) => {
+      if(f_id == friend._id) {
+        this.ngRedux.dispatch({type:SEARCHED_USER_MODAL_ON});
+        this.ngRedux.dispatch({type:SEARCHED_USER_DATA, body:friend});
+      }
+    });
+    
+  }
+  
   ngOnDestroy() {
     this.messageSubscription$.unsubscribe();
   }
