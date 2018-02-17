@@ -1,9 +1,17 @@
 redis = require('redis');
+
 const express = require('express');
 const router = express.Router();
 
-var client = redis.createClient(16379, '192.168.99.100');
+var client = redis.createClient(16258, 'redis-16258.c14.us-east-1-3.ec2.cloud.redislabs.com', {no_ready_check: true});
 
+client.auth('!SKdltm1303', function (err) {
+    if (err) throw err;
+});
+
+client.on('connect', function() {
+    console.log('Connected to Redis');
+});
 
 // add chat
 router.post('/add',( req, res, next) => {
