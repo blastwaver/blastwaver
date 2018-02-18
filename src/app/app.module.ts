@@ -18,6 +18,8 @@ import { QuotationPipe } from './pipes/quotation.pipe';
 import { NamePipe } from './pipes/name.pipe';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ResumeComponent } from './components/resume/resume.component';
+
 
 
 //module
@@ -80,6 +82,7 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     SnackBarComponent,
     NotificationComponent,
     SideBarContentsComponent,
+    ResumeComponent,
     ],
   imports: [
     BrowserModule,
@@ -97,6 +100,7 @@ import { SideBarContentsComponent } from './components/side-bar-contents/side-ba
     RouterModule.forRoot([
       { path: '', component: HomeComponent},
       { path: 'home', component: HomeComponent},
+      { path: 'resume', component: ResumeComponent},
       { path:'search', component: SearchComponent, canActivate: [ AuthGardService ]},
       { path:'main', component: MainPageComponent,  canActivate: [ AuthGardService ]},
       { path:'profile', component: ProfileComponent,  canActivate: [ AuthGardService ]},      

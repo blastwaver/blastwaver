@@ -88,7 +88,7 @@ export class AppComponent implements OnInit, OnDestroy{
           });
 
          /* go to main page*/
-         this.router.navigate(['/main']);
+        //  this.router.navigate(['/main']);
          
         }, err =>{
           this.ngRedux.dispatch({type: UPDATE_USER_ERROR, body: err});

@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-const URL = 'http://localhost:3000/api/upload';
+// const URL = 'http://localhost:3000/api/upload';
+const URL = 'http://www.naky.io/api/upload';
 
 @Injectable()
 export class UploadService {

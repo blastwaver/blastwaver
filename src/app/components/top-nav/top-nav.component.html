@@ -3,7 +3,7 @@
         <div class="number-circle" *ngIf="loginState && newNotificationNumber > 0">{{newNotificationNumber}}</div>
         <div class="number-circle-second" *ngIf="loginState && newNotificationNumber > 0">{{newNotificationNumber}}</div>
         <div id="nav-left">
-            <i routerLink="/main" matTooltip="KYEONGHO NA">NAKY</i>
+            <i routerLink="/resume" matTooltip="KYEONGHO NA" style="margin-right: 10px; margin-left: 20px;">NAKY</i>
             <button routerLink="/home" mat-button class="responsive-line-one">HOME</button>
             <button routerLink="/main" mat-button class="responsive-line-one">CHAT</button>
             <button routerLink="/search" mat-button class="responsive-line-one">SEARCH</button>        
@@ -13,7 +13,7 @@
                 <button mat-button *ngIf="loginState" matTooltip="Notification"  (click)="toggleNotification()"><i class="far fa-bell"></i></button>
                 <button mat-button *ngIf="loginState" matTooltip="Profile" routerLink="/profile"><i class="far fa-user"></i></button>
                 <button mat-button *ngIf="loginState"  matTooltip="Logout" (click)="signOut()" ><i class="fas fa-sign-out-alt"></i></button>
-                <button mat-button *ngIf="!loginState" matTooltip="Sign In" (click)="openModal()" ><i class="fas fa-sign-in-alt"></i>SIGN IN</button>
+                <button mat-button *ngIf="!loginState" matTooltip="Sign In" (click)="openModal()" ><i class="fas fa-sign-in-alt"></i> SIGN IN</button>
                 <!-- <button mat-button *ngIf="!loginState">Register</button> -->
             </div>
             <div class="mat-icon-wrapper"
@@ -27,9 +27,9 @@
                 <!-- <div class=".number-circle-menu">1</div> -->
                 <button *ngIf="loginState" mat-menu-item (click)="toggleNotification()"><i class="far fa-bell" ></i>
                      <span *ngIf="newNotificationNumber > 0">{{newNotificationNumber}}</span> Notification<span *ngIf="newNotificationNumber > 1">s</span></button>
-                <button *ngIf="loginState" mat-menu-item routerLink="/profile"><i class="far fa-user"></i> Profile</button>
-                <button *ngIf="loginState" (click)="signOut()" mat-menu-item><i class="fas fa-sign-out-alt"></i> Logout</button>
-                <button *ngIf="!loginState" mat-menu-item (click)="openModal()"><i class="fas fa-sign-in-alt"></i > Sign in</button>
+                <button *ngIf="loginState" mat-menu-item routerLink="/profile"><i class="far fa-user"></i> PROFILE</button>
+                <button *ngIf="loginState" (click)="signOut()" mat-menu-item><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
+                <button *ngIf="!loginState" mat-menu-item (click)="openModal()"><i class="fas fa-sign-in-alt"></i > SIGN IN</button>
                 <!-- <button *ngIf="!loginState" mat-menu-item>Register</button> -->
             </mat-menu>
         </div> 

@@ -8,7 +8,7 @@ header {
 }
 
 .header-wrapper{
-    
+    font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 .mat-raised-button{
@@ -58,6 +58,7 @@ p.copyright{
     position: relative;
     background: #2f0c18;
     /* overflow: auto; */
+    font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 .content-first {

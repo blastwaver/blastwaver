@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class UserService {
   
-  private readonly url: String ='http://localhost:3000';
-
+  // private readonly url: String ='http://localhost:3000';
+  url = 'http://www.naky.io'
   constructor(private http:HttpClient) {
     
   }

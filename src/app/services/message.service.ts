@@ -7,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 export class MessageService {
   
   port =  process.env.port || 3000;
-  private readonly url: String =`http://localhost:${this.port}`;
+  // private readonly url: String =`http://localhost:${this.port}`;
+  url = `http://www.naky.io`;
 
   constructor(private http :HttpClient) { }
 
