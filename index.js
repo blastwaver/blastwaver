@@ -19,9 +19,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-// Angular DIST output folder
+// Angular DIST output folder and statics
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/images',express.static(path.join(__dirname,'/images')))
+app.use('/images',express.static(path.join(__dirname,'/images')));
+app.use('/files',express.static(path.join(__dirname,'/files')));
 
 /* API location */
 //MONGO API
