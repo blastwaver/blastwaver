@@ -82,18 +82,30 @@
           <h3><i class="fas fa-comments"></i> Kakao Talk: blastwaver</h3>
           <div style="font-size: 32px">
             <a href="https://github.com/blastwaver" target="_blank"><i class="fab fa-github icon"></i></a>
-            <a href="https://www.facebook.com/blastwav" tarket="_blank"><i class="fab fa-facebook-square icon"></i></a>
+            <a href="https://www.facebook.com/blastwav" target="_blank"><i class="fab fa-facebook-square icon"></i></a>
             <a href="https://www.linkedin.com/in/kyeongho-na-669338135/" target="_blank"><i class="fab fa-linkedin icon"></i></a>
           </div>
         </div>
         </div>
-        <div class="pink half container center height-700 inline">
+        <div class=" half container center height-700 inline">
           <div class="padding-64">
-            <h1>CONTACT</h1>
+            <h1 >CONTACT</h1>
           </div>
-          <div class="padding-64">
-            <a  class="pink block padding-16 button button-black-hover">HOME</a> 
-          </div>
+          <form class="profile-form" [formGroup]="form" (ngSubmit)="submit($event)">
+            <mat-form-field class="input-full-width">
+                <input formControlName ="name" type="text" matInput placeholder="NAME">
+            </mat-form-field>
+            <mat-form-field class="input-full-width">
+                <input formControlName ="email" type="email" matInput placeholder="EMAIL">
+            </mat-form-field>
+            <mat-form-field class="input-full-width">
+                <input type="text" formControlName ="subject" matInput placeholder="SUBJECT">
+            </mat-form-field>
+            <mat-form-field class="input-full-width">
+              <textarea matInput placeholder="COMMMENT" formControlName ="comment"  cols="30" rows="10"></textarea>
+            </mat-form-field>
+            <button mat-raised-button class="bottom-btn" color="primary"  >SUBMIT</button>
+          </form>
       </div>
   </div>
   

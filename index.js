@@ -12,6 +12,7 @@ const user = require('./server/routes/userApi');
 const friends =require('./server/routes/friendsApi');
 const upload = require('./server/routes/uploadApi');
 const messages = require('./server/routes/messagesApi');
+const help = require('./server/routes/helpApi');
 //allow cross origin
 app.use(cors());
 
@@ -30,9 +31,12 @@ app.use('/api/users', user);
 app.use('/api/upload', upload);
 app.use('/api/friends', friends);
 app.use('/api/messages', messages);
+
 //REDIS API
 app.use('/api/chat', chat);
 
+//OTHER API
+app.use('/api/help', help);
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
@@ -93,8 +97,6 @@ io.on('connection', (socket) => {
         }  
     });
 });
-
-
 
 
 /* Set Port */

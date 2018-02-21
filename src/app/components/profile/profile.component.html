@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="inline inline-right">
-        <form class="profile-form" [formGroup]="form" (ngSubmit)="save()">
+        <form class="profile-form" [formGroup]="form" (ngSubmit)="save($event)">
 
             <mat-form-field class="input-full-width">
               <input formControlName ="username" matInput placeholder="USER NAME" [value]="user.username">

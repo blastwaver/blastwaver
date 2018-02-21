@@ -166,7 +166,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let result  = await this.update();     
   }
   
-  async save() {
+  async save($event) {
+    
     let result;
     if(this.username.status == 'INVALID') {
       this.snackBar.open('please change the value', null, {
@@ -184,7 +185,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       }
     }
-        
+    event.preventDefault();   
   }
 
   //update return promise value of update result;

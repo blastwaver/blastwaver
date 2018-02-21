@@ -101,6 +101,15 @@ a:hover{
     
 }
 
+.input-full-width {
+    width: 100%;
+}
+
+.profile-form{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
 @media only screen and (max-width: 798px) {
     .half {
         width: 100%;
