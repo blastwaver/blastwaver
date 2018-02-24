@@ -16,11 +16,14 @@ So far, we have built a basic friend search function and chat system.
 
 ## Feature Introduction
 ***Search & Add***
+
 ![Alt Text](http://www.naky.io/images/add.gif)
 
 * I forgot that the real time notification update became real time when user add a friend. (I will fix it)
 
+
 ***Chat***
+
 ![Alt Text](http://www.naky.io/images/chat.gif)
 
 ## Details
