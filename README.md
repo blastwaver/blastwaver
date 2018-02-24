@@ -1,27 +1,36 @@
-# Naky
+# NAKY
+NAKY is one of Kyeongho Na's indivisual project. The concept of project is a messaging service to help the school group projects.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
 
-## Development server
+## Concept
+This basic web application functionality and configuration is similar to other messaging services but the goal is to specialize in features to help school projects. 
+For example, Users can create a term contract when they initiate a project. Based on this, a system that enables evaluation based on the contribution of team members.  As these assessments remain personal records, the app encourage users to actively participate in group projects. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Current progress
+So far, we have built a basic friend search function and chat system.
+1.	Sign in system using google firebase auth
+2.	Personal information record using MongoDB
+3.	Use redis to quickly load chat history
+4.	Real-time chat with Socket Io and connect status notification
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Feature Introduction
+***Search & Add***
+![Alt Text](http://www.naky.io/images/add.gif)
 
-## Build
+* I forgot that the real time notification update became real time when user add a friend. (I will fix it)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+***Chat***
+![Alt Text](http://www.naky.io/images/chat.gif)
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Details
+* Angular Cli - frontend framework
+* socket.io - real time cumunication between client and server
+* mongoDB(mongoose) - primary DB
+* firebase(firebaseAuth) - Autherntication
+* redux(angular-redux/store) -for a single store and one-way data flow.
+* rxjs - Mostly used for Observable and Promise
+* express - HTTP for sever side 
+* redis - chech chat data
+* multer - updating user image 
+* fs - save new image and delete old image (to save storage)
