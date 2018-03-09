@@ -7,7 +7,7 @@ This basic web application functionality and configuration is similar to other m
 For example, Users can create a term contract when they initiate a project. Based on this, a system that enables evaluation based on the contribution of team members.  As these assessments remain personal records, the app encourage users to actively participate in group projects. 
 
 ## Current progress
-So far, we have built a basic friend search function and chat system.
+So far, I have built a basic friend search function and chat system.
 1.	Sign in system using google firebase auth
 2.	Personal information record using MongoDB
 3.	Use redis to quickly load chat history

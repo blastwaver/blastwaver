@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ]),
     email: new FormControl('', Validators.email),
     comment: new FormControl('', Validators.maxLength(200))
-  })
+  });
 
   get username() { return this.form.get('username');}  
   get email() { return this.form.get('email');}  

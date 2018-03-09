@@ -64,7 +64,7 @@ export class AuthService {
       .then((credential) => {
     
         this.updateUserData(credential.user)
-      });
+    });
   }
 
   private updateUserData(user) {
